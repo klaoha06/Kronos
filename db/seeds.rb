@@ -4,5 +4,6 @@
 end
 
 User.all.each do |user|
-  user.subscriptions << Calendar.where.not(creator_id: user.id).sample
+  user.addedcalendars << Calendar.where.not(creator_id: user.id).sample
 end
+

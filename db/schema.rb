@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121024651) do
+ActiveRecord::Schema.define(version: 20141122235920) do
 
   create_table "calendar_groups", force: true do |t|
     t.integer  "calendar_id"
@@ -56,16 +56,16 @@ ActiveRecord::Schema.define(version: 20141121024651) do
     t.datetime "updated_at"
   end
 
-  create_table "user_events", force: true do |t|
+  create_table "user_addedcalendars", force: true do |t|
     t.integer  "user_id"
-    t.integer  "event_id"
+    t.integer  "calendar_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_subscriptions", force: true do |t|
-    t.integer  "subscriber_id"
-    t.integer  "subscription_id"
+  create_table "user_addedevents", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
