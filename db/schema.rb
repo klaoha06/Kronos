@@ -58,14 +58,14 @@ ActiveRecord::Schema.define(version: 20141122235920) do
 
   create_table "user_addedcalendars", force: true do |t|
     t.integer  "user_id"
-    t.integer  "calendar_id"
+    t.integer  "addedcalendar_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_addedevents", force: true do |t|
     t.integer  "user_id"
-    t.integer  "event_id"
+    t.integer  "addedevent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
