@@ -30,10 +30,8 @@ var Authentication = React.createClass({
   getInitialState: function() {
     if (localStorage.getItem('access_token')) {
       return {loggedIn: true};
-      console.log(this.state.loggedIn); 
     } else {
       return {loggedIn: false};
-      console.log(this.state.loggedIn);
     };
 
     // FB.getLoginStatus(function(response) {
@@ -46,6 +44,7 @@ var Authentication = React.createClass({
     //     return {loggedIn: false};
     //   }
     // });
+    // Will change in the future by comparing the current userId on the client-side with the server-side
   },
 
   FBlogin: function(e) {
@@ -58,12 +57,15 @@ var Authentication = React.createClass({
       else {
         FB.login(function(response) {
           if (response.authResponse) {
+            var userFBId = response.id;
             var access_token = FB.getAuthResponse()['accessToken'];
             localStorage.setItem('access_token', access_token);
+   
+
             // Getting User's Info
             FB.api('/me', function(response) {
-              console.log(response);
-              // Sessioning UserId
+              // console.log(response);
+              localStorage.setItem('email', response.email);
               localStorage.setItem('userId', response.id);
               localStorage.setItem('username', response.name);
             });
@@ -74,13 +76,12 @@ var Authentication = React.createClass({
             });
 
             that.setState({loggedIn: true});
-            // console.log(this.state.loggedIn);
 
           } else {
             console.log('User cancelled login or did not fully authorize.');
             that.setState({loggedIn: false});
           }
-        }), {scope: 'email'};
+        }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
       }
     });
   },
