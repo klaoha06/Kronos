@@ -1,28 +1,47 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+............. Due within a week (next friday, Dec 4th) ..............
 
-Things you may want to cover:
+1. Display the events on the main display panel in day, week, month, and year. 
+  Check these out for starter..
+ - http://fullcalendar.io/
+ - http://dhtmlx.com/docs/products/dhtmlxScheduler/
+(I suggest Andy)
 
-* Ruby version
+2. Create the sidebar which display the groups you created and subscribed to as well as some search catagories like 'popular', 'sport', 'essentials' and etcs.(the catagories doesn't have to be functional just yet). Right now the groups and user relation in the database has not been established so we need to also set that up. (I suggest Francis)
 
-* System dependencies
+3. User session on the client-side (Korn)
 
-* Configuration
+4. Create and edit Calendar button and Page which can create events. (these are stretches .. set up reminder, and invites other users, make the calendar public or private)
+(I suggest Peter)
 
-* Database creation
+.................... Below are Rocket Challenges .......................
 
-* Database initialization
+Browse page for showing all the calendars(for now)  (andy)
 
-* How to run the test suite
+Create the links from the browse page to the single page
 
-* Services (job queues, cache servers, search engines, etc.)
+Single Calendar page when browsing other users' calendar. (andy)
 
-* Deployment instructions
+Group page for displaying all the calendars in the group. (francis or Korn)
 
-* ...
+Subscribe buttons on the group and single calendar page which actually change the database (andy and francis)
+
+Research on the notification architecture and set up notification system (whoever have time)
+
+Functionality to Make the Calendar public or private when create or edit the calendar (peter)
+
+Functionality to invite other user when create or edit the calendar (peter)
+
+Email reminder system (peter)
+
+Organize calendars in main categories and display them on the sidebar (francis)
+
+User's page which links to the calendars and groups he/she created (Korn)
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+..................... Super Rocket Challenge ....................
+
+Search calendars and display the searched calendars on the brown page
+
+Import or sync Calendars from Google Cal (korn)
