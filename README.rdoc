@@ -6,6 +6,7 @@
   Check these out for starter
  [fullcalendar.io](http://fullcalendar.io/)
  [dhtmxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler/)
+ 
 (I suggest Andy)
 
 2. Create the sidebar which display the groups you created and subscribed to as well as some search catagories like 'popular', 'sport', 'essentials' and etcs.(the catagories doesn't have to be functional just yet). Right now the groups and user relation in the database has not been established so we need to also set that up. (I suggest Francis)
