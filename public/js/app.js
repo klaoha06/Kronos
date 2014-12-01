@@ -27,19 +27,31 @@ var Navbar = React.createClass({
 
 var Authentication = React.createClass({
 
-  FBlogin: function() {
+  getInitialState: function() {
+    if (localStorage.getItem('access_token')) {
+      return {loggedIn: true};
+      console.log(this.state.loggedIn); 
+    } else {
+      return {loggedIn: false};
+      console.log(this.state.loggedIn);
+    };
+  },
+
+  FBlogin: function(e) {
+    var that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        console.log('Logged in.');
+        console.log('Already Logged in.');
+        that.setState({loggedIn: true});
       }
       else {
         FB.login(function(response) {
           if (response.authResponse) {
-            var access_token =   FB.getAuthResponse()['accessToken'];
+            var access_token = FB.getAuthResponse()['accessToken'];
             localStorage.setItem('access_token', access_token);
             // Getting User's Info
             FB.api('/me', function(response) {
-              // console.log(response);
+              console.log(response);
               // Sessioning UserId
               localStorage.setItem('userId', response.id);
               localStorage.setItem('username', response.name);
@@ -49,30 +61,38 @@ var Authentication = React.createClass({
               var profilePic = response.data.url;
               localStorage.setItem('profilePic', profilePic);
             });
+
+            that.setState({loggedIn: true});
+            // console.log(this.state.loggedIn);
+
           } else {
             console.log('User cancelled login or did not fully authorize.');
+            that.setState({loggedIn: false});
           }
         }), {scope: 'email'};
       }
     });
   },
 
-  FBlogout: function() {
+  FBlogout: function(e) {
+    this.setState({loggedIn: false});
     FB.logout(function(response) {
       localStorage.clear();
     }), {access_token: localStorage.getItem('access_token')};
   },
 
   render: function() {
-          if (localStorage.getItem('userId')) {
-            return (
-              <button onClick={this.FBlogout}>Log Out</button>
-            );
-          } else {
-            return (
-              <button onClick={this.FBlogin}>Log In</button>
-            );
-          };
+    console.log(this.state.loggedIn);
+    if (this.state.loggedIn) {
+      return (
+        // <img src={localStorage.getItem('profilePic')}>
+        <button onClick={this.FBlogout}>Log Out</button>
+      );
+    } else {
+      return (
+        <button onClick={this.FBlogin}>Log In</button>
+      );
+    };
   }
 });
 
