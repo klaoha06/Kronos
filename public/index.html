@@ -7,6 +7,26 @@
   <body>
     <script src="js/vendor/react-with-addons.js" type="text/javascript"></script>
     <script src="js/vendor/JSXTransformer.js" type="text/javascript"></script>
+    <!-- <script src="js/vendor/fb_sdk.js" type="text/javascript"></script> -->
+    <script>
+      // Load FB SDK
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '757704454316383',
+          xfbml      : true,
+          version    : 'v2.1',
+          status     : true
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "js/vendor/fb_sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script src="js/app.js" type="text/jsx"></script>
   </body>
 </html>
