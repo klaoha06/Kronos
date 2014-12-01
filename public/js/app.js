@@ -18,11 +18,62 @@ var Navbar = React.createClass({
               <div id="navbar">
                 <input id="search" type="text" />
                 <div id="console">
-                  <a href="#">Sign In</a>
+                  <Authentication />
                 </div>
               </div>
             );
           }
+});
+
+var Authentication = React.createClass({
+
+  FBlogin: function() {
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        console.log('Logged in.');
+      }
+      else {
+        FB.login(function(response) {
+          if (response.authResponse) {
+            var access_token =   FB.getAuthResponse()['accessToken'];
+            localStorage.setItem('access_token', access_token);
+            // Getting User's Info
+            FB.api('/me', function(response) {
+              // console.log(response);
+              // Sessioning UserId
+              localStorage.setItem('userId', response.id);
+              localStorage.setItem('username', response.name);
+            });
+            // Getting User's Profile Picture
+            FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
+              var profilePic = response.data.url;
+              localStorage.setItem('profilePic', profilePic);
+            });
+          } else {
+            console.log('User cancelled login or did not fully authorize.');
+          }
+        }), {scope: 'email'};
+      }
+    });
+  },
+
+  FBlogout: function() {
+    FB.logout(function(response) {
+      localStorage.clear();
+    }), {access_token: localStorage.getItem('access_token')};
+  },
+
+  render: function() {
+          if (localStorage.getItem('userId')) {
+            return (
+              <button onClick={this.FBlogout}>Log Out</button>
+            );
+          } else {
+            return (
+              <button onClick={this.FBlogin}>Log In</button>
+            );
+          };
+  }
 });
 
 var Sidebar = React.createClass({
