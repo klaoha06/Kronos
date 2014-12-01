@@ -3,7 +3,7 @@
 ............. Due within a week (next friday, Dec 4th) ..............
 
 1. Display the events on the main display panel in day, week, month, and year. 
-  Check these out for starter
+  Check these out for the start..
  [fullcalendar.io](http://fullcalendar.io/)
  [dhtmxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler/)
  
