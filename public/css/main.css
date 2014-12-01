@@ -1,0 +1,69 @@
+#navbar {
+  position: absolute;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+  width: 100%;
+  height: 50px;
+}
+
+#search {
+  position: relative;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#console {
+  position: relative;
+  float: right;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#sidebar {
+  display: inline-block;
+  position: relative;
+  top: 50px;
+  height: 100%;
+}
+
+#main-panel {
+  display: inline-block;
+  position: relative;
+  top: 50px;
+  height: 100%;
+}
+
+#view-options {
+  position: relative;
+  width: 100%;
+}
+
+#pagination {
+  position: relative;
+  float: left;
+}
+
+#view-buttons {
+  position: relative;
+  float: right;
+}
+
+#calendar-view {
+  border: 1px solid blue;
+  height: 100%;
+}
+
+.weekday {
+  display: inline-block;
+  width: calc(100% / 7);
+  height: 100%;
+  border: 1px solid green;
+}
+
+.day {
+  display: inline-block;
+  width: calc(100% / 7);
+  height: 25%;
+  border: 1px solid green;
+}
