@@ -35,6 +35,17 @@ var Authentication = React.createClass({
       return {loggedIn: false};
       console.log(this.state.loggedIn);
     };
+
+    // FB.getLoginStatus(function(response) {
+    // console.log(response); // Response came too slow
+    //   if (response.status === 'connected') {
+    //     return {loggedIn: true};
+    //   } else if (response.status === 'not_authorized') {
+    //     return {loggedIn: false};
+    //   } else {
+    //     return {loggedIn: false};
+    //   }
+    // });
   },
 
   FBlogin: function(e) {
