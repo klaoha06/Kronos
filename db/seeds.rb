@@ -14,12 +14,12 @@ User.all.each do |user|
 end
 
 3.times do 
-	group = Group.create(name: Faker::Name.first_name)
+	group = Group.create(name: Faker::Commerce.department(1))
 	group.calendars << Calendar.all.sample(3)
-	# group.subscribers << User.all.sample(3)
 
 
 	User.all.sample(3).each do |user|
 		user.groups << group
 	end
+	User.first.groups << group
 end
