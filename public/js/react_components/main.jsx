@@ -5,7 +5,7 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
                 <div id="container">
                   <Navbar />
                   <div id="main-container" className="row gutters">
-                    <Sidebar />
+                    <Sidebar subscribedData = {[]}/>
                     <MainPanel />
                   </div>
                 </div>
