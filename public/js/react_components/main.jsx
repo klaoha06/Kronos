@@ -15,15 +15,34 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
 
   var Navbar = React.createClass({
     render: function() {
-              return (
-                <div id="navbar">
-                  <input id="search" type="text" />
-                  <div id="console">
-                    <Authentication />
-                  </div>
-                </div>
-              );
-            }
+      // Load FB SDK
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '751003924936029',
+          xfbml      : true,
+          version    : 'v2.1',
+          status     : true
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "js/vendor/fb_sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+
+      return (
+        <div id="navbar">
+          <input id="search" type="text" />
+          <div id="console">
+            <Authentication />
+          </div>
+        </div>
+      );
+
+    }
   });
 
   var Authentication = React.createClass({
@@ -62,18 +81,16 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
               var access_token = FB.getAuthResponse()['accessToken'];
               localStorage.setItem('access_token', access_token);
      
-
               // Getting User's Info
               FB.api('/me', function(response) {
                 // console.log(response);
                 localStorage.setItem('email', response.email);
                 localStorage.setItem('userId', response.id);
-                localStorage.setItem('username', response.name);
+                localStorage.setItem('name', response.name);
               });
               // Getting User's Profile Picture
               FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
-                var profilePic = response.data.url;
-                localStorage.setItem('profilePic', profilePic);
+                localStorage.setItem('profilePic', response.data.url);
               });
 
               that.setState({loggedIn: true});
@@ -90,22 +107,32 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
     FBlogout: function(e) {
       this.setState({loggedIn: false});
       FB.logout(function(response) {
-        localStorage.clear();
+        // console.log(response);
       }), {access_token: localStorage.getItem('access_token')};
+      localStorage.clear();
     },
 
     render: function() {
-      console.log(this.state.loggedIn);
       if (this.state.loggedIn) {
         return (
-          // <img src={localStorage.getItem('profilePic')}>
-          <button onClick={this.FBlogout}>Log Out</button>
+          <div>
+            <ProfilePic />
+            <button onClick={this.FBlogout}>Log Out</button>
+          </div>
         );
       } else {
         return (
           <button onClick={this.FBlogin}>Log In</button>
         );
       };
+    }
+  });
+
+  var ProfilePic = React.createClass({
+    render: function() {
+      return (
+        <img id="profilePic" src={localStorage.getItem('profilePic')} />
+      );
     }
   });
 
