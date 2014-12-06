@@ -14,7 +14,17 @@
 	line-height: 2em;
 }
 
-#sidebarList li:hover{
+#sidebarList h4{
+	margin: 0px;
+	padding: 15px;
+}
+
+#sidebarList h4:hover{
 	background-color: lightblue;
 	cursor:pointer;
 }
+
+.sidebarItem:hover{
+	background-color:lightgreen;
+	cursor: pointer;
+};

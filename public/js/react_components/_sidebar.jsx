@@ -25,17 +25,17 @@ define(['react', 'jquery'], function(React, $){
 		render: function(){
 			var that = this
 			var dataNodes = this.state.data.map(function(group, index){
-				classes= that.props.name + " debug"
+				var classes= that.props.name + " debug  sidebarItem"
 				return(
 					<div className={classes} key={index}>
 						{group.name}
 					</div>
 				);
 			});
-			var classes = this.props.name + " hide List sidebarMenu debug"
+			classes = this.props.name + "Container hide sidebarMenu debug"
 			return (
-				<li id={this.props.name} className="row debug" onClick={this.handleClick}>
-					<h4>{this.props.name}</h4>
+				<li id={this.props.name} className="row debug">
+					<h4  onClick={this.handleClick}>{this.props.name}</h4>
 					<div className={classes}>
 						{dataNodes}
 					</div>

@@ -1,4 +1,4 @@
-define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
+define(['react','jsx!react_components/_sidebar', 'jsx!react_components/group/_show'], function(React, Sidebar, ShowGroup) {
     var Container = React.createClass({
     render: function() {
               return (
@@ -58,6 +58,7 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
         else {
           FB.login(function(response) {
             if (response.authResponse) {
+              console.log("Inside login?")
               var userFBId = response.id;
               var access_token = FB.getAuthResponse()['accessToken'];
               localStorage.setItem('access_token', access_token);
