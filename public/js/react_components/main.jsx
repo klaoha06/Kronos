@@ -67,10 +67,6 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
       // Will change in the future by comparing the current userId on the client-side with the server-side
     },
 
-    componentDidMount: function() {
-
-    },
-
     FBlogin: function(e) {
       var that = this;
       FB.getLoginStatus(function(response) {
@@ -85,13 +81,12 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
               var access_token = FB.getAuthResponse()['accessToken'];
               localStorage.setItem('access_token', access_token);
      
-
               // Getting User's Info
               FB.api('/me', function(response) {
                 // console.log(response);
                 localStorage.setItem('email', response.email);
                 localStorage.setItem('userId', response.id);
-                localStorage.setItem('username', response.name);
+                localStorage.setItem('name', response.name);
               });
               // Getting User's Profile Picture
               FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
@@ -106,12 +101,13 @@ define(['react','jsx!react_components/_sidebar'], function(React, Sidebar) {
             }
           }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
         }
-      }, true);
+      });
     },
 
     FBlogout: function(e) {
       this.setState({loggedIn: false});
       FB.logout(function(response) {
+        // console.log(response);
       }), {access_token: localStorage.getItem('access_token')};
       localStorage.clear();
     },
