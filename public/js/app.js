@@ -6,7 +6,8 @@ require.config({
        "JSXTransformer": "vendor/JSXTransformer",
        "jquery": "vendor/jquery",
        "text": "vendor/text",
-       "jsx": "vendor/jsx"
+       "jsx": "vendor/jsx",
+       "bluebird": "vendor/bluebird"
      },
 
      jsx: {
