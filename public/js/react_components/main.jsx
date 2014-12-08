@@ -1,4 +1,4 @@
-define(['react','jsx!react_components/_sidebar', 'jsx!react_components/group/_show'], function(React, Sidebar, ShowGroup) {
+define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'], function(React, Sidebar, Navbar) {
     var Container = React.createClass({
     render: function() {
               return (
@@ -13,6 +13,7 @@ define(['react','jsx!react_components/_sidebar', 'jsx!react_components/group/_sh
             }
   });
 
+<<<<<<< HEAD
   var Navbar = React.createClass({
     render: function() {
               return (
@@ -111,6 +112,8 @@ define(['react','jsx!react_components/_sidebar', 'jsx!react_components/group/_sh
   });
 
 
+=======
+>>>>>>> development
   var MainPanel = React.createClass({
     getInitialState: function() {
                        return { view: 'week' };
