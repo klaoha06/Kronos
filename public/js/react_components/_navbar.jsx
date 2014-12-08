@@ -1,5 +1,5 @@
-define(['react', 'jquery', 'bluebird'], function(React, $, Bluebird){
-
+define(['react', 'jquery', 'bluebird', 'react-router'], function(React, $, Bluebird, Router){
+	var Link = Router.Link
 	var Navbar = React.createClass({
 	  render: function() {
 	    // Load FB SDK
@@ -23,6 +23,7 @@ define(['react', 'jquery', 'bluebird'], function(React, $, Bluebird){
 	    return (
 	      <div id="navbar">
 	        <input id="search" type="text" />
+	        <Link to="Main">Home</Link>
 	        <div id="console">
 	          <Authentication />
 	        </div>

@@ -1,0 +1,33 @@
+define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/_navbar', 'jsx!react_components/_sidebar'], function(React, Main, Router, Group, Navbar, Sidebar){
+	//I can't figure out how to get RequireJS to include these at a global level
+	//so just declaring them locally here 
+	var RouteHandler = Router.RouteHandler
+	var DefaultRoute = Router.DefaultRoute
+	var Route = Router.Route
+	var Routes = Router.Routes
+
+	var App = React.createClass({
+
+		render: function () {
+			return(
+                <div id="container">
+					<Navbar />
+					<Sidebar />
+					<RouteHandler />
+				</div>
+			)
+		}
+	})
+
+	var routes = (
+		<Route handler={App}>
+			<Route name="Groups" path="group" handler={Group} />
+			<Route name="Main" path="/" handler={Main} />
+		</Route>
+	);
+
+	Router.run(routes, function (Handler) {
+		React.render(<Handler/>, document.body);
+	});
+
+})

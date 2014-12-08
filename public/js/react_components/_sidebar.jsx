@@ -1,4 +1,5 @@
-define(['react', 'jquery'], function(React, $){
+define(['react', 'jquery', 'react-router'], function(React, $, Router){
+	var Link = Router.Link
 	var Submenu = React.createClass({
 		loadDataFromServer: function(){
 			var that = this
@@ -57,7 +58,7 @@ define(['react', 'jquery'], function(React, $){
 
 		    return (
 		      <div id="sidebar" className="debug col span_2">
-		      <h1> Groups </h1>
+		      <h1><Link to="Groups"> Groups </Link></h1>
 		      	<ul id="sidebarList" className="debug">
 		      		{subscribedNodes}
 		      		

@@ -1,119 +1,14 @@
-define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'], function(React, Sidebar, Navbar) {
+define(['react'], function(React) {
     var Container = React.createClass({
     render: function() {
               return (
-                <div id="container">
-                  <Navbar />
                   <div id="main-container" className="row gutters">
-                    <Sidebar subscribedData = {[]}/>
                     <MainPanel />
                   </div>
-                </div>
-              );
+              );  
             }
   });
 
-<<<<<<< HEAD
-  var Navbar = React.createClass({
-    render: function() {
-              return (
-                <div id="navbar">
-                  <input id="search" type="text" />
-                  <div id="console">
-                    <Authentication />
-                  </div>
-                </div>
-              );
-            }
-  });
-
-  var Authentication = React.createClass({
-
-    getInitialState: function() {
-      if (localStorage.getItem('access_token')) {
-        return {loggedIn: true};
-      } else {
-        return {loggedIn: false};
-      };
-
-      // FB.getLoginStatus(function(response) {
-      // console.log(response); // Response came too slow
-      //   if (response.status === 'connected') {
-      //     return {loggedIn: true};
-      //   } else if (response.status === 'not_authorized') {
-      //     return {loggedIn: false};
-      //   } else {
-      //     return {loggedIn: false};
-      //   }
-      // });
-      // Will change in the future by comparing the current userId on the client-side with the server-side
-    },
-
-    FBlogin: function(e) {
-      var that = this;
-      FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-          console.log('Already Logged in.');
-          that.setState({loggedIn: true});
-        }
-        else {
-          FB.login(function(response) {
-            if (response.authResponse) {
-              console.log("Inside login?")
-              var userFBId = response.id;
-              var access_token = FB.getAuthResponse()['accessToken'];
-              localStorage.setItem('access_token', access_token);
-     
-
-              // Getting User's Info
-              FB.api('/me', function(response) {
-                // console.log(response);
-                localStorage.setItem('email', response.email);
-                localStorage.setItem('userId', response.id);
-                localStorage.setItem('username', response.name);
-              });
-              // Getting User's Profile Picture
-              FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
-                var profilePic = response.data.url;
-                localStorage.setItem('profilePic', profilePic);
-              });
-
-              that.setState({loggedIn: true});
-
-            } else {
-              console.log('User cancelled login or did not fully authorize.');
-              that.setState({loggedIn: false});
-            }
-          }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
-        }
-      });
-    },
-
-    FBlogout: function(e) {
-      this.setState({loggedIn: false});
-      FB.logout(function(response) {
-        localStorage.clear();
-      }), {access_token: localStorage.getItem('access_token')};
-    },
-
-    render: function() {
-      console.log(this.state.loggedIn);
-      if (this.state.loggedIn) {
-        return (
-          // <img src={localStorage.getItem('profilePic')}>
-          <button onClick={this.FBlogout}>Log Out</button>
-        );
-      } else {
-        return (
-          <button onClick={this.FBlogin}>Log In</button>
-        );
-      };
-    }
-  });
-
-
-=======
->>>>>>> development
   var MainPanel = React.createClass({
     getInitialState: function() {
                        return { view: 'week' };
@@ -125,7 +20,7 @@ define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'],
 
     render: function() {
               return (
-                <div id="main-panel" className="debug col span_10">
+                <div id="main-panel" className="debug col span_10 cf">
                   <ViewOptions changeView={this.changeView} />
                   <CalendarView view={this.state.view} />
                 </div>
@@ -236,6 +131,5 @@ define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'],
               );
             }
   });
-
-  React.render(<Container />, document.body);
+  return Container;
 });
