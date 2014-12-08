@@ -2,9 +2,7 @@ define(['react'], function(React) {
     var Container = React.createClass({
     render: function() {
               return (
-                  <div id="main-container" className="row gutters">
                     <MainPanel />
-                  </div>
               );  
             }
   });
@@ -20,7 +18,7 @@ define(['react'], function(React) {
 
     render: function() {
               return (
-                <div id="main-panel" className="debug col span_10 cf">
+                <div id="main-calendar">
                   <ViewOptions changeView={this.changeView} />
                   <CalendarView view={this.state.view} />
                 </div>

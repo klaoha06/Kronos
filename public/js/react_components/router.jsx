@@ -12,8 +12,13 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 			return(
                 <div id="container">
 					<Navbar />
+                    <div id="main-container" className="row gutters">
 					<Sidebar />
+               		<div id="main-panel" className="debug col span_10 cf">
 					<RouteHandler />
+					</div>
+                    </div>
+
 				</div>
 			)
 		}

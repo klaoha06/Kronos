@@ -25,12 +25,12 @@
 }
 
 #main-panel {
-  display: inline-block;
   position: relative;
+  min-height:100%;
 }
 
 #main-container{
-  padding-bottom:50px;
+  padding-bottom:30px;
 }
 
 #view-options {
