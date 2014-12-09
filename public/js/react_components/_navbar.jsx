@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'bluebird', 'react-router'], function(React, $, Bluebird, Router){
+define(['react', 'jquery', 'bluebird', 'react-router', '../serverUrl'], function(React, $, Bluebird, Router, api){
 	var Link = Router.Link
 	var Navbar = React.createClass({
 	  render: function() {
