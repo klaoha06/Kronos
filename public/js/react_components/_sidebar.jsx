@@ -1,4 +1,5 @@
-define(['react', 'jquery'], function(React, $){
+define(['react', 'jquery', 'react-router'], function(React, $, Router){
+	var Link = Router.Link
 	var Submenu = React.createClass({
 		loadDataFromServer: function(){
 			var that = this
@@ -25,17 +26,17 @@ define(['react', 'jquery'], function(React, $){
 		render: function(){
 			var that = this
 			var dataNodes = this.state.data.map(function(group, index){
-				classes= that.props.name + " debug"
+				var classes= that.props.name + " debug  sidebarItem"
 				return(
 					<div className={classes} key={index}>
 						{group.name}
 					</div>
 				);
 			});
-			var classes = this.props.name + " hide List sidebarMenu debug"
+			classes = this.props.name + "Container hide sidebarMenu debug"
 			return (
-				<li id={this.props.name} className="row debug" onClick={this.handleClick}>
-					<h4>{this.props.name}</h4>
+				<li id={this.props.name} className="row debug">
+					<h4  onClick={this.handleClick}>{this.props.name}</h4>
 					<div className={classes}>
 						{dataNodes}
 					</div>
@@ -57,7 +58,7 @@ define(['react', 'jquery'], function(React, $){
 
 		    return (
 		      <div id="sidebar" className="debug col span_2">
-		      <h1> Groups </h1>
+		      <h1><Link to="Groups"> Groups </Link></h1>
 		      	<ul id="sidebarList" className="debug">
 		      		{subscribedNodes}
 		      		

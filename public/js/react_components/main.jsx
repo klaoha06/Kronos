@@ -1,15 +1,9 @@
-define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'], function(React, Sidebar, Navbar) {
+define(['react'], function(React) {
     var Container = React.createClass({
     render: function() {
               return (
-                <div id="container">
-                  <Navbar />
-                  <div id="main-container" className="row gutters">
-                    <Sidebar subscribedData = {[]}/>
                     <MainPanel />
-                  </div>
-                </div>
-              );
+              );  
             }
   });
 
@@ -24,7 +18,7 @@ define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'],
 
     render: function() {
               return (
-                <div id="main-panel" className="debug col span_10">
+                <div id="main-calendar">
                   <ViewOptions changeView={this.changeView} />
                   <CalendarView view={this.state.view} />
                 </div>
@@ -135,6 +129,5 @@ define(['react','jsx!react_components/_sidebar','jsx!react_components/_navbar'],
               );
             }
   });
-
-  React.render(<Container />, document.body);
+  return Container;
 });
