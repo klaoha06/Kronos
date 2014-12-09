@@ -1,4 +1,4 @@
-define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/_navbar', 'jsx!react_components/_sidebar'], function(React, Main, Router, Group, Navbar, Sidebar){
+define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show'], function(React, Main, Router, Group, Navbar, Sidebar, Calendar){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
 	var RouteHandler = Router.RouteHandler
@@ -27,6 +27,7 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 	var routes = (
 		<Route handler={App}>
 			<Route name="Groups" path="group/:id" handler={Group} />
+			<Route name="Calendar" path="calendar/:id" handler={Calendar} />
 			<Route name="Main" path="/" handler={Main} />
 		</Route>
 	);

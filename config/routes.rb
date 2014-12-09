@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v0 do 
       
       resources :groups
-      
+      resources :calendars
       resources  :users do
         get 'subscriptions', to: :subscriptions
       end
