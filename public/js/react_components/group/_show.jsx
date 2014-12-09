@@ -1,12 +1,15 @@
 define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $, Router, api){
-	var Group = React.createClass({
+	
+	var Link = Router.Link;
+
+	var ShowGroup = React.createClass({
 
 		render: function(){
 			var calendarNodes = this.props.calendars.map(function(calendar, index){
 
 				return(
 					<div key={index} className = {calendar.name + " debug calendarContainer"}>
-					<h2> {calendar.name} </h2>
+					<h2><Link to="Calendar" params={calendar}> {calendar.name} </Link></h2>
 					</div>
 					)
 			});
@@ -20,7 +23,7 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 		}
 	})
 
-	var GroupView = React.createClass({
+	var Group = React.createClass({
 		mixins: [ Router.State ],
 
 		loadDataFromServer: function(){
@@ -43,14 +46,12 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 		    this.setState(this.loadDataFromServer());
 		 },
 		render: function(){
-			console.log(this.state.name)
-			console.log(this.state.calendars)
 			return(
 				<div className="groupContainer">
-					<Group name={this.state.name} calendars={this.state.calendars} />
+					<ShowGroup name={this.state.name} calendars={this.state.calendars} />
 				</div>
 				)
 		}
 	})
-	return GroupView;
+	return Group;
 });
