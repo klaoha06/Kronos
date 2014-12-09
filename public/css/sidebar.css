@@ -23,6 +23,14 @@
 	cursor:pointer;
 }
 
+#sideBarSlider{
+	float:right;
+}
+
+#sideBarSlider:hover{
+	color:blue;
+}
+
 .sidebarItem:hover{
 	background-color:lightgreen;
 	cursor: pointer;

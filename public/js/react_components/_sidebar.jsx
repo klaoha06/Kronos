@@ -49,9 +49,9 @@ define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Ro
 	});
 
 
-	var Sidebar = React.createClass({		
+	var Sidebar = React.createClass({
 		render: function() {
-			var subMenus = [{name: "subscribed", url: "/users/1/subscriptions"}]
+			var subMenus = [{name: "subscribed", url: "/users/1/subscriptions"}, {name: "popular", url: "/popular"}]
 			var subscribedNodes = subMenus.map(function(submenu, index){
 				return(
 					<Submenu name={submenu.name} url={submenu.url} key={index}/>
@@ -59,6 +59,7 @@ define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Ro
 			});
 		    return (
 		      <div id="sidebar" className="debug col span_2">
+		      {/*<i className="fa fa-exchange" id="sideBarSlider" onClick={this.toggleSlider}></i>*/}
 		      <h1>Groups </h1>
 		      	<ul id="sidebarList" className="debug">
 		      		{subscribedNodes}

@@ -43,8 +43,6 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 		    this.setState(this.loadDataFromServer());
 		 },
 		render: function(){
-			console.log(this.state.name)
-			console.log(this.state.calendars)
 			return(
 				<div className="groupContainer">
 					<Group name={this.state.name} calendars={this.state.calendars} />
