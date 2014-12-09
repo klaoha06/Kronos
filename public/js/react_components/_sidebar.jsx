@@ -1,10 +1,10 @@
-define(['react', 'jquery', 'react-router'], function(React, $, Router){
+define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Router, api){
 	var Link = Router.Link
 	var Submenu = React.createClass({
 		loadDataFromServer: function(){
 			var that = this
 			$.ajax({
-				url: '/api/v0/' + this.props.url,
+				url: api + this.props.url,
 				dataType: 'json',
 				context: this
 			}).done(function(data){
@@ -26,11 +26,13 @@ define(['react', 'jquery', 'react-router'], function(React, $, Router){
 		render: function(){
 			var that = this
 			var dataNodes = this.state.data.map(function(group, index){
-				var classes= that.props.name + " debug  sidebarItem"
+				var classes= that.props.name + " debug sidebarItem"
 				return(
-					<div className={classes} key={index}>
+					<Link to="Groups" params={group}>
+					<div className={classes} key={index} id={"group-"+group.id}>
 						{group.name}
 					</div>
+					</Link>
 				);
 			});
 			classes = this.props.name + "Container hide sidebarMenu debug"
@@ -49,16 +51,15 @@ define(['react', 'jquery', 'react-router'], function(React, $, Router){
 
 	var Sidebar = React.createClass({		
 		render: function() {
-			var subMenus = [{name: "subscribed", url: "users/1/subscriptions"}, {name: "popular", url: "popular"}]
+			var subMenus = [{name: "subscribed", url: "/users/1/subscriptions"}]
 			var subscribedNodes = subMenus.map(function(submenu, index){
 				return(
 					<Submenu name={submenu.name} url={submenu.url} key={index}/>
 				);
 			});
-
 		    return (
 		      <div id="sidebar" className="debug col span_2">
-		      <h1><Link to="Groups"> Groups </Link></h1>
+		      <h1>Groups </h1>
 		      	<ul id="sidebarList" className="debug">
 		      		{subscribedNodes}
 		      		

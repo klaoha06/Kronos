@@ -26,7 +26,7 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 
 	var routes = (
 		<Route handler={App}>
-			<Route name="Groups" path="group" handler={Group} />
+			<Route name="Groups" path="group/:id" handler={Group} />
 			<Route name="Main" path="/" handler={Main} />
 		</Route>
 	);

@@ -2,7 +2,6 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	before_action :current_user
 
 	def subscriptions
-
 		render json: @current_user.groups
 	end	
 

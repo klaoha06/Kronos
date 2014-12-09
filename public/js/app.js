@@ -1,6 +1,8 @@
 require.config({
      baseUrl: "js/",
-
+     config:{
+      'serverUrl': '/api/v0/'
+     },
      paths: {
        "react": "vendor/react-with-addons",
        "JSXTransformer": "vendor/JSXTransformer",
