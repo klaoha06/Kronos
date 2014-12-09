@@ -9,7 +9,7 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 
 				return(
 					<div key={index} className = {calendar.name + " debug calendarContainer"}>
-					<h2><Link to="Calendarx`" params={calendar}> {calendar.name} </Link></h2>
+					<h2><Link to="Calendar" params={calendar}> {calendar.name} </Link></h2>
 					</div>
 					)
 			});
