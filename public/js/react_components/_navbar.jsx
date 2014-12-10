@@ -20,6 +20,19 @@ define(['react', 'jquery', 'bluebird', 'react-router', '../serverUrl'], function
 	       fjs.parentNode.insertBefore(js, fjs);
 	     }(document, 'script', 'facebook-jssdk'));
 
+	    // Setup Ajax call (all ajax call will be authenticated)
+	    $.ajaxSetup({
+	        beforeSend: function(xhr) {
+	        	if (localStorage.getItem('loggedInTime') - new Date() < 10800000 ) {
+	            xhr.setRequestHeader('access_token', localStorage.getItem('access_token'));
+	        	} else {
+	        		console.log('hi');
+	        		// this.FBlogout;
+	        		// this.FBlogin;
+	        	}
+	        }
+	    });
+
 	    return (
 	      <div id="navbar">
 	        <input id="search" type="text" />
