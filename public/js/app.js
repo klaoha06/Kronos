@@ -6,7 +6,7 @@ require.config({
      paths: {
        "react": "vendor/react-with-addons",
        "JSXTransformer": "vendor/JSXTransformer",
-       "jquery": "vendor/jquery",
+       "jquery": "vendor/jquery.min",
        "text": "vendor/text",
        "jsx": "vendor/jsx",
        "bluebird": "vendor/bluebird",

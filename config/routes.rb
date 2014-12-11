@@ -1,10 +1,19 @@
 Rails.application.routes.draw do
+  resources :auths, except: [:new, :edit]
   namespace :api do
     namespace :v0 do 
       
+      resources :auths
       resources :groups
       resources :calendars
+
       resources  :users do
+        collection do
+           # User Auth
+           post 'sessioning_user', to: :sessioning_user
+           get 'current_user', to: :current_user
+           get 'clear_session', to: :clear_session
+        end
         get 'subscriptions', to: :subscriptions
       end
     
