@@ -3,7 +3,6 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def sessioning_user
 	  params.permit!
-	  access_token = request.headers['HTTP_ACCESS_TOKEN']
 	  user = User.find_by(fb_id: params[:fb_id])
 	  if user
 	    user.update(name: params[:name], email: params[:email], profile_pic: params[:profilePic])
@@ -14,14 +13,13 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	    user.save
 	  end
 
-	  Auth.create(user_id: user.id, access_token: access_token, fb_id: params[:fb_id])
+	  Auth.create(user_id: user.id, access_token: request.headers['HTTP_ACCESS_TOKEN'], fb_id: params[:fb_id])
 
 	  render json: user.id
 	end
 
 	def clear_session
-		access_token = request.headers["HTTP_ACCESS_TOKEN"]
-		auth = Auth.find_by(access_token: access_token)
+		auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
 		auth.destroy!
 		# render text: "logout successful!"
 	end
@@ -33,10 +31,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	private
 
 	def authenticate
-		access_token = request.headers['HTTP_ACCESS_TOKEN']
-		# Check for access_token
-		auth = Auth.find_by(access_token: access_token)
-
+		auth = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN'])
 		if auth
 			if (Time.now - auth.created_at < 11000)
 				# User In Session
@@ -52,7 +47,6 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 			head status: 404
 			return false
 		end
-
 	end
 
 end

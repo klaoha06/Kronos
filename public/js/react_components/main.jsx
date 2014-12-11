@@ -1,23 +1,6 @@
 define(['react'], function(React) {
     var Container = React.createClass({
     render: function() {
-            // Load FB SDK
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId      : '751003924936029',
-                xfbml      : true,
-                version    : 'v2.1',
-                status     : true
-              });
-            };
-
-            (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "js/vendor/fb_sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-             }(document, 'script', 'facebook-jssdk'));
 
             function getCookie(cname) {
                 var name = cname + "=";
@@ -39,8 +22,6 @@ define(['react'], function(React) {
                   } else {
                     localStorage.clear();
                     console.log("can't send data before login");
-                    // this.FBlogout;
-                    // this.FBlogin;
                   }
                 }
             });
