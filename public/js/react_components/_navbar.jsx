@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', '../serverUrl', 'Auth'], function(React, $, Router, api, Auth){
+define(['react', 'jquery', 'react-router', '../serverUrl', 'auth'], function(React, $, Router, api, Auth){
 	var Link = Router.Link
 	var Navbar = React.createClass({
 	  render: function() {
