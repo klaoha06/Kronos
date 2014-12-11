@@ -72,63 +72,61 @@ define(['react', 'jquery', 'bluebird', 'react-router', '../serverUrl'], function
 	 FBlogin: function(e) {
 	  var that = this;
 
-	  FB.getLoginStatus(function(response) {
-	      FB.login(function(response) {
-	        if (response.authResponse) {
+	  FB.login(function(response) {
+	    if (response.authResponse) {
 
-	        	var now = new Date();
-	        	var time = now.getTime();
-	        	time += 10800 * 1000;
-	        	now.setTime(time);
-	        	document.cookie = 
-	        	'access_token=' + response.authResponse.accessToken + 
-	        	'; expires=' + now.toUTCString() + 
-	        	';';
+	    	var now = new Date();
+	    	var time = now.getTime();
+	    	time += 10800 * 1000;
+	    	now.setTime(time);
+	    	document.cookie = 
+	    	'access_token=' + response.authResponse.accessToken + 
+	    	'; expires=' + now.toUTCString() + 
+	    	';';
 
-	        	localStorage.setItem('loggedInTime', Date.now());
-	          localStorage.setItem('fb_id', response.authResponse.userID)
-	          var p1 = false;
-	          // Getting User's Info
-	          	FB.api('/me', function(response) {
-	          		// console.log(response);
-	            localStorage.setItem('email', response.email);
-	            localStorage.setItem('name', response.name);
-	            p1 = true;
-	            finishLoading();
-	            })
+	    	localStorage.setItem('loggedInTime', Date.now());
+	      localStorage.setItem('fb_id', response.authResponse.userID)
+	      var p1 = false;
+	      // Getting User's Info
+	      	FB.api('/me', function(response) {
+	      		// console.log(response);
+	        localStorage.setItem('email', response.email);
+	        localStorage.setItem('name', response.name);
+	        p1 = true;
+	        finishLoading();
+	        })
 
-	          var p2 = false;
-	        	FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
-	            localStorage.setItem('profilePic', response.data.url);
-	            p2 = true
-	            finishLoading();
-	           });
+	      var p2 = false;
+	    	FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
+	        localStorage.setItem('profilePic', response.data.url);
+	        p2 = true
+	        finishLoading();
+	       });
 
-	        	function finishLoading() {
-	        		if (p1 === true && p2 === true) {
+	    	function finishLoading() {
+	    		if (p1 === true && p2 === true) {
 
-	          		$.ajax({
-	          			url: '/api/v0/users/sessioning_user',
-	          			dataType: 'json',
-	          			type: 'POST',
-	          			data: localStorage
-	          		}).done(function(data){
-	          			localStorage.setItem('userId', data);
-	          		}).fail(function(data){
-	          			console.log(data.statusText)
-	          		});
-	        			
-	        		};
-	        	};
+	      		$.ajax({
+	      			url: '/api/v0/users/sessioning_user',
+	      			dataType: 'json',
+	      			type: 'POST',
+	      			data: localStorage
+	      		}).done(function(data){
+	      			localStorage.setItem('userId', data);
+	      		}).fail(function(data){
+	      			console.log(data.statusText)
+	      		});
+	    			
+	    		};
+	    	};
 
-	          that.setState({loggedIn: true});
+	      that.setState({loggedIn: true});
 
-	        } else {
-	          console.log('User cancelled login or did not fully authorize.');
-	          that.setState({loggedIn: false});
-	        }
-	      }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
-	  });
+	    } else {
+	      console.log('User cancelled login or did not fully authorize.');
+	      that.setState({loggedIn: false});
+	    }
+	  }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
 	},
 
 	FBlogout: function(e) {
