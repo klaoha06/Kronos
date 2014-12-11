@@ -14,8 +14,19 @@ define(['react', 'jquery'], function(React, $){
    js = d.createElement(s); js.id = id;
    js.src = "js/vendor/fb_sdk.js";
    fjs.parentNode.insertBefore(js, fjs);
- }(document, 'script', 'facebook-jssdk'));
-  
+  }(document, 'script', 'facebook-jssdk'));
+
+  function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1);
+          if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+      }
+      return "";
+  }
+
   return {
    FBlogin: function(e) {
     var that = this;
@@ -82,7 +93,7 @@ FBlogout: function(e) {
     		  //Log Out of FB
     		  FB.logout(function(response) {
     		    // console.log(response);
-          }), {access_token: localStorage.getItem('access_token')};
+          }), {access_token: getCookie('access_token')};
     		  // Clear localStorage
     		  localStorage.clear();
     		}
