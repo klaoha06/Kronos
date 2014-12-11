@@ -1,59 +1,59 @@
 class Api::V0::UsersController < Api::V0::ApplicationController
-	# before_action :authenticate
+	before_action :authenticate, :except => ['sessioning_user']
 
 	def sessioning_user
 	  params.permit!
-	  p params
-	  access_token = request.headers["access_token"]
-	  p access_token
+	  access_token = request.headers['HTTP_ACCESS_TOKEN']
 	  user = User.find_by(fb_id: params[:fb_id])
 	  if user
 	    user.update(name: params[:name], email: params[:email], profile_pic: params[:profilePic])
-	    user.auth.destroy
+	    user.auth.destroy! if user.auth
 	    user.save
 	  else
-	    user = User.create(name: params[:name], email: params[:email], profile_pic: params[:profilePic], fb_id: params[:userId])
+	    user = User.new(name: params[:name], email: params[:email], profile_pic: params[:profilePic], fb_id: params[:fb_id])
+	    user.save
 	  end
 
-	  user.auth.create(access_token: access_token, fb_id: params[:fb_id])
-
-	  p user
-	  p user.auth
+	  Auth.create(user_id: user.id, access_token: access_token, fb_id: params[:fb_id])
 
 	  render json: user.id
 	end
 
-	def authenticate(access_token)
-		# Check for access_token
-		user = User.auth.find_by(access_token: access_token)
+	def clear_session
+		access_token = request.headers["HTTP_ACCESS_TOKEN"]
+		auth = Auth.find_by(access_token: access_token)
+		auth.destroy!
+		# render text: "logout successful!"
+	end
 
-		if user
-			if (Time.now - user.auth.updated_at < 11000)
+	def subscriptions
+		render json: @current_user.groups
+	end
+
+	private
+
+	def authenticate
+		access_token = request.headers['HTTP_ACCESS_TOKEN']
+		# Check for access_token
+		auth = Auth.find_by(access_token: access_token)
+
+		if auth
+			if (Time.now - auth.created_at < 11000)
 				# User In Session
 				return true
 			else
 				# Session Time Out
-				user.auth.destroy
+				auth.destroy!
+				head status: 408
 				return false
 			end
 		else
 			# Not found
+			head status: 404
 			return false
 		end
 
 	end
 
-	def subscriptions
-		if self.current_user
-		render json: @current_user.groups
-		end
-	end
-
-	def clear_session
-		access_token = request.headers["access_token"]
-		user = User.auth.find_by(access_token: access_token)
-		user.auth.destroy
-	end
-	
 end
 

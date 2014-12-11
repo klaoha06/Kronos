@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	validates :fb_id, presence: true
 	has_one :auth
   has_many :calendars, :foreign_key => "creator_id"
   has_many :user_addedcalendars, :foreign_key => "user_id"

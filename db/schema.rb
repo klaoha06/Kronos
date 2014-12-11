@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205002036) do
+ActiveRecord::Schema.define(version: 20141210134636) do
+
+  create_table "auths", force: true do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.string   "fb_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "calendar_groups", force: true do |t|
     t.integer  "calendar_id"
@@ -81,6 +89,8 @@ ActiveRecord::Schema.define(version: 20141205002036) do
     t.string   "username"
     t.string   "name"
     t.string   "email"
+    t.string   "fb_id"
+    t.string   "profile_pic"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
