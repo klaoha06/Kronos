@@ -68,7 +68,6 @@ define(['react', 'jquery'], function(React, $){
              data: localStorage
            }).success(function(data){
               localStorage.setItem('userId', data);
-              console.log('done!');
            }).fail(function(data){
              console.log(data.statusText);
            });
@@ -81,15 +80,16 @@ define(['react', 'jquery'], function(React, $){
 },
 
 FBlogout: function() {
-    			// Clearing seesion in Server
+          //Log Out of FB
+          FB.logout(function(response) {
+          }), {access_token: getCookie('access_token')};
+
+    			// Clearing Server
     			// $.ajax({
     			// 	url: '/api/v0/users/clear_session'
     			// });
-    		  //Log Out of FB
-    		  FB.logout(function(response) {
-    		    // console.log(response);
-          }), {access_token: getCookie('access_token')};
-    		  // Clear localStorage
+
+    		  // Clear Client
     		  localStorage.clear();
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     		}

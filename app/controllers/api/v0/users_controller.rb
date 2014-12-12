@@ -5,8 +5,8 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	  params.permit!
 	  user = User.find_by(fb_id: params[:fb_id])
 	  if user
-	    user.update(name: params[:name], email: params[:email], profile_pic: params[:profilePic])
 	    user.auth.destroy! if user.auth
+	    user.update(name: params[:name], email: params[:email], profile_pic: params[:profilePic])
 	    user.save
 	  else
 	    user = User.new(name: params[:name], email: params[:email], profile_pic: params[:profilePic], fb_id: params[:fb_id])
