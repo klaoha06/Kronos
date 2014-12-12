@@ -79,16 +79,17 @@ define(['react', 'jquery'], function(React, $){
   }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
 },
 
-FBlogout: function() {
+FBlogout: function(callback) {
           //Log Out of FB
           FB.logout(function(response) {
+            callback(false);
           }), {access_token: getCookie('access_token')};
-    			// Clearing Server
-    			$.ajax({
-    				url: '/api/v0/users/clear_session'
-    			});
-    		  // Clear Client
-    		  localStorage.clear();
+          // Clearing Server
+          $.ajax({
+            url: '/api/v0/users/clear_session'
+          });
+          // Clear Client
+          localStorage.clear();
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     		}
       };
