@@ -34,8 +34,10 @@ define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], 
 	  },
 
 	  logOut: function() {
-	  	Auth.FBlogout();
-	  	this.setState({loggedIn: false});
+	  	var that = this;
+	  	Auth.FBlogout(function(result){
+		  	that.setState({loggedIn: result});
+	  	});
 	  },
 
 	  render: function() {
