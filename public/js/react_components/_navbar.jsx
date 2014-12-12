@@ -26,17 +26,11 @@ define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], 
 	    };
 	  },
 
-	  changeState: function() {
-	  	if (localStorage.getItem('userId')) {
-	  	  this.setState({loggedIn: true});
-	  	} else {
-	  	  this.setState({loggedIn: false});
-	  	};
-	  },
-
 	  logIn: function() {
-	  	Auth.FBlogin();
-	  	this.setState({loggedIn: true});
+	  	var that = this;
+	  	Auth.FBlogin(function(result){
+		  	that.setState({loggedIn: result});
+	  	});
 	  },
 
 	  logOut: function() {

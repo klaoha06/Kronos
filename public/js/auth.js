@@ -31,16 +31,14 @@ define(['react', 'jquery'], function(React, $){
 
    getCookie: getCookie,
 
-   FBlogin: function() {
+   FBlogin: function(callback) {
 
     FB.login(function(response) {
       if (response.authResponse) {
        var now = Date.now();
        now += 10800000;
        document.cookie = 'access_token=' + response.authResponse.accessToken + '; expires=' + now + ';';
-
-       console.log(getCookie('access_token'));
-
+       
        localStorage.setItem('loggedInTime', now);
        localStorage.setItem('fb_id', response.authResponse.userID);
        
@@ -68,6 +66,7 @@ define(['react', 'jquery'], function(React, $){
              data: localStorage
            }).success(function(data){
               localStorage.setItem('userId', data);
+              callback(true);
            }).fail(function(data){
              console.log(data.statusText);
            });
@@ -75,6 +74,7 @@ define(['react', 'jquery'], function(React, $){
        }
      } else {
       console.log('User cancelled login or did not fully authorize.');
+      callback(false);
     }
   }, {scope: 'email,user_events,rsvp_event', return_scopes: true});
 },
@@ -83,12 +83,10 @@ FBlogout: function() {
           //Log Out of FB
           FB.logout(function(response) {
           }), {access_token: getCookie('access_token')};
-
     			// Clearing Server
-    			// $.ajax({
-    			// 	url: '/api/v0/users/clear_session'
-    			// });
-
+    			$.ajax({
+    				url: '/api/v0/users/clear_session'
+    			});
     		  // Clear Client
     		  localStorage.clear();
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
