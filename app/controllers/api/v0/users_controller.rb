@@ -18,11 +18,11 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	  render json: user.id
 	end
 
-	def clear_session
-		auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
-		auth.destroy!
-		# render text: "logout successful!"
-	end
+	# def clear_session
+	# 	auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
+	# 	auth.destroy!
+	# 	# render text: "logout successful!"
+	# end
 
 	def subscriptions
 		render json: @current_user.groups

@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', '../serverUrl', 'auth'], function(React, $, Router, api, Auth){
+define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], function(React, $, Router, Promise, api, Auth){
 	var Link = Router.Link
 	var Navbar = React.createClass({
 	  render: function() {
@@ -19,15 +19,15 @@ define(['react', 'jquery', 'react-router', '../serverUrl', 'auth'], function(Rea
 	var LogInButton = React.createClass({
 
 	  getInitialState: function() {
-	    if (localStorage.getItem('loggedInTime')) {
+	    if (localStorage.getItem('userId')) {
 	      return {loggedIn: true};
 	    } else {
 	      return {loggedIn: false};
 	    };
 	  },
 
-	  componentDidMount: function() {
-	  	if (localStorage.getItem('loggedInTime')) {
+	  changeState: function() {
+	  	if (localStorage.getItem('userId')) {
 	  	  this.setState({loggedIn: true});
 	  	} else {
 	  	  this.setState({loggedIn: false});
