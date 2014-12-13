@@ -25,7 +25,9 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def subscriptions
-		render json: @current_user.groups
+		user = User.find(params[:user_id])
+		puts user ? user.groups : nil
+		render :json => user ? user.groups : nil
 	end
 
 	private
@@ -38,6 +40,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 				return true
 			else
 				# Session Time Out
+
 				auth.destroy!
 				head status: 408
 				return false
