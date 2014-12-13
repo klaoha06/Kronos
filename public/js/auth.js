@@ -27,11 +27,6 @@ define(['react', 'jquery'], function(React, $){
     return "";
   }
 
-  function initial(name) {
-    name.split(' ')
-
-  }
-
   return {
 
    getCookie: getCookie,
