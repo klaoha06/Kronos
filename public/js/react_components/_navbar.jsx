@@ -44,6 +44,7 @@ define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], 
 	    if (this.state.loggedIn) {
 	      return (
 	        <div>
+	          <UserPageButton />
 	          <button onClick={this.logOut}>Log Out</button>
 	        </div>
 	      );
@@ -55,10 +56,12 @@ define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], 
 	  }
 	});
 
-	var UserPage = React.createClass({
+	var UserPageButton = React.createClass({
 	  render: function() {
 	    return (
-	      <img id="profilePic" src={localStorage.getItem('profilePic')} />
+	    	<a href={"#/users/" + localStorage.getItem("userId")}>
+		      <img id="profilePic" src={localStorage.getItem('profilePic')} />
+		    </a>
 	    );
 	  }
 	});
