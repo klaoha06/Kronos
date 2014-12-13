@@ -35,47 +35,42 @@ define(['react', 'jquery'], function(React, $){
 
     FB.login(function(response) {
       if (response.authResponse) {
-       var now = Date.now();
-       now += 10800000;
-       document.cookie = 'access_token=' + response.authResponse.accessToken + '; expires=' + now + ';';
+        var now = Date.now();
+        now += 10800000;
+        document.cookie = 'access_token=' + response.authResponse.accessToken + '; expires=' + now + ';';
        
-       localStorage.setItem('loggedInTime', now);
-       localStorage.setItem('fb_id', response.authResponse.userID);
+        localStorage.setItem('loggedInTime', now);
+        localStorage.setItem('fb_id', response.authResponse.userID);
        
-       var p1 = false;
-        FB.api('/me', function(response) {
-         localStorage.setItem('email', response.email);
-         localStorage.setItem('name', response.name);
-         localStorage.setItem('first_name', response.first_name);
-         localStorage.setItem('last_name', response.last_name);
-         localStorage.setItem('gender', response.gender);
-         localStorage.setItem('timezone', response.timezone);
-         p1 = true;
-         finishLoading();
-       });
+        FB.api('/me', 
+           {fields: "id,about,picture.type(large).width(300),birthday,email,first_name,last_name,gender,hometown,link,location,name,timezone"}, 
+           function(response) {
+              // Setting Client's localStorage
+              response.
+              localStorage.setItem('email', response.email);
+              localStorage.setItem('name', response.name);
+              localStorage.setItem('first_name', response.first_name);
+              localStorage.setItem('last_name', response.last_name);
+              localStorage.setItem('gender', response.gender);
+              localStorage.setItem('timezone', response.timezone);
+              localStorage.setItem('profilePic', response.picture.data.url);
 
-       var p2 = false;
-       FB.api('/me/picture', {type: 'large', width: '300'}, function(response) {
-         localStorage.setItem('profilePic', response.data.url);
-         p2 = true;
-         finishLoading();
-       });
+              //Send Data Back to Server
+               $.ajax({
+                url: '/api/v0/users/sessioning_user',
+                dataType: 'json',
+                type: 'POST',
+                data: localStorage
+              }).success(function(data){
+                 localStorage.setItem('userId', data);
+                 callback(true);
+              }).fail(function(data){
+                 console.log(data.statusText);
+                 callback(false)
+              });
 
-        function finishLoading() {
-          if (p1 === true && p2 === true) {
-            $.ajax({
-             url: '/api/v0/users/sessioning_user',
-             dataType: 'json',
-             type: 'POST',
-             data: localStorage
-           }).success(function(data){
-              localStorage.setItem('userId', data);
-              callback(true);
-           }).fail(function(data){
-             console.log(data.statusText);
-           });
-         }
-       }
+           }
+        );
      } else {
       console.log('User cancelled login or did not fully authorize.');
       callback(false);
@@ -95,6 +90,7 @@ FBlogout: function(callback) {
           // Clear Client
           localStorage.clear();
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+          document.location.href="/";
     		}
       };
     });
