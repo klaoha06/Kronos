@@ -2,7 +2,6 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	before_action :authenticate, :except => ['sessioning_user']
 
 	def sessioning_user
-	  params.permit!
 	  user = User.find_by(fb_id: params[:fb_id])
 	  if user
 	    user.auth.destroy! if user.auth
