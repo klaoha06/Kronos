@@ -45,12 +45,12 @@ define(['react', 'jquery', 'react-router', 'bluebird', '../serverUrl', 'auth'], 
 	      return (
 	        <div>
 	          <UserPageButton />
-	          <button onClick={this.logOut}>Log Out</button>
+	          <button id='logInOut' onClick={this.logOut}>Log Out</button>
 	        </div>
 	      );
 	    } else {
 	      return (
-	        <button onClick={this.logIn}>Log In</button>
+	        <button id='logInOut' onClick={this.logIn}>Log In</button>
 	      );
 	    };
 	  }

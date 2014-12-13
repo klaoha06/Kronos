@@ -1,5 +1,5 @@
 10.times do
-  user = User.create(username: Faker::Internet.user_name, name: Faker::Name.first_name, email: Faker::Internet.email)
+  user = User.create(username: Faker::Internet.user_name, name: Faker::Name.first_name, email: Faker::Internet.email, fb_id: Faker::Business.credit_card_number)
   user.calendars.create(name: Faker::Commerce.product_name)
   user.events.create(name: Faker::Commerce.product_name)
 end
