@@ -21,14 +21,19 @@
 }
 
 #profilePic {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 150px;
   margin-right: 10px;
 }
 
 #logInOut {
   /*margin-bottom: 30px;*/
+}
+
+#test{
+  width:300px;
+  height:100px; 
 }
 
 #main-panel {

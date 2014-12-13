@@ -22,7 +22,8 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def subscriptions
-		render json: @current_user.groups
+		user = User.find(params[:user_id])
+		render json: user.groups
 	end
 
 	private
