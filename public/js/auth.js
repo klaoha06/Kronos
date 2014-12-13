@@ -46,7 +46,6 @@ define(['react', 'jquery'], function(React, $){
            {fields: "id,about,picture.type(large).width(300),birthday,email,first_name,last_name,gender,hometown,link,location,name,timezone"}, 
            function(response) {
               // Setting Client's localStorage
-              response.
               localStorage.setItem('email', response.email);
               localStorage.setItem('name', response.name);
               localStorage.setItem('first_name', response.first_name);

@@ -1,8 +1,8 @@
 define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Router, api){
-	var Link = Router.Link
+	var Link = Router.Link;
 	var Submenu = React.createClass({
 		loadDataFromServer: function(){
-			var that = this
+			var that = this;
 			$.ajax({
 				url: api + this.props.url,
 				dataType: 'json',
@@ -10,23 +10,25 @@ define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Ro
 			}).done(function(data){
 				this.setState({data: data});
 			}).fail(function(data){
-				console.log("FAILED REQUEST")
-			})
+				console.log("FAILED REQUEST");
+			});
 		},
 		getInitialState: function(){
 			return {data: []};
 		},
-		componentDidMount: function(){
-			this.loadDataFromServer();
-		},
+		// componentDidMount: function(){
+		// 	this.loadDataFromServer();
+		// },
 		handleClick: function(e){
-			this.loadDataFromServer();
+			if (localStorage.getItem('userId')) {
+				this.loadDataFromServer();
+			}
 			$(e.target).closest("li").find(".sidebarMenu").slideToggle();
 		},
 		render: function(){
-			var that = this
+			var that = this;
 			var dataNodes = this.state.data.map(function(group, index){
-				var classes= that.props.name + " debug sidebarItem"
+				var classes= that.props.name + " debug sidebarItem";
 				return(
 					<Link to="Groups" params={group}>
 					<div className={classes} key={index} id={"group-"+group.id}>
@@ -51,7 +53,7 @@ define(['react', 'jquery', 'react-router','../serverUrl'], function(React, $, Ro
 
 	var Sidebar = React.createClass({
 		render: function() {
-			var subMenus = [{name: "subscribed", url: "/users/1/subscriptions"}, {name: "popular", url: "/popular"}]
+			var subMenus = [{name: "subscribed", url: "/users/" + localStorage.getItem('userId') +"/subscriptions"}, {name: "popular", url: "/popular"}]
 			var subscribedNodes = subMenus.map(function(submenu, index){
 				return(
 					<Submenu name={submenu.name} url={submenu.url} key={index}/>
