@@ -17,14 +17,19 @@ define(['react', 'jquery'], function(React, $){
   }(document, 'script', 'facebook-jssdk'));
 
   function getCookie(cname) {
-      var name = cname + "=";
-      var ca = document.cookie.split(';');
-      for(var i=0; i<ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0)==' ') c = c.substring(1);
-          if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
-      }
-      return "";
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+    }
+    return "";
+  }
+
+  function initial(name) {
+    name.split(' ')
+
   }
 
   return {
@@ -46,6 +51,10 @@ define(['react', 'jquery'], function(React, $){
         FB.api('/me', function(response) {
          localStorage.setItem('email', response.email);
          localStorage.setItem('name', response.name);
+         localStorage.setItem('first_name', response.first_name);
+         localStorage.setItem('last_name', response.last_name);
+         localStorage.setItem('gender', response.gender);
+         localStorage.setItem('timezone', response.timezone);
          p1 = true;
          finishLoading();
        });
