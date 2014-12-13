@@ -1,20 +1,4 @@
 define(['react', 'jquery'], function(React, $){
-  // Load FB SDK
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '751003924936029',
-      xfbml      : true,
-      version    : 'v2.1',
-      status     : true
-    });
-  };
-  (function(d, s, id){
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) {return;}
-   js = d.createElement(s); js.id = id;
-   js.src = "js/vendor/fb_sdk.js";
-   fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
   function getCookie(cname) {
     var name = cname + "=";
@@ -74,31 +58,31 @@ define(['react', 'jquery'], function(React, $){
 
   return {
 
-   getCookie: getCookie,
+    getCookie: getCookie,
 
-   FBlogin: function(callback) {
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        logIn(callback);
-      } else {
-        logIn(callback);
-      }
-    });
-  },
+    FBlogin: function(callback) {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          logIn(callback);
+        } else {
+          logIn(callback);
+        }
+      });
+    },
 
-FBlogout: function(callback) {
-          //Log Out of FB
-          FB.logout(function(response) {
-            callback(false);
-          }), {access_token: getCookie('access_token')};
-          // Clearing Server
-          $.ajax({
-            url: '/api/v0/users/clear_session'
-          });
-          // Clear Client
-          localStorage.clear();
-          document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-          document.location.href="/";
-    		}
-      };
-    });
+    FBlogout: function(callback) {
+      //Log Out of FB
+      FB.logout(function(response) {
+        callback(false);
+      }), {access_token: getCookie('access_token')};
+      // Clearing Server
+      $.ajax({
+        url: '/api/v0/users/clear_session'
+      });
+      // Clear Client
+      localStorage.clear();
+      document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.location.href="/";
+    }
+  };
+});
