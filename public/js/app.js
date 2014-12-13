@@ -11,7 +11,8 @@ require.config({
        "jsx": "vendor/jsx",
        "bluebird": "vendor/bluebird",
        "react-router": "vendor/react-router",
-       "react-router-shim": "vendor/react-router-shim"
+       "react-router-shim": "vendor/react-router-shim",
+       "flux": "vendor/flux"
       },
       shim:    {
         'react-router-shim': {

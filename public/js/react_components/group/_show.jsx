@@ -1,8 +1,14 @@
-define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $, Router, api){
+define(['react', 'jquery', 'react-router', '../../serverUrl', 'actions/AppActions'], function(React, $, Router, api, AppActions){
 	
 	var Link = Router.Link;
 
 	var ShowGroup = React.createClass({
+
+		mixins: [ Router.State ],
+
+		handleUnsubscribe: function(e){
+			AppActions.unsubscribeGroup(this.props.id)
+		},
 
 		render: function(){
 			var calendarNodes = this.props.calendars.map(function(calendar, index){
@@ -15,6 +21,7 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 			});
 			return(
 				<div>
+					<button onClick={this.handleUnsubscribe}>Unsubscribe</button>
 					<h6>Group: </h6><h1>{this.props.name}</h1>
 					<h6>Calendars: </h6>
 					{calendarNodes}
@@ -33,7 +40,7 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 				dataType: 'json',
 				context: this
 			}).done(function(data){
-				this.setState({name: data.name, calendars: data.calendars});
+				this.setState({name: data.name, calendars: data.calendars, id: this.getParams().id});
 			}).fail(function(data){
 				console.log("FAILED REQUEST")
 			})
@@ -48,7 +55,7 @@ define(['react', 'jquery', 'react-router', '../../serverUrl'], function(React, $
 		render: function(){
 			return(
 				<div className="groupContainer">
-					<ShowGroup name={this.state.name} calendars={this.state.calendars} />
+					<ShowGroup name={this.state.name} calendars={this.state.calendars} id={this.state.id} />
 				</div>
 				)
 		}
