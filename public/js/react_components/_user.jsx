@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'auth'], function(React, Auth) {
 
 	var UserPage = React.createClass({
 		getInitialState: function() {
@@ -8,12 +8,15 @@ define(['react'], function(React) {
 		loadEventsFromFB: function(callback) {
 			// By default this will only return events within the last two weeks, check FB api and use until or since parameters to modify this range.
 			var that = this;
-
 				FB.api(
 				    "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
 				    function (response) {
+				    	console.log(response);
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
+				      } else {
+							  console.log(response.error.message);
+							  document.location.href="/";
 				      }
 				    }
 				);

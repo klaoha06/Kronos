@@ -9,6 +9,48 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 	var App = React.createClass({
 
 		render: function () {
+
+			// Load FB SDK
+			window.fbAsyncInit = function() {
+			  FB.init({
+			    appId      : '751003924936029',
+			    xfbml      : true,
+			    version    : 'v2.1',
+			    status     : true
+			  });
+			};
+			(function(d, s, id){
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "js/vendor/fb_sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			// Setup Ajax call (all ajax calls will be authenticated)
+			$.ajaxSetup({
+			    beforeSend: function(xhr) {
+
+			      function getCookie(cname) {
+			          var name = cname + "=";
+			          var ca = document.cookie.split(';');
+			          for(var i=0; i<ca.length; i++) {
+			              var c = ca[i];
+			              while (c.charAt(0)==' ') c = c.substring(1);
+			              if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+			          }
+			          return "";
+			      }
+
+			      if (Date.now() - localStorage.getItem('loggedInTime') < 10800000) {
+			        xhr.setRequestHeader('access_token', getCookie('access_token'));
+			      } else {
+			        localStorage.clear();
+			        console.log("can't send data before login");
+			      }
+			    }
+			});
+
 			return(
                 <div id="container">
 					<Navbar />
