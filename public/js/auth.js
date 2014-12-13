@@ -79,8 +79,6 @@ define(['react', 'jquery'], function(React, $){
    FBlogin: function(callback) {
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        console.log(response.status);
-        console.log('Already Logged in FB');
         logIn(callback);
       } else {
         logIn(callback);
