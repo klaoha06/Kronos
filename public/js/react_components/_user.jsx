@@ -13,16 +13,11 @@ define(['react', 'auth'], function(React, Auth) {
 				    function (response) {
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
-				        console.log(response.data);
 				        $.ajax({
-				        	beforeSend: function (request)
-				        	{
-				        	    request.setRequestHeader("provider", "FB");
-				        	},
-				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events',
+				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events/provider',
 				        	type: 'POST',
 				        	contentType: "application/json; charset=utf-8",
-				        	data: JSON.stringify(response.data)
+				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
 				        }).success(function(data){
 				        	// console.log(data);
 				        }).fail(function(data){
