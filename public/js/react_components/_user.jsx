@@ -11,9 +11,19 @@ define(['react', 'auth'], function(React, Auth) {
 				FB.api(
 				    "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
 				    function (response) {
-				    	console.log(response);
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
+				        console.log(response.data);
+				        $.ajax({
+				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events',
+				        	type: 'POST',
+				        	contentType: "application/json; charset=utf-8",
+				        	data: JSON.stringify(response.data)
+				        }).success(function(data){
+				        	console.log(data);
+				        }).fail(function(data){
+				        	console.log(data.statusText);
+				        });
 				      } else {
 							  console.log(response.error.message);
 							  document.location.href="/";
