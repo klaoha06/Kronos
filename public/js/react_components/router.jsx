@@ -15,7 +15,7 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 			  FB.init({
 			    appId      : '751003924936029',
 			    xfbml      : true,
-			    version    : 'v2.1',
+			    version    : 'v2.2',
 			    status     : true
 			  });
 			};
