@@ -43,7 +43,7 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 			      }
 
 			      if (Date.now() - localStorage.getItem('loggedInTime') < 10800000) {
-			        xhr.setRequestHeader('access_token', getCookie('access_token'));
+			        xhr.setRequestHeader("access_token", getCookie('access_token'));
 			      } else {
 			        localStorage.clear();
 			        console.log("can't send data before login");
