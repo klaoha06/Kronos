@@ -7,8 +7,6 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-gem 'json'
-
 gem 'sqlite3'
 
 gem 'faker'

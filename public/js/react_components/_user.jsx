@@ -15,12 +15,16 @@ define(['react', 'auth'], function(React, Auth) {
 				        that.setState({FBEvents: response.data});
 				        console.log(response.data);
 				        $.ajax({
+				        	beforeSend: function (request)
+				        	{
+				        	    request.setRequestHeader("provider", "FB");
+				        	},
 				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events',
 				        	type: 'POST',
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify(response.data)
 				        }).success(function(data){
-				        	console.log(data);
+				        	// console.log(data);
 				        }).fail(function(data){
 				        	console.log(data.statusText);
 				        });

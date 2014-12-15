@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141210134636) do
 
   create_table "events", force: true do |t|
     t.integer  "creator_id"
+    t.integer  "id_from_provider"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "name"
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20141210134636) do
     t.string   "provider"
     t.string   "owner_name"
     t.string   "owner_id"
+    t.string   "my_status"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"

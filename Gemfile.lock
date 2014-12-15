@@ -84,7 +84,6 @@ PLATFORMS
 
 DEPENDENCIES
   faker
-  json
   rails (= 4.1.6)
   rails-api
   spring
