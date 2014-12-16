@@ -1,4 +1,4 @@
-define(['react', 'auth'], function(React, Auth) {
+define(['react'], function(React) {
 
 	var UserPage = React.createClass({
 		getInitialState: function() {
@@ -25,6 +25,9 @@ define(['react', 'auth'], function(React, Auth) {
 				        });
 				      } else {
 							  console.log(response.error.message);
+							  localStorage.clear();
+							  document.location.href="/";
+							  alert('you are not logged in FB please log in')
 				      }
 				    }
 				);
