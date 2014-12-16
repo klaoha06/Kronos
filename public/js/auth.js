@@ -3,13 +3,12 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
   function logIn(callback){
       FB.login(function(response) {
         if (response.authResponse) {
-
+          //Setting Cookie
           var date = new Date();
           var minutes = 180; // 3 hours
           date.setTime(date.getTime() + (minutes * 60 * 1000));
-
           $.cookie('access_token', response.authResponse.accessToken,{ expires: date, path: '/' });
-          
+
           localStorage.setItem('loggedInTime', now);
           localStorage.setItem('fb_id', response.authResponse.userID);
          
@@ -24,7 +23,6 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
                 localStorage.setItem('gender', response.gender);
                 localStorage.setItem('timezone', response.timezone);
                 localStorage.setItem('profilePic', response.picture.data.url);
-
                 //Send Data Back to Server
                  $.ajax({
                   url: '/api/v0/users/sessioning_user',
@@ -38,7 +36,6 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
                    console.log(data.statusText);
                    callback(false);
                 });
-
              }
           );
        } else {
