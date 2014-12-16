@@ -1,15 +1,13 @@
 define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 'jsx!react_components/_user'], function(React, Main, Router, Group, Navbar, Sidebar, Calendar, User){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
-	var RouteHandler = Router.RouteHandler
-	var DefaultRoute = Router.DefaultRoute
-	var Route = Router.Route
-	var Routes = Router.Routes
+	var RouteHandler = Router.RouteHandler;
+	var DefaultRoute = Router.DefaultRoute;
+	var Route = Router.Route;
+	var Routes = Router.Routes;
 
 	var App = React.createClass({
-
 		render: function () {
-
 			// Load FB SDK
 			window.fbAsyncInit = function() {
 			  FB.init({
@@ -26,11 +24,9 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 			 js.src = "js/vendor/fb_sdk.js";
 			 fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
-
 			// Setup Ajax call (all ajax calls will be authenticated)
 			$.ajaxSetup({
 			    beforeSend: function(xhr) {
-
 			      if ($.cookie('access_token')) {
 			        xhr.setRequestHeader("access_token", $.cookie('access_token'));
 			      } else {
@@ -40,17 +36,15 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 			      }
 			    }
 			});
-
 			return(
-                <div id="container">
-					<Navbar />
-                    <div id="main-container" className="row gutters">
-					<Sidebar />
-               		<div id="main-panel" className="debug col span_10 cf">
-					<RouteHandler />
-					</div>
-                    </div>
-
+          <div id="container">
+						<Navbar />
+            <div id="main-container" className="row gutters">
+							<Sidebar />
+            	<div id="main-panel" className="debug col span_10 cf">
+							<RouteHandler />
+						</div>
+          </div>
 				</div>
 			)
 		}
