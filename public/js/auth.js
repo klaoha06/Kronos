@@ -1,23 +1,15 @@
-define(['react', 'jquery'], function(React, $){
-
-  function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
-    }
-    return "";
-  }
+define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
 
   function logIn(callback){
       FB.login(function(response) {
         if (response.authResponse) {
-          var now = Date.now();
-          now += 10800000;
-          document.cookie = 'access_token=' + response.authResponse.accessToken + '; expires=' + now + ';';
-         
+
+          var date = new Date();
+          var minutes = 180; // 3 hours
+          date.setTime(date.getTime() + (minutes * 60 * 1000));
+
+          $.cookie('access_token', response.authResponse.accessToken,{ expires: date, path: '/' });
+          
           localStorage.setItem('loggedInTime', now);
           localStorage.setItem('fb_id', response.authResponse.userID);
          
@@ -58,7 +50,7 @@ define(['react', 'jquery'], function(React, $){
 
   return {
 
-    getCookie: getCookie,
+    getCookie: $.cookie,
 
     FBlogin: function(callback) {
       FB.getLoginStatus(function(response) {
@@ -74,7 +66,7 @@ define(['react', 'jquery'], function(React, $){
       //Log Out of FB
       FB.logout(function(response) {
         callback(false);
-      }), {access_token: getCookie('access_token')};
+      }), {access_token: $.cookie('access_token')};
       // Clearing Server
       $.ajax({
         url: '/api/v0/users/clear_session'

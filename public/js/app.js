@@ -11,7 +11,8 @@ require.config({
        "jsx": "vendor/jsx",
        "bluebird": "vendor/bluebird",
        "react-router": "vendor/react-router",
-       "react-router-shim": "vendor/react-router-shim"
+       "react-router-shim": "vendor/react-router-shim",
+       "jquery-cookie": "vendor/jquery.cookie"
       },
       shim:    {
         'react-router-shim': {
