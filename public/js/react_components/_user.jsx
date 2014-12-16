@@ -25,7 +25,6 @@ define(['react', 'auth'], function(React, Auth) {
 				        });
 				      } else {
 							  console.log(response.error.message);
-							  document.location.href="/";
 				      }
 				    }
 				);
@@ -70,7 +69,7 @@ define(['react', 'auth'], function(React, Auth) {
 		    var FBEventNodes = this.props.data.map(function(event, index) {
 		    	return (
 		    		<div>
-		    		<FBEvent data={event}>
+		    		<FBEvent data={event} key={index}>
 		    		</FBEvent>
 		    		</div>
 		    	);
