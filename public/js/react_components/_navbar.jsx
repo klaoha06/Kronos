@@ -15,56 +15,6 @@ define(['react', 'jquery', 'react-router', '../serverUrl', 'jsx!auth'], function
 	  }
 	});
 
-	// var LogInButton = React.createClass({
-
-	//   getInitialState: function() {
-	//     if (localStorage.getItem('userId')) {
-	//       return {loggedIn: true};
-	//     } else {
-	//       return {loggedIn: false};
-	//     };
-	//   },
-
-	//   logIn: function() {
-	//   	var that = this;
-	//   	Auth.FBlogin(function(result){
-	// 	  	that.setState({loggedIn: result});
-	//   	});
-	//   },
-
-	//   logOut: function() {
-	//   	var that = this;
-	//   	Auth.FBlogout(function(result){
-	// 	  	that.setState({loggedIn: result});
-	//   	});
-	//   },
-
-	//   render: function() {
-	//     if (this.state.loggedIn) {
-	//       return (
-	//         <div>
-	//           <UserPageButton />
-	//           <button id='logInOut' onClick={this.logOut}>Log Out</button>
-	//         </div>
-	//       );
-	//     } else {
-	//       return (
-	//         <button id='logInOut' onClick={this.logIn}>Log In</button>
-	//       );
-	//     };
-	//   }
-	// });
-
-	// var UserPageButton = React.createClass({
-	//   render: function() {
-	//     return (
-	//     	<a href={"#/users/" + localStorage.getItem("userId")}>
-	// 	      <img id="profilePic" src={localStorage.getItem('profilePic')} />
-	// 	    </a>
-	//     );
-	//   }
-	// });
-
 	return Navbar;
 
 });
