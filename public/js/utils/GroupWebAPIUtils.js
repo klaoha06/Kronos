@@ -1,23 +1,35 @@
-define(['../serverUrl','../actions/GroupActions'], function(apiUrl, GroupActions){
-	var user_id = localStorage.getItem('userId')
+define(['../serverSetup','../actions/GroupActions'], function(apiUrl, GroupActions){
 
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){
-			//Having trouble logging into facebook so hardcoding a '1' for now
-			//In future, user_id should be put in there
-			var url = "/users/"+1+"/subscriptions"
+			var user_id = localStorage.getItem('userId')
+			console.log("USSER ID: " + user_id)
+			var url = "/users/"+user_id+"/subscriptions"
 
 			var that = this
+			//Run once to load
 			$.ajax({
-				url: apiUrl + url,
-				dataType: 'json',
+			url: apiUrl + url,
+			dataType: 'json',
 			}).done(function(data){
 				// this.setState({data: data});
 				GroupActions.loadAllGroups(data);
 			}).fail(function(data){
 				console.log("FAILED REQUEST")
 			})
+			//Set interval to continue long polling 
+			setInterval(function(){
+				$.ajax({
+				url: apiUrl + url,
+				dataType: 'json',
+				}).done(function(data){
+					// this.setState({data: data});
+					GroupActions.loadAllGroups(data);
+				}).fail(function(data){
+					console.log("FAILED REQUEST")
+				})
+			}, 5000);
 
 		}
 

@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', '../serverUrl', 'jsx!react_components/_user'], function(React, $, Router, api, Auth){
+define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/_auth'], function(React, $, Router, api, Auth){
 	var Link = Router.Link
 	var Navbar = React.createClass({
 	  render: function() {
@@ -7,6 +7,7 @@ define(['react', 'jquery', 'react-router', '../serverUrl', 'jsx!react_components
 	        <input id="search" type="text" />
 	        <Link to="Main">Home</Link>
 	        <div id="console">
+	        <Auth />
 	        </div>
 	      </div>
 	    );
