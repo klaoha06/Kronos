@@ -19,7 +19,7 @@ User.all.each do |user|
   user.addedevents << Event.where.not(creator_id: user.id).sample
 end
 
-3.times do 
+15.times do 
 	group = Group.create(name: Faker::Commerce.department(1))
 	group.calendars << Calendar.all.sample(3)
 

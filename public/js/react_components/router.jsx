@@ -5,7 +5,7 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 	var DefaultRoute = Router.DefaultRoute;
 	var Route = Router.Route;
 	var Routes = Router.Routes;
-
+	
 	var App = React.createClass({
 		render: function () {
 			return(

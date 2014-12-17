@@ -42,7 +42,9 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def clear_session
 		auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
+		if auth
 		auth.destroy!
+		end
 	end
 
 	def subscriptions

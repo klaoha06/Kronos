@@ -1,5 +1,5 @@
 define(['react', 'jquery', 'react-router', '../serverUrl', 'jsx!react_components/_auth'], function(React, $, Router, api, Auth){
-	var Link = Router.Link
+	var Link = Router.Link;
 	var Navbar = React.createClass({
 	  render: function() {
 	    return (
@@ -7,7 +7,7 @@ define(['react', 'jquery', 'react-router', '../serverUrl', 'jsx!react_components
 	        <input id="search" type="text" />
 	        <Link to="Main">Home</Link>
 	        <div id="console">
-	          <Auth />
+	        	<Auth />
 	        </div>
 	      </div>
 	    );
