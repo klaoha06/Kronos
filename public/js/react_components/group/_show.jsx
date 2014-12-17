@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', '../../serverUrl', 'actions/AppActions'], function(React, $, Router, api, AppActions){
+define(['react', 'jquery', 'react-router', '../../serverUrl', 'actions/GroupActions'], function(React, $, Router, api, AppActions){
 	
 	var Link = Router.Link;
 

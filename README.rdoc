@@ -1,5 +1,7 @@
 == README
 
+LINK to BASECAMP: (https://basecamp.com/2787512/projects/7629617)
+
 ............. Due within a week (next friday, Dec 4th) ..............
 
 1. Display the events on the main display panel in day, week, month, and year. 

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       resources :calendars
 
       resources  :users do
+        resources :events do
+          collection do
+            post 'provider', to: :create_from_provider
+          end
+        end
         collection do
            # User Auth
            post 'sessioning_user', to: :sessioning_user

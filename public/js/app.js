@@ -12,7 +12,9 @@ require.config({
        "bluebird": "vendor/bluebird",
        "react-router": "vendor/react-router",
        "react-router-shim": "vendor/react-router-shim",
-       "flux": "vendor/flux"
+       "flux": "vendor/flux",
+       "event-emitter": "vendor/eventemitter",
+       "jquery-cookie": "vendor/jquery.cookie"
       },
       shim:    {
         'react-router-shim': {
