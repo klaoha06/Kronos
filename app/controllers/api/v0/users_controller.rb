@@ -5,9 +5,30 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	  user = User.find_by(fb_id: params[:fb_id])
 	  if user
 	    user.auth.destroy! if user.auth
-	    user.update(name: params[:name], first_name: params[:first_name], last_name: params[:last_name], gender: params[:gender], email: params[:email], profile_pic: params[:profilePic])
+	    user.update(
+	    	name: params[:name], 
+	    	first_name: params[:first_name], 
+	    	last_name: params[:last_name], 
+	    	birthday: params[:birthday], 
+	    	age_range: params[:age_range], 
+	    	default_time_zone: params[:timezone], 
+	    	gender: params[:gender], 
+	    	email: params[:email], 
+	    	profile_pic: params[:profilePic]
+	    	)
 	  else
-	    user = User.new(name: params[:name], first_name: params[:first_name], last_name: params[:last_name], gender: params[:gender], default_time_zone: params[:timezone], email: params[:email], profile_pic: params[:profilePic], fb_id: params[:fb_id])
+	    user = User.new(
+	    	name: params[:name], 
+	    	first_name: params[:first_name], 
+	    	last_name: params[:last_name], 
+	    	gender: params[:gender], 
+	    	birthday: params[:birthday], 
+	    	age_range: params[:age_range], 
+	    	default_time_zone: params[:timezone], 
+	    	email: params[:email], 
+	    	profile_pic: params[:profilePic], 
+	    	fb_id: params[:fb_id]
+	    	)
 	  end
 
 	  if user.save
