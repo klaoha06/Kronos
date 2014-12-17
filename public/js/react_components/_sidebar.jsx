@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverUrl', 'utils/GroupWebAPIUtils', 'stores/GroupStore'], function(React, $, Router, api, GroupAPI, GroupStore){
+define(['react', 'jquery', 'react-router','serverSetup', 'utils/GroupWebAPIUtils', 'stores/GroupStore'], function(React, $, Router, api, GroupAPI, GroupStore){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -33,7 +33,6 @@ define(['react', 'jquery', 'react-router','serverUrl', 'utils/GroupWebAPIUtils',
 	//And it adds a listener for when the GroupStore has changed. 
 	var SubscribedGroups = React.createClass({
 		getInitialState: function(){
-			GroupAPI.retrieveSubscribedGroups();
 			return {data: []};
 		},
 		componentDidMount: function(){

@@ -1,4 +1,4 @@
-define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants'], function(GroupDispatcher, GroupConstants){
+define(['dispatcher/GroupDispatcher', 'constants/GroupConstants'], function(GroupDispatcher, GroupConstants){
 
 	var GroupActions = {
 

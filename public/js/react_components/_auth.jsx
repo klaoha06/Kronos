@@ -1,4 +1,9 @@
-define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
+define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(React, $, cookie, GroupAPI){
+  function loadDataOnLogin()
+  {
+    GroupAPI.retrieveSubscribedGroups();
+  }
+
   // Load FB SDK
   window.fbAsyncInit = function() {
     FB.init({
@@ -7,6 +12,24 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
       version    : 'v2.2',
       status     : true
     });
+    // Setup Ajax call (all ajax calls will be authenticated)
+    
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+          var fbStatus;
+          FB.getLoginStatus(function(res) {
+            fbStatus = res.status;
+          });
+          if ($.cookie('access_token') && fbStatus === 'connected') {
+            xhr.setRequestHeader("access_token", $.cookie('access_token'));
+          } else {
+            console.log("can't send data before login or your session has timed out");
+            localStorage.clear();
+            document.location.href="/";
+            alert("can't send data before login or your session has timed out");
+          }
+        }
+    });     
   };
   (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
@@ -16,23 +39,6 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
    fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-  // Setup Ajax call (all ajax calls will be authenticated)
-  $.ajaxSetup({
-      beforeSend: function(xhr) {
-        // var fbStatus;
-        // FB.getLoginStatus(function(res) {
-        //   fbStatus = res.status;
-        // });
-        // if ($.cookie('access_token') && fbStatus === 'connected') {
-          xhr.setRequestHeader("access_token", $.cookie('access_token'));
-        // } else {
-        //   console.log("can't make ajax call before login or your session has timed out");
-        //   localStorage.clear();
-        //   document.location.href="/";
-        //   alert("can't send data before login or your session has timed out");
-        // }
-      }
-  });
 
   function logIn(callback){
       FB.login(function(response) {
@@ -43,7 +49,6 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
           $.cookie('access_token', response.authResponse.accessToken,{ expires: date, path: '/' });
 
           localStorage.setItem('fb_id', response.authResponse.userID);
-         
           FB.api('/me', 
              {fields: "id,about,picture.type(large).width(300),birthday,age_range,email,first_name,last_name,gender,hometown,location,locale,name,timezone"}, 
              function(response) {
@@ -65,6 +70,10 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
                   data: localStorage
                 }).success(function(data){
                    localStorage.setItem('userId', data);
+
+                   //Load all data that can now be loaded from server b/c user is logged in
+                   loadDataOnLogin();
+
                    callback(true);
                 }).fail(function(data){
                    console.log(data.statusText);
