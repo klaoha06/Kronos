@@ -29,7 +29,7 @@ define(['react', 'jquery', 'jquery-cookie'], function(React, $, cookie){
           console.log("can't send data before login or your session has timed out");
           localStorage.clear();
           document.location.href="/";
-          alert("can't send data before login or your session has timed out")
+          alert("can't send data before login or your session has timed out");
         }
       }
   });
