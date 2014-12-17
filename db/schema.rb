@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141210134636) do
     t.string   "time_zone"
     t.string   "cover_pic"
     t.string   "provider"
+    t.string   "external_uri"
     t.string   "owner_name"
     t.string   "owner_id"
     t.string   "my_status"
@@ -94,15 +95,17 @@ ActiveRecord::Schema.define(version: 20141210134636) do
   end
 
   create_table "users", force: true do |t|
+    t.integer  "age_range"
+    t.integer  "default_time_zone"
+    t.integer  "fb_id"
     t.string   "username"
     t.string   "name"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "gender"
-    t.string   "default_time_zone"
     t.string   "email"
-    t.string   "fb_id"
     t.string   "profile_pic"
+    t.datetime "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
