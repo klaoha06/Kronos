@@ -27,7 +27,7 @@ define(['react'], function(React) {
 							  console.log(response.error.message);
 							  localStorage.clear();
 							  document.location.href="/";
-							  alert('you are not logged in FB please log in')
+							  alert('You session has timed out or you are not logged in FB please log in')
 				      }
 				    }
 				);
