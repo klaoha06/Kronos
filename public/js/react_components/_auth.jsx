@@ -12,7 +12,8 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(
       version    : 'v2.2',
       status     : true
     });
-
+    // Setup Ajax call (all ajax calls will be authenticated)
+    
     $.ajaxSetup({
         beforeSend: function(xhr) {
           var fbStatus;
@@ -38,8 +39,6 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(
    fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-  // Setup Ajax call (all ajax calls will be authenticated)
-  
 
   function logIn(callback){
       FB.login(function(response) {
