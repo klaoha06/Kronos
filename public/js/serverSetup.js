@@ -1,4 +1,3 @@
 define(function () {
-
-    return '/api/v0'
+    return '/api/v0';
 });

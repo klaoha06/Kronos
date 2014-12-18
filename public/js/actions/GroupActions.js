@@ -3,11 +3,11 @@ define(['dispatcher/GroupDispatcher', 'constants/GroupConstants'], function(Grou
 	var GroupActions = {
 
 		loadAllGroups: function(rawGroups){
-			console.log(rawGroups)
+			console.log(rawGroups);
 			GroupDispatcher.handleServerAction({
 				actionType: GroupConstants.RECEIVE_RAW_GROUPS,
 				rawGroups: rawGroups
-			})
+			});
 		},
 
 		unsubscribeGroup: function(group){
@@ -16,8 +16,8 @@ define(['dispatcher/GroupDispatcher', 'constants/GroupConstants'], function(Grou
 				id: group.id
 			});
 		}
-	}
+	};
 
 	return GroupActions;
 
-})
+});

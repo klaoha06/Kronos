@@ -1,7 +1,7 @@
 define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-emitter'], function(GroupDispatcher, GroupConstants, events){
-	var CHANGE_EVENT = 'change'
-	var EventEmitter = new events()
-	var _subscribedGroups = {}
+	var CHANGE_EVENT = 'change';
+	var EventEmitter = new events();
+	var _subscribedGroups = {};
 
 	function _addGroups(rawGroups){
 		rawGroups.forEach(function(group) {
@@ -9,9 +9,9 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 				_subscribedGroups[group.id] = {
 					id: group.id,
 					name: group.name
-				}
+				};
 			}
-		})
+		});
 	}
 
 
@@ -34,14 +34,14 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 			//_subscribedGroups.delete(id)
 		},
 		getAllGroups: function(){
-			var groups = []
+			var groups = [];
 			for (var id in _subscribedGroups){
-				groups.push(_subscribedGroups[id])
+				groups.push(_subscribedGroups[id]);
 			}
 			var sortGroups = "" //Can sort the groups or something
 			return groups;
 		}
-	}
+	};
 
 	GroupStore.dispatchToken = GroupDispatcher.register(function(payload){
 		var action = payload.action;
@@ -50,7 +50,7 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 		switch(action.actionType){
 
 			case GroupConstants.GROUP_UNSUBSCRIBE:
-				GroupStore.unsubscribeFromGroup(action.id)
+				GroupStore.unsubscribeFromGroup(action.id);
 				break;
 			case GroupConstants.RECEIVE_RAW_GROUPS:
 				_addGroups(action.rawGroups);
@@ -58,9 +58,9 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 				break;				
 		}
 
-	})
+	});
 
 
 	return GroupStore;
 
-})
+});

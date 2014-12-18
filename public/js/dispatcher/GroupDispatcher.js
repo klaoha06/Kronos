@@ -8,7 +8,7 @@ define(['flux'], function(flux){
 		var payload = {
 			source: 'VIEW_ACTION',
 			action: action
-		}
+		};
 		this.dispatch(payload);
 	};
 
@@ -16,9 +16,9 @@ define(['flux'], function(flux){
 		var payload = {
 			source: 'SERVER_ACTION',
 			action: action
-		}
+		};
 		this.dispatch(payload);
-	}
+	};
 
 	return GroupDispatcher;
-})
+});

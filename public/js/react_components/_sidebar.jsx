@@ -3,7 +3,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/GroupWebAPIUtils
 	function getStateFromStores(){
 		return{
 			data: GroupStore.getAllGroups()
-		}
+		};
 	}
 
 	function renderGroups(that){
