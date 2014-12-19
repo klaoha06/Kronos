@@ -1,4 +1,4 @@
-define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/nav/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 'jsx!react_components/user/_user'], function(React, Main, Router, Group, Navbar, Sidebar, Calendar, User){
+define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/header/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 'jsx!react_components/user/_user'], function(React, Main, Router, Group, Navbar, Sidebar, Calendar, User){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
 
@@ -6,6 +6,41 @@ define(['react', 'jsx!react_components/main', 'react-router', 'jsx!react_compone
 	var DefaultRoute = Router.DefaultRoute;
 	var Route = Router.Route;
 	var Routes = Router.Routes;
+
+	// Load FB SDK
+	window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '751003924936029',
+	    xfbml      : true,
+	    version    : 'v2.2',
+	    status     : true
+	  });  
+	};
+	(function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = "js/vendor/fb_sdk.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+	// Setup Ajax call (all ajax calls will be authenticated)
+	$.ajaxSetup({
+	    beforeSend: function(xhr) {
+	      // var fbStatus;
+	      // FB.getLoginStatus(function(res) {
+	      //   fbStatus = res.status;
+	      // });
+	      // if ($.cookie('access_token')) {
+	        xhr.setRequestHeader("access_token", $.cookie('access_token'));
+	      // } else {
+	      //   console.log("can't send data before login or your session has timed out");
+	        // localStorage.clear();
+	        // document.location.href="/";
+	        // alert("can't send data before login or your session has timed out");
+	      // }
+	    }
+	});   
 	
 	var App = React.createClass({
 		render: function () {

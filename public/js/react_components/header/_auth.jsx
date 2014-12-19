@@ -4,42 +4,6 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(
     GroupAPI.retrieveSubscribedGroups();
   }
 
-  // Load FB SDK
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '751003924936029',
-      xfbml      : true,
-      version    : 'v2.2',
-      status     : true
-    });
-    // Setup Ajax call (all ajax calls will be authenticated)
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-          var fbStatus;
-          console.log("BEFORE SEND?")
-          FB.getLoginStatus(function(res) {
-            fbStatus = res.status;
-          });
-          if ($.cookie('access_token') && fbStatus === 'connected') {
-            xhr.setRequestHeader("access_token", $.cookie('access_token'));
-          } else {
-            console.log("can't send data before login or your session has timed out");
-            localStorage.clear();
-            document.location.href="/";
-            alert("can't send data before login or your session has timed out");
-          }
-        }
-    });     
-  };
-  (function(d, s, id){
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) {return;}
-   js = d.createElement(s); js.id = id;
-   js.src = "js/vendor/fb_sdk.js";
-   fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-
   function logIn(callback){
       FB.login(function(response) {
         if (response.authResponse) {
