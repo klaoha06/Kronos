@@ -4,15 +4,15 @@ Rails.application.routes.draw do
     namespace :v0 do 
       
       resources :auths
-      resources :groups
       resources :calendars
-
+      resources :groups
       resources  :users do
         resources :events do
           collection do
             post 'provider', to: :create_from_provider
           end
         end
+
         collection do
            # User Auth
            post 'sessioning_user', to: :sessioning_user
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
            get 'clear_session', to: :clear_session
         end
         get 'subscriptions', to: :subscriptions
+        delete 'unsubscribe_group', to: :unsubscribe_group
       end
     
       get 'popular', :to => "application#popular"

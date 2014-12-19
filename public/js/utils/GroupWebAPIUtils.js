@@ -1,5 +1,5 @@
-define(['../serverSetup','../actions/GroupActions'], function(apiUrl, GroupActions){
-
+define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServerActions){
+	console.log(GroupServerActions)
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){
@@ -11,10 +11,9 @@ define(['../serverSetup','../actions/GroupActions'], function(apiUrl, GroupActio
 			//Run once to load
 			$.ajax({
 			url: apiUrl + url,
-			dataType: 'json',
+			dataType: 'json'
 			}).done(function(data){
-				// this.setState({data: data});
-				GroupActions.loadAllGroups(data);
+				GroupServerActions.loadAllGroups(data);
 			}).fail(function(data){
 				console.log("FAILED REQUEST");
 			});
@@ -22,15 +21,28 @@ define(['../serverSetup','../actions/GroupActions'], function(apiUrl, GroupActio
 			setInterval(function(){
 				$.ajax({
 				url: apiUrl + url,
-				dataType: 'json',
+				dataType: 'json'
 				}).done(function(data){
-					// this.setState({data: data});
-					GroupActions.loadAllGroups(data);
+					GroupServerActions.loadAllGroups(data);
 				}).fail(function(data){
 					console.log("FAILED REQUEST");
 				});
 			}, 5000);
 
+		},
+		unsubscribeGroup: function(id){
+			var user_id = localStorage.getItem('userId');
+			var url = "/users/" + user_id + "/unsubscribe_group"
+
+			$.ajax({
+				url: apiUrl + url, 
+				method: "DELETE",
+				data: {group_id: id}
+			}).done(function(){
+				GroupServerActions.unsubscribeCompleted();
+			}).fail(function(){
+				GroupServerActions.unsubscribeFailed();
+			})
 		}
 
 	};

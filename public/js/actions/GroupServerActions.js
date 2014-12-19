@@ -1,7 +1,6 @@
 define(['dispatcher/GroupDispatcher', 'constants/GroupConstants'], function(GroupDispatcher, GroupConstants){
 
-	var GroupActions = {
-
+	var GroupServerActions = {
 		loadAllGroups: function(rawGroups){
 			console.log(rawGroups);
 			GroupDispatcher.handleServerAction({
@@ -9,15 +8,12 @@ define(['dispatcher/GroupDispatcher', 'constants/GroupConstants'], function(Grou
 				rawGroups: rawGroups
 			});
 		},
+		unsubscribeCompleted: function(){
 
-		unsubscribeGroup: function(group){
-			GroupDispatcher.handleViewAction({
-				actionType: GroupConstants.GROUP_UNSUBSCRIBE,
-				id: group.id
-			});
+		},
+		unsubscribeFailed: function(){
+
 		}
 	};
-
-	return GroupActions;
-
+	return GroupServerActions
 });

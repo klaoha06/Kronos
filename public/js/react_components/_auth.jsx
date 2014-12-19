@@ -13,10 +13,10 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(
       status     : true
     });
     // Setup Ajax call (all ajax calls will be authenticated)
-    
     $.ajaxSetup({
         beforeSend: function(xhr) {
           var fbStatus;
+          console.log("BEFORE SEND?")
           FB.getLoginStatus(function(res) {
             fbStatus = res.status;
           });
@@ -91,6 +91,7 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(
     var LogInButton = React.createClass({
       getInitialState: function() {
         if (localStorage.getItem('userId')) {
+          loadDataOnLogin();
           return {loggedIn: true};
         } else {
           return {loggedIn: false};

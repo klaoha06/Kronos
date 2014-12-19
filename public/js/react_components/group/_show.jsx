@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupActions'], function(React, $, Router, api, AppActions){
+define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupViewActions'], function(React, $, Router, api, GroupViewActions){
 	
 	var Link = Router.Link;
 
@@ -7,7 +7,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupActions'
 		mixins: [ Router.State ],
 
 		handleUnsubscribe: function(e){
-			AppActions.unsubscribeGroup(this.props.id)
+			GroupViewActions.unsubscribeGroup(this.props.id)
 		},
 
 		render: function(){

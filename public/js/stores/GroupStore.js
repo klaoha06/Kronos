@@ -1,4 +1,4 @@
-define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-emitter'], function(GroupDispatcher, GroupConstants, events){
+define(['dispatcher/GroupDispatcher', 'constants/GroupConstants', 'event-emitter'], function(GroupDispatcher, GroupConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
 	var _subscribedGroups = {};
@@ -27,11 +27,7 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 		    EventEmitter.on(CHANGE_EVENT, callback);
 		},
 		unsubscribeFromGroup: function(id){
-
-
-
-
-			//_subscribedGroups.delete(id)
+			delete _subscribedGroups[id];
 		},
 		getAllGroups: function(){
 			var groups = [];
@@ -51,6 +47,7 @@ define(['../dispatcher/GroupDispatcher', '../constants/GroupConstants', 'event-e
 
 			case GroupConstants.GROUP_UNSUBSCRIBE:
 				GroupStore.unsubscribeFromGroup(action.id);
+				GroupStore.emitChange();
 				break;
 			case GroupConstants.RECEIVE_RAW_GROUPS:
 				_addGroups(action.rawGroups);
