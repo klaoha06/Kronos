@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'utils/GroupWebAPIUtils', 'stores/GroupStore'], function(React, $, Router, api, GroupAPI, GroupStore){
+define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore'], function(React, $, Router, api, GroupStore){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -8,20 +8,18 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/GroupWebAPIUtils
 
 	function renderGroups(that){
 		var dataNodes=that.state.data.map(function(group, index){
-			var classes= that.props.name + " debug sidebarItem";
 			return(
 				<Link to="Groups" params={group}>
-				<div className={classes} key={index} id={"group-"+group.id}>
+				<div className={that.props.name + " debug sidebarItem"} key={index} id={"group-"+group.id}>
 					{group.name}
 				</div>
 				</Link>
 			);
 		});
-		classes = that.props.name + "Container hide sidebarMenu debug"
 		return (
 			<li id={that.props.name} className="row debug">
 				<h4 onClick={that.handleClick}>{that.props.name}</h4>
-				<div className={classes}>
+				<div className={that.props.name + "Container hide sidebarMenu debug"}>
 					{dataNodes}
 				</div>
 			</li>
@@ -88,7 +86,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/GroupWebAPIUtils
 		      <h1>Groups </h1>
 		      	<ul id="sidebarList" className="debug">
 		      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
-		      		<PopularGroups name= "popular" url="/popular" />
+		      		<PopularGroups name= "popular" url="/groups/popular" />
 		      	</ul>
 		      </div>
 		    );

@@ -47,14 +47,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 		end
 	end
 
-	def subscriptions
-		render json: Group.joins(:user_groups).where(:user_groups => {user_id: params[:user_id]})
-	end
 
-	def unsubscribe_group
-		UserGroup.find_by(:group_id => params[:group_id], :user_id => params[:user_id]).destroy
-		puts "UNSUBSCRIBE #{params}"
-	end
 
 end
 
