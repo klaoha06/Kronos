@@ -1,0 +1,28 @@
+.feedcontainer{
+	height:50%;
+	overflow: scroll;
+}
+
+.eventImage{
+	height: 50px;
+	float: left;
+}
+.event-metadata{
+	float:left;
+	text-align: left;
+}
+.event-time{
+	font-style: italic;
+	font-weight: lighter;
+	font-size: 0.7em;
+}
+.creator-name{
+	font-weight:bold;
+}
+.creator-username{
+	font-weight: lighter;
+}
+
+.eventNode:hover{
+	background-color: #eee;
+}

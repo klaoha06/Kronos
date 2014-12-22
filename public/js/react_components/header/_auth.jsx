@@ -1,7 +1,9 @@
-define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils'], function(React, $, cookie, GroupAPI){
+define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/EventWebAPIUtils'], function(React, $, cookie, GroupAPI, EventAPI){
   function loadDataOnLogin()
   {
     GroupAPI.retrieveSubscribedGroups();
+    EventAPI.retrieveEvents();
+
   }
 
   function logIn(callback){

@@ -1,11 +1,11 @@
 define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Dispatcher, Constants){
 
-	var GroupServerActions = {
-		loadAllGroups: function(rawGroups){
-			console.log(rawGroups);
+	var EventServerActions = {
+		loadAllEvents: function(rawEvents){
 			Dispatcher.handleServerAction({
-				actionType: Constants.RECEIVE_RAW_GROUPS,
-				rawGroups: rawGroups
+				actionType: Constants.RECEIVE_RAW_EVENTS,
+				futureEvents: rawEvents.futureEvents,
+				pastEvents: rawEvents.pastEvents
 			});
 		},
 		unsubscribeCompleted: function(){
@@ -15,5 +15,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 
 		}
 	};
-	return GroupServerActions
+	return EventServerActions
+
 });

@@ -1,9 +1,9 @@
 define(['flux'], function(flux){
 
 	var Dispatcher = flux.Dispatcher;
-	var GroupDispatcher = new Dispatcher();
+	var KronosDispatcher = new Dispatcher();
 
-	GroupDispatcher.handleViewAction = function(action){
+	KronosDispatcher.handleViewAction = function(action){
 
 		var payload = {
 			source: 'VIEW_ACTION',
@@ -12,7 +12,7 @@ define(['flux'], function(flux){
 		this.dispatch(payload);
 	};
 
-	GroupDispatcher.handleServerAction = function(action){
+	KronosDispatcher.handleServerAction = function(action){
 		var payload = {
 			source: 'SERVER_ACTION',
 			action: action
@@ -20,5 +20,5 @@ define(['flux'], function(flux){
 		this.dispatch(payload);
 	};
 
-	return GroupDispatcher;
+	return KronosDispatcher;
 });
