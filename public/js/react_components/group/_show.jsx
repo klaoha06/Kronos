@@ -4,7 +4,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupViewActi
 
 	var ShowGroup = React.createClass({
 
-		mixins: [ Router.State ],
+		mixins: [ Router.State ], //This is so that we have access to this.getParams to get the ID in the URL
 
 		handleUnsubscribe: function(e){
 			GroupViewActions.unsubscribeGroup(this.props.id)

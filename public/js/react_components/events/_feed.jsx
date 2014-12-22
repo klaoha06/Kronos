@@ -22,19 +22,23 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 				return(
 					<div className="row span_10 mlr-a">
 					<div className="col span_12 ta-c mlr-a">
-					<Link to="Event" params={eventObj}>
 					<div className="eventNode debug cf span_12" key={index} id={"event-"+eventObj.id}>
 						<img src={eventObj.picture} className="eventImage"></img>
 						<div className="event-metadata span_3">
+						<Link to="UserPage" params={{id: eventObj.creator_id}}>
 						<span className="creator-name">{eventObj.creator_name} </span><br />
 						<span className="creator-username">@{eventObj.creator_username} </span><br />
+						</Link>
 						<span className="event-time">{moment(eventObj.startTime).calendar()}</span>
 						</div>
+						<Link to="Event" params={eventObj}>
+
 						<div className="event-name span_9">
 						{eventObj.name}
 						</div>
+						</Link>
+
 					</div>
-					</Link>
 					</div>
 					</div>
 				);
@@ -43,19 +47,23 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 				return(
 					<div className="row span_10 mlr-a">
 					<div className="col span_12 ta-c mlr-a">
-					<Link to="Event" params={eventObj}>
 					<div className="eventNode debug cf" key={index} id={"event-"+eventObj.id}>
 						<img src={eventObj.picture} className="eventImage"></img>
 						<div className="event-metadata span_3">
+						<Link to="UserPage" params={{id: eventObj.creator_id}}>
 						<span className="creator-name">{eventObj.creator_name} </span><br />
 						<span className="creator-username">@{eventObj.creator_username} </span><br />
+						</Link>
 						<span className="event-time">{moment(eventObj.startTime).calendar()}</span>
 						</div>
+						<Link to="Event" params={eventObj}>
+
 						<div className="event-name span_9">
 						{eventObj.name}
 						</div>
+						</Link>
+
 					</div>
-					</Link>
 					</div>
 					</div>
 				);
