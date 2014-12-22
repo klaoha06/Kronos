@@ -8,6 +8,13 @@
   	cover_pic: Faker::Avatar.image,
   	location: Faker::Address.country
   	)
+  user.events.create(
+    name: Faker::Commerce.product_name,
+    start_time: Faker::Time.backward(rand(20), :morning),
+    end_time: Faker::Time.backward(rand(20)+1, :evening),
+    cover_pic: Faker::Avatar.image,
+    location: Faker::Address.country
+    )
 end
 
 User.all.each do |user|
