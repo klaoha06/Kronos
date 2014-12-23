@@ -1,4 +1,4 @@
-define(['dispatcher/GroupDispatcher', 'constants/GroupConstants', 'event-emitter'], function(GroupDispatcher, GroupConstants, events){
+define(['dispatcher/AppDispatcher', 'constants/GroupConstants', 'event-emitter'], function(AppDispatcher, GroupConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
 	var _subscribedGroups = {};
@@ -39,7 +39,7 @@ define(['dispatcher/GroupDispatcher', 'constants/GroupConstants', 'event-emitter
 		}
 	};
 
-	GroupStore.dispatchToken = GroupDispatcher.register(function(payload){
+	GroupStore.dispatchToken = AppDispatcher.register(function(payload){
 		var action = payload.action;
 		var text;
 

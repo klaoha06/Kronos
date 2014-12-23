@@ -1,8 +1,8 @@
 define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/UserUtils', 'stores/UserStore'], function(React, $, cookie, GroupAPI, UserUtils, UserStore){
-  function loadDataOnLogin()
-  {
-    GroupAPI.retrieveSubscribedGroups();
-  }
+  // function loadDataOnLogin()
+  // {
+  //   GroupAPI.retrieveSubscribedGroups();
+  // }
 
   function getStateFromStores(){
     return{
