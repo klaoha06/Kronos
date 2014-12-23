@@ -1,5 +1,4 @@
 define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServerActions){
-	console.log(GroupServerActions)
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){
