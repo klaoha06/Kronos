@@ -1,4 +1,4 @@
-define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'], function(AppDispatcher, UserConstants, events){
+define(['dispatcher/KronosDispatcher', 'constants/UserConstants', 'event-emitter'], function(Dispatcher, UserConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
 	var _currentUserId = false;
@@ -26,7 +26,7 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'],
 		}
 	};
 
-	UserStore.dispatchToken = AppDispatcher.register(function(payload){
+	UserStore.dispatchToken = Dispatcher.register(function(payload){
 		var action = payload.action;
 
 		switch(action.actionType){
