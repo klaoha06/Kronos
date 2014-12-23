@@ -33,10 +33,8 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
                 }).success(function(data){
                    localStorage.setItem('userId', data);
                    UserActions.recieveUserId(data);
-                   callback(true);
                 }).fail(function(data){
                    console.log(data.statusText);
-                   callback(false);
                 });
              }
           );
@@ -50,7 +48,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
   logOut: function(callback) {
     //Log Out of FB
     FB.logout(function(response) {
-      callback(false);
+      UserActions.deleteUserId();
     }), {access_token: $.cookie('access_token')};
     // Clearing Server
     $.ajax({
@@ -59,7 +57,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
     // Clear Client
     localStorage.clear();
     document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    document.location.href="/";
+    // document.location.href="/";
   },
 
   };

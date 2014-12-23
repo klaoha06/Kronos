@@ -5,6 +5,11 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'utils/UserUtils'
 			  actionType: UserConstants.RECEIVE_USER_ID,
 			  userId: userId
 			});
+		},
+		deleteUserId: function(){
+			AppDispatcher.handleServerAction({
+			  actionType: UserConstants.CLEAR_USER_ID
+			});
 		}
 	};
 	return UserActions;

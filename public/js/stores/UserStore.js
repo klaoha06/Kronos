@@ -4,8 +4,11 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'],
 	var _currentUserId = {};
 
 	function sessioningUser(userId) {
-		console.log(userId);
 		_currentUserId = userId;
+	}
+
+	function clearSession(){
+			_currentUserId = false;
 	}
 
 	var UserStore = {
@@ -20,9 +23,6 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'],
 		},
 		currentUser: function(){
 			return _currentUserId;
-		},
-		clearSession: function(){
-			_currentUserId = {};
 		}
 	};
 
@@ -35,8 +35,8 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'],
 				sessioningUser(action.userId);
 				UserStore.emitChange();
 				break;
-			case UserConstants.RECEIVE_RAW_UserS:
-
+			case UserConstants.ClEAR_USER_ID:
+				clearSession();
 				UserStore.emitChange();
 				break;				
 		}

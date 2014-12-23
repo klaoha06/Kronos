@@ -21,27 +21,19 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
         this.setState(getStateFromStores());
       },
       FBlogin: function() {
-        var that = this;
         FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
-            UserUtils.logIn(function(result){
-              that.setState({loggedIn: result});
-            });
+            UserUtils.logIn();
           } else {
-            UserUtils.logIn(function(result){
-              that.setState({loggedIn: result});
-            });
+            UserUtils.logIn();
           }
         });
       },
       FBlogout: function() {
-        var that = this;
-        UserUtils.logOut(function(result){
-          that.setState({loggedIn: result});
-        });
+        UserUtils.logOut();
       },
       render: function() {
-        if (this.state.loggedIn) {
+        if ($.cookie('access_token')) {
           return (
             <div>
               <UserPageButton />
