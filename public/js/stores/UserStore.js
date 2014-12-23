@@ -1,7 +1,7 @@
 define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'], function(AppDispatcher, UserConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
-	var _currentUserId = {};
+	var _currentUserId = false;
 
 	function sessioningUser(userId) {
 		_currentUserId = userId;
@@ -31,7 +31,7 @@ define(['dispatcher/AppDispatcher', 'constants/UserConstants', 'event-emitter'],
 
 		switch(action.actionType){
 
-			case UserConstants.RECIEVE_USER_ID:
+			case UserConstants.RECEIVE_USER_ID:
 				sessioningUser(action.userId);
 				UserStore.emitChange();
 				break;
