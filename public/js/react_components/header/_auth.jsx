@@ -3,7 +3,6 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
   {
     GroupAPI.retrieveSubscribedGroups();
     EventAPI.retrieveEvents();
-
   }
   function getStateFromStores(){
     return{

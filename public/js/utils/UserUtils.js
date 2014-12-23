@@ -2,7 +2,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
 
   var UserUtils = {
 
-    logIn: function(callback){
+    logIn: function(){
       FB.login(function(response) {
         if (response.authResponse) {
           //Setting Cookie
@@ -33,6 +33,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
                 }).success(function(data){
                    localStorage.setItem('userId', data);
                    UserActions.recieveUserId(data);
+                   document.location.href="/";
                 }).fail(function(data){
                    console.log(data.statusText);
                 });
@@ -40,12 +41,11 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
           );
        } else {
         console.log('User cancelled login or did not fully authorize.');
-        callback(false);
       }
     }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
   },
 
-  logOut: function(callback) {
+  logOut: function() {
     //Log Out of FB
     FB.logout(function(response) {
       UserActions.deleteUserId();

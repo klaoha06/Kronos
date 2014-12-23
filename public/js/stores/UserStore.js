@@ -1,4 +1,4 @@
-define(['dispatcher/KronosDispatcher', 'constants/UserConstants', 'event-emitter'], function(Dispatcher, UserConstants, events){
+define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitter'], function(Dispatcher, KronosConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
 	var _currentUserId = false;
@@ -31,11 +31,11 @@ define(['dispatcher/KronosDispatcher', 'constants/UserConstants', 'event-emitter
 
 		switch(action.actionType){
 
-			case UserConstants.RECEIVE_USER_ID:
+			case KronosConstants.RECEIVE_USER_ID:
 				sessioningUser(action.userId);
 				UserStore.emitChange();
 				break;
-			case UserConstants.ClEAR_USER_ID:
+			case KronosConstants.ClEAR_USER_ID:
 				clearSession();
 				UserStore.emitChange();
 				break;				
