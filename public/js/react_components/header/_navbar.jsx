@@ -1,9 +1,6 @@
 define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/header/_auth'], function(React, $, Router, api, Auth){
 	var Link = Router.Link;
-	
-
-
-	var Navbar = React.createClass({
+		var Navbar = React.createClass({
 		render: function() {
 			var user = {id: localStorage.getItem('userId')};
 			console.log(user.id)
