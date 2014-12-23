@@ -3,8 +3,7 @@ define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServe
 
 		retrieveSubscribedGroups: function(){
 			var user_id = localStorage.getItem('userId');
-			console.log("USSER ID: " + user_id);
-			var url = "/users/"+user_id+"/subscriptions";
+			var url = "/users/"+user_id+"/groups";
 
 			var that = this;
 			//Run once to load
@@ -16,17 +15,7 @@ define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServe
 			}).fail(function(data){
 				console.log("FAILED REQUEST");
 			});
-			//Set interval to continue long polling 
-			setInterval(function(){
-				$.ajax({
-				url: apiUrl + url,
-				dataType: 'json'
-				}).done(function(data){
-					GroupServerActions.loadAllGroups(data);
-				}).fail(function(data){
-					console.log("FAILED REQUEST");
-				});
-			}, 5000);
+
 
 		},
 		unsubscribeGroup: function(id){

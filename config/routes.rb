@@ -2,12 +2,17 @@ Rails.application.routes.draw do
   resources :auths, except: [:new, :edit]
   namespace :api do
     namespace :v0 do 
-      
-      resources :auths
+      resources :auths  
       resources :calendars
-      resources :groups
+      
+      resources :events, :except => :index
+      resources :groups, :except => :index do
+        collection do
+          get 'popular', :to => :popular
+        end
+      end
       resources  :users do
-        resources :events do
+        resources :events, :only => :index do
           collection do
             post 'provider', to: :create_from_provider
           end
@@ -19,15 +24,14 @@ Rails.application.routes.draw do
            get 'current_user', to: :current_user
            get 'clear_session', to: :clear_session
         end
-        get 'subscriptions', to: :subscriptions
-        delete 'unsubscribe_group', to: :unsubscribe_group
-      end
-    
-      get 'popular', :to => "application#popular"
 
+        resources :groups, :only => [:index]
+        delete 'unsubscribe_group', to: 'group#unsubscribe_group'
+      end
 
     end
   end
+
 
 
 

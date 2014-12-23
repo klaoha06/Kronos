@@ -1,4 +1,4 @@
-define(['dispatcher/AppDispatcher', 'constants/GroupConstants', 'event-emitter'], function(AppDispatcher, GroupConstants, events){
+define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitter'], function(Dispatcher, Constants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
 	var _subscribedGroups = {};
@@ -39,17 +39,21 @@ define(['dispatcher/AppDispatcher', 'constants/GroupConstants', 'event-emitter']
 		}
 	};
 
+<<<<<<< HEAD
 	GroupStore.dispatchToken = AppDispatcher.register(function(payload){
+=======
+	GroupStore.dispatchToken = Dispatcher.register(function(payload){
+>>>>>>> development
 		var action = payload.action;
 		var text;
 
 		switch(action.actionType){
 
-			case GroupConstants.GROUP_UNSUBSCRIBE:
+			case Constants.GROUP_UNSUBSCRIBE:
 				GroupStore.unsubscribeFromGroup(action.id);
 				GroupStore.emitChange();
 				break;
-			case GroupConstants.RECEIVE_RAW_GROUPS:
+			case Constants.RECEIVE_RAW_GROUPS:
 				_addGroups(action.rawGroups);
 				GroupStore.emitChange();
 				break;				

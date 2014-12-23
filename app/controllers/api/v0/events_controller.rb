@@ -3,9 +3,20 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
-
-    render json: @events
+    # For now just returning all events in the future and all events in the past
+    # We will need to fix this so that only events that this particular user should
+    # see actually show up. 
+    futureEvents = []
+    Event.where("start_time >= ?", Time.now).order(:start_time).each do |event|
+      user = User.find(event.creator_id)
+      futureEvents.push({:eventInfo => event, :creatorInfo => user})
+    end
+    pastEvents = []
+    Event.where("start_time < ?", Time.now).order(:start_time).each do |event|
+      user = User.find(event.creator_id)
+      pastEvents.push({:eventInfo => event, :creatorInfo => user})
+    end
+    render json: {futureEvents: futureEvents, pastEvents: pastEvents}
   end
 
   # GET /events/1
