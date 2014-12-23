@@ -39,11 +39,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		}
 	};
 
-<<<<<<< HEAD
-	GroupStore.dispatchToken = AppDispatcher.register(function(payload){
-=======
 	GroupStore.dispatchToken = Dispatcher.register(function(payload){
->>>>>>> development
 		var action = payload.action;
 		var text;
 

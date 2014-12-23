@@ -57,7 +57,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
     // Clear Client
     localStorage.clear();
     document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    // document.location.href="/";
+    document.location.href="/";
   },
 
   };
