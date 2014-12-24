@@ -42,7 +42,9 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
           );
         } else {
           return (
-            <button id='logInOut' onClick={this.FBlogin}>Log In</button>
+            <div>
+              <button id='logInOut' onClick={this.FBlogin}>Log In</button>
+            </div>
           );
         };
       }

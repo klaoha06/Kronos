@@ -15,7 +15,8 @@ require.config({
        "flux": "vendor/flux",
        "event-emitter": "vendor/eventemitter",
        "jquery-cookie": "vendor/jquery.cookie",
-       "moment": "vendor/moment.min"
+       "moment": "vendor/moment.min",
+       "jqueryUI": "vendor/jquery-ui/jquery-ui.min"
       },
       shim:    {
         'react-router-shim': {

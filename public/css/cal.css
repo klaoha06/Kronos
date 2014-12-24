@@ -13,7 +13,7 @@
 }
 
 #console {
-  display:block;
+  display:flex;
   position: relative;
   float: right;
   top: 50%;
@@ -25,10 +25,15 @@
   height: 45px;
   border-radius: 150px;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 #logInOut {
-  /*margin-bottom: 30px;*/
+  margin-bottom: 5%;
+}
+
+#createEvent {
+  margin-top: 25%;
 }
 
 #test{

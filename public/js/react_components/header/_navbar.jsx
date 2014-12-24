@@ -11,8 +11,9 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 				        <Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
 						<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
 						<div id="console">
+								<CreateEvent />
 			        	<Auth />
-			        	</div>
+			      </div>
 			        </div>
 			    );
 			}
@@ -21,11 +22,22 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 			    <div id="navbar">
 					<Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
 			        <div id="console">
+			        	<CreateEvent />
 			        	<Auth />
 			        </div>
 			    </div>
 			    )
-			}
+				}
+		  }
+		});
+
+		var CreateEvent = React.createClass({
+		  render: function() {
+		    return (
+        	<Link to="CreateEvent">
+	        	<button id="createEvent">Create Event</button>
+        	</Link>
+		    );
 		  }
 		});
 
