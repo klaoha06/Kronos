@@ -41,6 +41,9 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActi
 			      	Location: <input type="text" name="location"/>
 			      </p>
 			      <p>
+			      	Url: <input type="text" name="externalUri"/>
+			      </p>
+			      <p>
 			      	Upload Pictures for This Event: <input type="file" />
 			      </p>
 			      <fieldset>
