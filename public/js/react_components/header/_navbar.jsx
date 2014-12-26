@@ -3,7 +3,6 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 		var Navbar = React.createClass({
 		render: function() {
 			var user = {id: localStorage.getItem('userId')};
-			console.log(user.id)
 			if(user.id !== null){
 			    return (
 			        <div id="navbar">

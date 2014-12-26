@@ -1,4 +1,4 @@
-define(['react', 'jsx!react_components/user/_calendar', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/header/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 'jsx!react_components/user/_user', 'jsx!react_components/events/_feed', 'jsx!react_components/events/_show', 'jsx!react_components/events/_createEvent'], function(React, UserCalendar, Router, Group, Navbar, Sidebar, Calendar, User, Feed, Event, CreateEvent){
+define(['react', 'jsx!react_components/user/_calendar', 'react-router', 'jsx!react_components/group/_show', 'jsx!react_components/header/_navbar', 'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 'jsx!react_components/user/_users', 'jsx!react_components/events/_feed', 'jsx!react_components/events/_show', 'jsx!react_components/events/_createEvent'], function(React, UserCalendar, Router, Group, Navbar, Sidebar, Calendar, User, Feed, Event, CreateEvent){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
 
