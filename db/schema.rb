@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141210134636) do
   create_table "calendars", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
-    t.boolean  "public",     default: false
+    t.boolean  "share",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20141210134636) do
     t.string   "owner_id"
     t.string   "my_status"
     t.text     "description"
-    t.boolean  "public",           default: false
+    t.boolean  "share",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

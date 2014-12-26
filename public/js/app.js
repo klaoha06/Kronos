@@ -16,7 +16,10 @@ require.config({
        "event-emitter": "vendor/eventemitter",
        "jquery-cookie": "vendor/jquery.cookie",
        "moment": "vendor/moment.min",
-       "jqueryUI": "vendor/jquery-ui/jquery-ui.min"
+       "picker": "vendor/pickadate/picker",
+       "pickadate": "vendor/pickadate/picker.date",
+       "pickatime": "vendor/pickadate/picker.time",
+       "pickalegacy": "vendor/pickadate/legacy"
       },
       shim:    {
         'react-router-shim': {

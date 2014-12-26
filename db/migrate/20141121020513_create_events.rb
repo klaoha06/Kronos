@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :start_time, :end_time
       t.string :name, :location, :time_zone, :cover_pic, :provider, :external_uri, :owner_name, :owner_id, :my_status
       t.text :description
-      t.boolean :public, default: false
+      t.boolean :share, default: false
       t.timestamps
     end
   end

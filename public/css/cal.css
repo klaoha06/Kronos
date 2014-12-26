@@ -1,3 +1,4 @@
+/* NAVBAR*/
 #navbar {
   padding-bottom: 10px;
   border-bottom: 1px solid black;
@@ -32,11 +33,6 @@
 }
 
 #createEvent {
-}
-
-#test{
-  width:300px;
-  height:100px; 
 }
 
 #main-panel {
