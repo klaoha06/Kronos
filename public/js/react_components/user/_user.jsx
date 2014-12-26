@@ -1,93 +1,49 @@
-define(['react'], function(React) {
+define(['react', 'serverSetup', 'jsx!react_components/user/_profile'], function(React, api, UserProfile) {
 
 	var UserPage = React.createClass({
-		getInitialState: function() {
-			return {FBEvents: []};
+		getInitialState: function(){
+			return {data: []};
 		},
 
-		loadEventsFromFB: function(callback) {
-			// By default this will only return events within the last two weeks, check FB api and use until or since parameters to modify this range.
+		loadDataFromServer: function() {
 			var that = this;
-				FB.api(
-				    "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
-				    function (response) {
-				      if (response && !response.error) {
-				        that.setState({FBEvents: response.data});
-				        $.ajax({
-				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events/provider',
-				        	type: 'POST',
-				        	contentType: "application/json; charset=utf-8",
-				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
-				        }).success(function(data){
-				        	// console.log(data);
-				        }).fail(function(data){
-				        	console.log(data.statusText);
-				        });
-				      } else {
-							  console.log(response.error.message);
-							  localStorage.clear();
-							  document.location.href="/";
-							  alert('You session has timed out or you are not logged in FB please log in')
-				      }
-				    }
-				);
+			var url = window.location.href;
+			var userId = url.substring(url.lastIndexOf('/') + 1);
+			$.ajax({
+				url: api + '/users/' + userId,
+				dataType: 'json',
+			}).done(function(data){
+				that.setState({data: data});
+				console.log(that.state);
+			}).fail(function(data){
+				console.log("FAILED REQUEST");
+			});
+		},
+
+		componentDidMount: function () {
+			this.loadDataFromServer();
 		},
 
 		render: function() {
+				return (
+					<div>
+					<h1>{this.state.data.name}</h1>
+					<img src={this.state.data.profile_pic}/>
+					<Subscribe />
+					</div>
+				)
+		}
+	});
+
+	var Subscribe = React.createClass({
+		render: function () {
 			return (
-				<div>
-					<div id="banner"></div>
-					<h1>Hi, {localStorage.getItem('first_name') + " "+localStorage.getItem('last_name')[0] + "."}</h1>
-					<img src={localStorage.getItem('profilePic')}/>
-					<p>Email: {localStorage.getItem('email')}</p>
-					<button id="test" onClick={this.loadEventsFromFB}>Sync With Your Facebook Events</button>
-					<p>Click me! (just show casing we can get events from FB)</p>
-					<FBEventList data={this.state.FBEvents}/>
-				</div>
+				<button>FOLLOW</button>
 			)
-		}
-	});
-
-	var FBEvent = React.createClass({
-		render: function (){
-			return (
-				<div className="event">
-					<hr/>
-					<h4>{this.props.data.name} by {this.props.data.owner.name}</h4>
-					<img src={this.props.data.cover.source}/>
-					<p>Description: {this.props.data.description}</p>
-					<p>Start Time:  {this.props.data.start_time}</p>
-					<p>End Time: {this.props.data.end_time}</p>
-					<p>Location: {this.props.data.location}</p>
-					<p>Timezone:  {this.props.data.timezone}</p>
-					<p>Your Status:  {this.props.data.rsvp_status}</p>
-					<hr/>
-				</div>
-			);
-		}
-	});
-
-	var FBEventList = React.createClass({
-		render: function() {
-		    var FBEventNodes = this.props.data.map(function(event, index) {
-		    	return (
-		    		<div>
-		    		<FBEvent data={event} key={index}>
-		    		</FBEvent>
-		    		</div>
-		    	);
-
-		    });
-
-		    return (
-		    	<div className="FBeventList">
-		    		{FBEventNodes}
-		    	</div>
-		    );
-
 		}
 	});
 
 	return UserPage
 
 });
+
