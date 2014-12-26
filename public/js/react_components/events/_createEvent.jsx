@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActions', 'moment', 'jqueryUI'], function(React, $, Router, api, EventViewActions, moment, jqueryUI){
+define(['react', 'jquery', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'picker', 'pickadate', 'pickatime', 'pickalegacy'], function(React, $, Router, api, moment, EventAPI, picker, Pickadate){
 	var ENTER_KEY_CODE = 13;
 
 	var EventCreator = React.createClass({
@@ -8,51 +8,51 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActi
 	  },
 	  componentDidMount: function() {
 	  	$(function() {
-	  		var currentDate = new Date();
-	  	  $( ".datepicker" ).datepicker();
+	  		// var currentDate = new Date();
+	  	  $( ".datepicker" ).pickadate({
+			    // format: 'yyyy/mm/dd',
+		     //    formatSubmit: 'yyyy/mm/dd',
+		     //    hiddenPrefix: 'prefix__',
+		     //    hiddenSuffix: '__suffix',
+				    min: true,
+				    editable: true
+					});
+	  	  $( ".timepicker" ).pickatime({
+	  	  	editable: true
+	  	  });
 	  	});
 	  },
 	  handleSubmit: function(e) {
 	  	e.preventDefault();
-	  	// getting values from form
-	  	var title = this.refs.title.getDOMNode().value.trim();
+	  	// Getting values from form
+	  	var name = this.refs.name.getDOMNode().value.trim();
 	  	var description = this.refs.description.getDOMNode().value.trim();
 	  	var startDate = this.refs.startDate.getDOMNode().value.trim();
+	  	var startTime = this.refs.startTime.getDOMNode().value.trim();
 	  	var endDate = this.refs.endDate.getDOMNode().value.trim();
+	  	var endTime = this.refs.endTime.getDOMNode().value.trim();
 	  	var location = this.refs.location.getDOMNode().value.trim();
 	  	var url = this.refs.externalUri.getDOMNode().value.trim();
 	  	var share = this.refs.share.getDOMNode().value.trim();
-	  	// validation
-	  	if (!title || !startDate || !share) {
+	  	// Validation
+	  	if (!name || !startDate || !share) {
+	  		alert('please input at least a tile and a start time')
 	  	  return;
 	  	} else {
 	  		// Send data to server
+	  		var data = {event:{
+	  			name: name,
+	  			description: description,
+	  			start_time: startDate + " " + startTime,
+	  			end_time: endDate + " " + endTime,
+	  			location: location,
+	  			external_uri: url,
+	  			share: share
+	  		}};
+	  		console.log(data);
+	  		EventAPI.createEvent(data);
 	  	}
 	  },
-
-	  // var CommentForm = React.createClass({
-	  //   handleSubmit: function(e) {
-	  //     e.preventDefault();
-	  //     var author = this.refs.author.getDOMNode().value.trim();
-	  //     var text = this.refs.text.getDOMNode().value.trim();
-	  //     if (!text || !author) {
-	  //       return;
-	  //     }
-	  //     this.props.onCommentSubmit({author: author, text: text});
-	  //     this.refs.author.getDOMNode().value = '';
-	  //     this.refs.text.getDOMNode().value = '';
-	  //     return;
-	  //   },
-	  //   render: function() {
-	  //     return (
-	  //       <form className="commentForm" onSubmit={this.handleSubmit}>
-	  //         <input type="text" placeholder="Your name" ref="author" />
-	  //         <input type="text" placeholder="Say something..." ref="text" />
-	  //         <input type="submit" value="Post" />
-	  //       </form>
-	  //     );
-	  //   }
-	  // });
 
 	  render: function() {
 
@@ -61,7 +61,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActi
 	    		<h1>Create Your New Event!</h1>
 		    	<form onSubmit={this.handleSubmit} className="eventForm">
 		    		Event Name:<br/>
-		    		<input type="text" ref="title"/>
+		    		<input type="text" ref="name"/>
 		    		<br/><br/>
 		    		Description:<br/>
 			      <textarea
@@ -70,9 +70,18 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActi
 			      <br/><br/>
 			      <p>
 			      	Start Date: <input type="text" ref="startDate" className="datepicker"/>
+			      </p>  
+			      <p>
+			      	Start Time: <input type="text" ref="startTime" className="timepicker"/>
 			      </p>
 			      <p>
 			      	End Date: <input type="text" ref="endDate" className="datepicker"/>
+			      </p>
+			      <p>
+			      	End Time: <input type="text" ref="endTime" className="timepicker"/>
+			      </p>
+			      <p>
+			      	Have to do Time Zone Picker
 			      </p>
 			      <p>
 			      	Location: <input type="text" ref="location"/>
@@ -86,8 +95,8 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActi
 			      <fieldset>
 			        <label for="share">Share this event?</label>
 			        <select ref="share" id="share">
-			          <option defaultValue="selected">Yes!</option>
-			          <option>No</option>
+			          <option value="true">Yes!</option>
+			          <option value="false">No</option>
 			        </select>
 			       </fieldset>
 

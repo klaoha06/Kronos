@@ -16,12 +16,27 @@ require.config({
        "event-emitter": "vendor/eventemitter",
        "jquery-cookie": "vendor/jquery.cookie",
        "moment": "vendor/moment.min",
-       "jqueryUI": "vendor/jquery-ui/jquery-ui.min"
+       "picker": "vendor/pickadate/picker",
+       "pickadate": "vendor/pickadate/picker.date",
+       "pickatime": "vendor/pickadate/picker.time",
+       "pickalegacy": "vendor/pickadate/legacy"
       },
+      // bundles: {
+      //   'datepicker': ['picker', 'pickadate', 'pickalegacy'],
+      //   'timepicker': ['picker', 'pickatime', 'pickalegacy']
+      // },
       shim:    {
         'react-router-shim': {
           exports: 'React'
         },
+       // 'pickadate':{
+       //  deps:['picker', 'pickadate', 'pickalegacy'],
+       //  exports: 'Pickadate'
+       // },
+       // 'pickatime':{
+       //  deps:['picker', 'pickatime', 'pickalegacy'],
+       //  exports: 'Pickatime'
+       // },
         'react-router': ['react-router-shim']
       },
       jsx: {

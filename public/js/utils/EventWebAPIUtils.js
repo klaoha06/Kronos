@@ -16,9 +16,22 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 				console.log("FAILED REQUEST");
 			});
 
+		},
+		createEvent: function(data) {
+			 $.ajax({
+			  url: apiUrl + '/events',
+			  dataType: 'json',
+			  type: 'POST',
+			  data: data
+			}).success(function(data){
+				console.log(data);
+			}).fail(function(data){
+			   console.log(data.statusText);
+			});
 		}
 
-	}
+	};
 
 	return EventAPI;	
+
 });
