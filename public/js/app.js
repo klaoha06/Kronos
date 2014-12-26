@@ -21,22 +21,10 @@ require.config({
        "pickatime": "vendor/pickadate/picker.time",
        "pickalegacy": "vendor/pickadate/legacy"
       },
-      // bundles: {
-      //   'datepicker': ['picker', 'pickadate', 'pickalegacy'],
-      //   'timepicker': ['picker', 'pickatime', 'pickalegacy']
-      // },
       shim:    {
         'react-router-shim': {
           exports: 'React'
         },
-       // 'pickadate':{
-       //  deps:['picker', 'pickadate', 'pickalegacy'],
-       //  exports: 'Pickadate'
-       // },
-       // 'pickatime':{
-       //  deps:['picker', 'pickatime', 'pickalegacy'],
-       //  exports: 'Pickatime'
-       // },
         'react-router': ['react-router-shim']
       },
       jsx: {

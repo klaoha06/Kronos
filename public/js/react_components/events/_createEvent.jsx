@@ -8,13 +8,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'moment', 'utils/Event
 	  },
 	  componentDidMount: function() {
 	  	$(function() {
-	  		// var currentDate = new Date();
 	  	  $( ".datepicker" ).pickadate({
-			    // format: 'yyyy/mm/dd',
-		     //    formatSubmit: 'yyyy/mm/dd',
-		     //    hiddenPrefix: 'prefix__',
-		     //    hiddenSuffix: '__suffix',
-				    min: true,
 				    editable: true
 					});
 	  	  $( ".timepicker" ).pickatime({

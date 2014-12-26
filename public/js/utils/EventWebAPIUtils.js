@@ -26,7 +26,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 			}).success(function(data){
 				console.log(data);
 			}).fail(function(data){
-			   console.log(data.statusText);
+			  console.log(data.statusText);
 			});
 		}
 
