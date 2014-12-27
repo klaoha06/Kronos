@@ -19,7 +19,9 @@ require.config({
        "picker": "vendor/pickadate/picker",
        "pickadate": "vendor/pickadate/picker.date",
        "pickatime": "vendor/pickadate/picker.time",
-       "pickalegacy": "vendor/pickadate/legacy"
+       "pickalegacy": "vendor/pickadate/legacy",
+       "jquery-ui-custom": "vendor/fullcalendar/lib/jquery-ui.custom.min",
+       "fullcalendar": "vendor/fullcalendar/fullcalendar.min",
       },
       shim:    {
         'react-router-shim': {
