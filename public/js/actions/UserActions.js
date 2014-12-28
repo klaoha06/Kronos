@@ -1,4 +1,4 @@
-define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'utils/UserUtils'], function(Dispatcher, KronosConstants, UserUtils){
+define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'utils/UserUtils'], function(Dispatcher, KronosConstants){
 	var UserActions = {
 		recieveUserId: function(userId) {
 			Dispatcher.handleServerAction({

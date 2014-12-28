@@ -41,8 +41,13 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def show
-		user = User.find_by(params[:id])
+		user = User.find(params[:id].to_i)
 		render json: user
+	end
+
+	def show_user_cals
+		calendars = Calendar.where(creator_id: request.headers["HTTP_USER_ID"]);
+		render json: calendars
 	end
 
 	def clear_session

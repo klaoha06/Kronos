@@ -1,4 +1,5 @@
 class Calendar < ActiveRecord::Base
+	validates :name, presence: true
   belongs_to :creator, :class_name => "User"
   has_many :events
   has_many :user_addedcalendars, :foreign_key => "calendar_id"

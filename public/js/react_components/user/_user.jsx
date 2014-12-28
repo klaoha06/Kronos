@@ -5,23 +5,20 @@ define(['react', 'serverSetup', 'jsx!react_components/user/_profile'], function(
 			return {data: []};
 		},
 
-		loadDataFromServer: function() {
+		loadDataFromServer: function(userId) {
 			var that = this;
-			var url = window.location.href;
-			var userId = url.substring(url.lastIndexOf('/') + 1);
 			$.ajax({
 				url: api + '/users/' + userId,
 				dataType: 'json',
 			}).done(function(data){
 				that.setState({data: data});
-				console.log(that.state);
 			}).fail(function(data){
 				console.log("FAILED REQUEST");
 			});
 		},
 
 		componentDidMount: function () {
-			this.loadDataFromServer();
+			this.loadDataFromServer(this.props.userId);
 		},
 
 		render: function() {
