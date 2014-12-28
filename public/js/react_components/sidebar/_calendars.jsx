@@ -34,11 +34,18 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 					</div>
 				)
 			});
-			return (
-				<div className="UserCals">
-					{CalNodes}
-				</div>
-			)
+
+			if (this.props.data.length < 1) {
+				return (
+					<h4>You have not create a calendar! Please Create one.</h4>
+				)
+			} else {			
+				return (
+					<div className="UserCals">
+						{CalNodes}
+					</div>
+				)
+			}
 		}
 	});
 

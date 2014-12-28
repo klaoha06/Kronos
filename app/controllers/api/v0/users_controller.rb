@@ -47,7 +47,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def show_user_cals
 		auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
-		calendars = Calendar.find_by_creator_id(auth.user_id);
+		calendars = Calendar.where(creator_id: auth.user_id);
 		render json: calendars
 	end
 
