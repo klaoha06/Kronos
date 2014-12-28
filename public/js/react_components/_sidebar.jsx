@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore'], function(React, $, Router, api, GroupStore){
+define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, api, GroupStore, MyCalendars){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -73,9 +73,9 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore'], f
 		},
 		render: function(){
 			return renderGroups(this);
-		
-		},
+		}
 	});
+
 
 	var Sidebar = React.createClass({
 		render: function() {
@@ -88,10 +88,13 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore'], f
 		      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
 		      		<PopularGroups name= "popular" url="/groups/popular" />
 		      	</ul>
+		      <h1>My Calendars</h1>
+		      	<MyCalendars />
 		      </div>
 		    );
 		  }	
 	});
 
 	return Sidebar;
+
 });

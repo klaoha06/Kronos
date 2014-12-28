@@ -1,7 +1,7 @@
 define(['react', 'jquery', 'moment', 'fullcalendar' ], function(React, $, moment, fullCalendar) {
   var Main = React.createClass({
     getInitialState: function () {
-      return {events:[]};
+      return {users_events:[], subscribed_events:[]};
     },
 
     componentDidMount: function() {

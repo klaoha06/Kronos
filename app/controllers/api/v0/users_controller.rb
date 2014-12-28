@@ -41,8 +41,18 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def show
-		user = User.find_by(params[:id])
+		user = User.find(params[:id].to_i)
 		render json: user
+	end
+
+	def show_user_cals
+		p params
+		auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
+		user = User.find(auth.user_id)
+
+		calendars = user.calendars
+		p calendars
+		render json: calendars
 	end
 
 	def clear_session

@@ -14,8 +14,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		});
 	}
 
-
-
 	var GroupStore = {
 		emit: function(event){
 			EventEmitter.emit(event);
@@ -34,7 +32,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 			for (var id in _subscribedGroups){
 				groups.push(_subscribedGroups[id]);
 			}
-			var sortGroups = "" //Can sort the groups or something
+			var sortGroups = ""; //Can sort the groups or something
 			return groups;
 		}
 	};

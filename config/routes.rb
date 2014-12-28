@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         end
       end
       resources  :users do
+        member do
+          get 'calendars', to: :show_user_cals
+        end
         resources :events, :only => :index do
           collection do
             post 'provider', to: :create_from_provider
