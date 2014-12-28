@@ -18,10 +18,21 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 
 		render: function() {
 			return (
-				<UserCalsList data={this.state.cals}/>
+				<div>
+					<UserCalsList data={this.state.cals}/>
+					<CreateCal />
+				</div>
 			)
 		}
 
+	});
+
+	var CreateCal = React.createClass({
+		render: function() {
+			return (
+				<button>Create New Calendar</button>
+			);
+		}
 	});
 
 	var UserCalsList = React.createClass({

@@ -80,18 +80,31 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'j
 	var Sidebar = React.createClass({
 		render: function() {
 			var user_id = localStorage.getItem('userId')
-		    return (
-		      <div id="sidebar" className="debug col span_2">
-		      {/*<i className="fa fa-exchange" id="sideBarSlider" onClick={this.toggleSlider}></i>*/}
-		      <h1>Groups </h1>
-		      	<ul id="sidebarList" className="debug">
-		      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
-		      		<PopularGroups name= "popular" url="/groups/popular" />
-		      	</ul>
-		      <h1>My Calendars</h1>
-		      	<MyCalendars />
-		      </div>
-		    );
+				if (user_id) {
+					return (
+					  <div id="sidebar" className="debug col span_2">
+					  {/*<i className="fa fa-exchange" id="sideBarSlider" onClick={this.toggleSlider}></i>*/}
+					  <h1>Groups </h1>
+					  	<ul id="sidebarList" className="debug">
+					  		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
+					  		<PopularGroups name= "popular" url="/groups/popular" />
+					  	</ul>
+					<h1>My Calendars</h1>
+						<MyCalendars />
+					</div>
+					);
+				} else {
+			    return (
+			      <div id="sidebar" className="debug col span_2">
+			      {/*<i className="fa fa-exchange" id="sideBarSlider" onClick={this.toggleSlider}></i>*/}
+			      <h1>Groups </h1>
+			      	<ul id="sidebarList" className="debug">
+			      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
+			      		<PopularGroups name= "popular" url="/groups/popular" />
+			      	</ul>
+			      </div>
+			    );
+				}
 		  }	
 	});
 
