@@ -63,6 +63,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 	var Calendar = React.createClass({
 		handleClick: function(e){
 			console.log(this.props.data.id)
+			// Show all Events on the main calendar for this calendar id
 		},
 		render: function () {
 			return (

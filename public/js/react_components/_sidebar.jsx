@@ -80,7 +80,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'j
 	var Sidebar = React.createClass({
 		render: function() {
 			var user_id = localStorage.getItem('userId')
-				if (user_id) {
+				if ($.cookie('access_token')) {
 					return (
 					  <div id="sidebar" className="debug col span_2">
 					  {/*<i className="fa fa-exchange" id="sideBarSlider" onClick={this.toggleSlider}></i>*/}
