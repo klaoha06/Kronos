@@ -16,6 +16,7 @@ require.config({
        "event-emitter": "vendor/eventemitter",
        "jquery-cookie": "vendor/jquery.cookie",
        "moment": "vendor/moment.min",
+       "magnific-popup": "vendor/magnific-popup/jquery.magnific-popup",
        "picker": "vendor/pickadate/picker",
        "pickadate": "vendor/pickadate/picker.date",
        "pickatime": "vendor/pickadate/picker.time",

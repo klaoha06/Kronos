@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils'], function(React, $, Router, api, CalendarStore, CalendarActions, CalendarAPI){
+define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
 	function getCalsStore() {
 		return {cals: CalendarStore.getUserCals()};
 	}
@@ -28,9 +28,45 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 	});
 
 	var CreateCal = React.createClass({
+		componentDidMount: function() {
+			$('.popup-with-form').magnificPopup({
+					type: 'inline',
+					preloader: false,
+					focus: '#name',
+
+					// When elemened is focused, some mobile browsers in some cases zoom in
+					// It looks not nice, so we disable it:
+					// callbacks: {
+					// 	beforeOpen: function() {
+					// 		if($(window).width() < 700) {
+					// 			this.st.focus = false;
+					// 		} else {
+					// 			this.st.focus = '#name';
+					// 		}
+					// 	}
+					// }
+				});
+		},
 		render: function() {
 			return (
-				<button>Create New Calendar</button>
+				<div>
+				<button className="popup-with-form" href="#test-form">Create New Calendar</button>
+				<form id="test-form" className="white-popup-block mfp-hide">
+					<h1>Create Calendar Form</h1>
+					<fieldset>
+						<ol>
+							<li>
+								<label for="name">Name</label>
+								<input id="name" name="name" type="text" placeholder="Name" required=""/>
+							</li>
+							<li>
+								<label for="textarea">Textarea</label><br/>
+								<textarea id="textarea">Try to resize me to see how popup CSS-based resizing works.</textarea>
+							</li>
+						</ol>
+					</fieldset>
+				</form>
+				</div>
 			);
 		}
 	});

@@ -45,15 +45,16 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router', 'jsx!rea
 	
 	var App = React.createClass({
 		render: function () {
+			var style = {border: 0};
 			return(
-          <div id="container">
-						<Navbar />
-            <div id="main-container" className="row gutters">
-							<Sidebar />
-            	<div id="main-panel" className="debug col span_10 cf">
+        <div id="container">
+					<Navbar />
+          <div id="main-container" className="row gutters">
+						<Sidebar />
+          	<div id="main-panel" className="debug col span_10 cf">
 							<RouteHandler />
 						</div>
-          </div>
+        	</div>
 				</div>
 			)
 		}
