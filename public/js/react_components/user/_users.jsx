@@ -8,7 +8,8 @@ define(['react', 'serverSetup', 'jsx!react_components/user/_profile', 'jsx!react
 		},
 
 		render: function() {
-			if (localStorage.getItem('userId') == this.state.userId) {
+			console.log
+			if ($.cookie('user_id') == this.state.userId) {
 				return (
 					<UserProfile />
 				)

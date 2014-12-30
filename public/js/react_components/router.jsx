@@ -33,7 +33,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router', 'jsx!rea
 	      // });
 	      // if ($.cookie('access_token')) {
 	        xhr.setRequestHeader("access_token", $.cookie('access_token'));
-	        xhr.setRequestHeader("user_id", localStorage.getItem('userId'));
+	        xhr.setRequestHeader("user_id", $.cookie('user_id'));
 	      // } else {
 	      //   console.log("can't send data before login or your session has timed out");
 	        // localStorage.clear();

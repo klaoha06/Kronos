@@ -31,7 +31,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
                   type: 'POST',
                   data: localStorage
                 }).success(function(data){
-                   localStorage.setItem('userId', data);
+                   $.cookie('user_id', data,{ expires: date, path: '/' });
                    UserActions.recieveUserId(data);
                    document.location.href="/";
                 }).fail(function(data){

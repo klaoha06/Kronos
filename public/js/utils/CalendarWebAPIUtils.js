@@ -2,7 +2,7 @@ define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActio
 
 	var CalendarAPI = {
 		getUserCals: function(){
-			var url = "/users/"+localStorage.getItem('userId')+"/calendars";
+			var url = "/users/"+$.cookie('user_id')+"/calendars";
 			var that = this;
 			//Run once to load
 			$.ajax({

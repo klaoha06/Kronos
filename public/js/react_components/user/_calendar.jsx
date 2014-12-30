@@ -5,7 +5,6 @@ define(['react', 'jquery', 'moment', 'fullcalendar' ], function(React, $, moment
     },
 
     componentDidMount: function() {
-              
         $('#calendar').fullCalendar({
           header: {
             left: 'prev,next today',
@@ -13,6 +12,15 @@ define(['react', 'jquery', 'moment', 'fullcalendar' ], function(React, $, moment
             right: 'month,agendaWeek,agendaDay'
           },
           defaultDate: '2014-11-12',
+          editable: true,
+          droppable: true,
+          drop: function() {
+            // is the "remove after drop" checkbox checked?
+             if ($('#drop-remove').is(':checked')) {
+              // if so, remove the element from the "Draggable Events" list
+              $(this).remove();
+             }
+           },
           selectable: true,
           selectHelper: true,
           select: function(start, end) {

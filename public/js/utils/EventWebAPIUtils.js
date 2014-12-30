@@ -2,7 +2,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 
 	var EventAPI = {
 		retrieveEvents: function(){
-			var user_id = localStorage.getItem('userId');
+			var user_id = $.cookie('user_id');
 			var url = "/users/"+user_id+"/events";
 
 			var that = this;

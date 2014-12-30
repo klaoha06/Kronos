@@ -79,7 +79,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'j
 
 	var Sidebar = React.createClass({
 		render: function() {
-			var user_id = localStorage.getItem('userId')
+			var user_id = $.cookie('user_id')
 				if ($.cookie('access_token')) {
 					return (
 					  <div id="sidebar" className="debug col span_2">
