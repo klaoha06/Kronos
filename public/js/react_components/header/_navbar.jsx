@@ -3,12 +3,11 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 		var Navbar = React.createClass({
 		render: function() {
 			var user = {id: $.cookie('user_id')};
-			if(user.id !== null){
+			if(user.id !== 'undefined'){
 			    return (
 			        <div id="navbar">
 			        {/*<input id="search" type="text" />*/}
 				        <Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
-						<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
 						<div id="console">
 								<CreateEvent />
 			        	<Auth />
