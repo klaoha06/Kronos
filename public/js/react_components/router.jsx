@@ -63,7 +63,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router', 'jsx!rea
 		<Route handler={App}>
 			<Route name="Groups" path="group/:id" handler={Group} />
 			<Route name="Calendar" path="calendar/:id" handler={Calendar} />
-			<Route name="UserCalendar" path="users/:id/calendar" handler={UserCalendar} />
+			<Route name="UserCalendar" path="users/calendar" handler={UserCalendar} />
 			<Route name="UserPage" path="users/:id" handler={User} />
 			<Route name="Feed" path="/" handler={Feed} />
 			<Route name="CreateEvent" path="event/new" handler={CreateEvent} />
