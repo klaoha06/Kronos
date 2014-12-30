@@ -2,7 +2,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 	var Link = Router.Link;
 		var Navbar = React.createClass({
 		render: function() {
-			var user = {id: localStorage.getItem('userId')};
+			var user = {id: $.cookie('user_id')};
 			if(user.id !== null){
 			    return (
 			        <div id="navbar">

@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'jsx!react_components/user/_profile'], function(React, api, UserProfile) {
+define(['react', 'serverSetup'], function(React, api) {
 
 	var UserPage = React.createClass({
 		getInitialState: function(){
@@ -26,13 +26,13 @@ define(['react', 'serverSetup', 'jsx!react_components/user/_profile'], function(
 					<div>
 					<h1>{this.state.data.name}</h1>
 					<img src={this.state.data.profile_pic}/>
-					<Subscribe />
+					<SubscribeToUser />
 					</div>
 				)
 		}
 	});
 
-	var Subscribe = React.createClass({
+	var SubscribeToUser = React.createClass({
 		render: function () {
 			return (
 				<button>FOLLOW</button>

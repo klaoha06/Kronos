@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
+define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils'], function(React, $, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI){
 	function getCalsStore() {
 		return {cals: CalendarStore.getUserCals()};
 	}
@@ -28,12 +28,11 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 	});
 
 	var CreateCal = React.createClass({
-		componentDidMount: function() {
-			$('.popup-with-form').magnificPopup({
-					type: 'inline',
-					preloader: false,
-					focus: '#name',
-
+		// componentDidMount: function() {
+		// 	$('.popup-with-form').magnificPopup({
+		// 			type: 'inline',
+		// 			preloader: false,
+		// 			focus: '#name',
 					// When elemened is focused, some mobile browsers in some cases zoom in
 					// It looks not nice, so we disable it:
 					// callbacks: {
@@ -45,28 +44,11 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 					// 		}
 					// 	}
 					// }
-				});
-		},
+		// 		});
+		// },
 		render: function() {
 			return (
-				<div>
-				<button className="popup-with-form" href="#test-form">Create New Calendar</button>
-				<form id="test-form" className="white-popup-block mfp-hide">
-					<h1>Create Calendar Form</h1>
-					<fieldset>
-						<ol>
-							<li>
-								<label for="name">Name</label>
-								<input id="name" name="name" type="text" placeholder="Name" required=""/>
-							</li>
-							<li>
-								<label for="textarea">Textarea</label><br/>
-								<textarea id="textarea">Try to resize me to see how popup CSS-based resizing works.</textarea>
-							</li>
-						</ol>
-					</fieldset>
-				</form>
-				</div>
+				<button>Create New Calendar</button>
 			);
 		}
 	});
@@ -97,13 +79,46 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/CalendarStore' 
 	});
 
 	var Calendar = React.createClass({
+		componentDidMount: function() {
+			$('#external-events .fc-event').each(function() {
+
+				// store data so the calendar knows to render an event upon drop
+				$(this).data('event', {
+					title: $.trim($(this).text()), // use the element's text as the event title
+					stick: true // maintain when user navigates (see docs on the renderEvent method)
+				});
+
+				// make the event draggable using jQuery UI
+				$(this).draggable({
+					zIndex: 999,
+					revert: true,      // will cause the event to go back to its
+					revertDuration: 0  //  original position after the drag
+				});
+
+			});
+		},
 		handleClick: function(e){
 			console.log(this.props.data.id)
+			$(e.target).closest("div").find("#external-events").slideToggle();
 			// Show all Events on the main calendar for this calendar id
 		},
 		render: function () {
 			return (
-				<p onClick={this.handleClick}>{this.props.data.name}</p>
+				<div onClick={this.handleClick}>
+					<p>{this.props.data.name}</p>
+					<div id='external-events' className="hide">
+						<h4>Draggable Events</h4>
+						<div className='fc-event'>My Event 1</div>
+						<div className='fc-event'>My Event 2</div>
+						<div className='fc-event'>My Event 3</div>
+						<div className='fc-event'>My Event 4</div>
+						<div className='fc-event'>My Event 5</div>
+						<p>
+							<input type='checkbox' id='drop-remove' />
+							<label for='drop-remove'>remove after drop</label>
+						</p>
+					</div>
+				</div>
 			);
 		}
 	})

@@ -14,7 +14,7 @@ define(['react'], function(React) {
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
 				        $.ajax({
-				        	url: '/api/v0/users/' + localStorage.getItem('userId') +'/events/provider',
+				        	url: '/api/v0/users/' + $.cookie('user_id') +'/events/provider',
 				        	type: 'POST',
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})

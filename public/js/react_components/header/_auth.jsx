@@ -54,7 +54,7 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
     var UserPageButton = React.createClass({
       render: function() {
         return (
-         <a href={"#/users/" + localStorage.getItem("userId")}>
+         <a href={"#/users/" + $.cookie('user_id')}>
            <img id="profilePic" src={localStorage.getItem('profilePic')} />
          </a>
         );
