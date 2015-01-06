@@ -21,6 +21,7 @@ require.config({
        "pickalegacy": "vendor/pickadate/legacy",
        "jquery-ui-custom": "vendor/fullcalendar/lib/jquery-ui.custom.min",
        "fullcalendar": "vendor/fullcalendar/fullcalendar.min",
+       "magnific-popup": "vendor/magnific-popup/jquery.magnific-popup"
       },
       shim:    {
         'react-router-shim': {

@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils'], function(React, $, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI){
+define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
 	function getCalsStore() {
 		return {cals: CalendarStore.getUserCals()};
 	}
@@ -28,27 +28,50 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 	});
 
 	var CreateCal = React.createClass({
-		// componentDidMount: function() {
-		// 	$('.popup-with-form').magnificPopup({
-		// 			type: 'inline',
-		// 			preloader: false,
-		// 			focus: '#name',
-					// When elemened is focused, some mobile browsers in some cases zoom in
-					// It looks not nice, so we disable it:
-					// callbacks: {
-					// 	beforeOpen: function() {
-					// 		if($(window).width() < 700) {
-					// 			this.st.focus = false;
-					// 		} else {
-					// 			this.st.focus = '#name';
-					// 		}
-					// 	}
-					// }
-		// 		});
-		// },
+		componentDidMount: function() {
+			$('.popup-with-form').magnificPopup({
+					type: 'inline',
+					preloader: false,
+					focus: '#name',
+					callbacks: {
+						beforeOpen: function() {
+							if($(window).width() < 700) {
+								this.st.focus = false;
+							} else {
+								this.st.focus = '#name';
+							}
+						}
+					}
+				});
+		},
+		handleSubmit: function(e) {
+			e.preventDefault();
+			console.log(this.refs.title.getDOMNode().value.trim());
+			console.log(this.refs.share.getDOMNode().value.trim());
+			// Optimistically update Store first then send data back the server
+			$.magnificPopup.close();
+		},
 		render: function() {
 			return (
-				<button>Create New Calendar</button>
+				<div>
+				<a className="popup-with-form" href="#test-form">Open form</a>
+				<form id="test-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
+					<h1>Form</h1>
+					<fieldset>
+						<ol>
+							<li>
+								<label for="name">Name</label>
+								<input id="name" ref="title" type="text" placeholder="Name" required=""/>
+							</li>
+							<li>
+								<input type="checkbox" ref="share" value="true" defaultChecked>Share?</input>
+								<br/>
+							</li>
+						</ol>
+					</fieldset>
+					<input type="submit" value="Create Calendar"/>
+				</form>
+				</div>
 			);
 		}
 	});
