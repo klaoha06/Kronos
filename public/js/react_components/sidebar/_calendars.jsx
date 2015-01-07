@@ -75,16 +75,16 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 				<form id="cal-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
 					<h1>Create New Calendar</h1>
 					<fieldset>
-						<ol>
+						<ul>
 							<li>
-								<label for="name">Name</label>
+								<label for="name">Name </label>
 								<input id="name" ref="title" type="text" placeholder="Name" required=""/>
-							</li>
+							</li><br/>
 							<li>
-								<input type="checkbox" ref="share" value="true" defaultChecked>Share?</input>
+								<input type="checkbox" ref="share" value="true" defaultChecked> Share? </input>
 								<br/>
-							</li>
-						</ol>
+							</li><br/>
+						</ul>
 					</fieldset>
 					<input type="submit" value="Create Calendar"/>
 				</form>

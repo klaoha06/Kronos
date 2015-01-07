@@ -5,13 +5,15 @@ define(['react', 'jquery', 'moment', 'fullcalendar' ], function(React, $, moment
     },
 
     componentDidMount: function() {
+        
+
+        // FullCalendar
         $('#calendar').fullCalendar({
           header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
           },
-          defaultDate: '2014-11-12',
           editable: true,
           droppable: true,
           drop: function() {

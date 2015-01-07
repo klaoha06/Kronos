@@ -2,7 +2,8 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
   function loadDataOnLogin()
   {
     GroupAPI.retrieveSubscribedGroups();
-    EventAPI.retrieveEvents();
+    EventAPI.retrieveUserEvents();
+    CalendarAPI.retrieveCals();
   }
   function getStateFromStores(){
     return{

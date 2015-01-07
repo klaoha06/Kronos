@@ -1,7 +1,7 @@
 define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitter'], function(Dispatcher, KronosConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
-	var _calendars = {};
+	var _myCalendars = {};
 
 	function sessioningCalendars(CalendarsId) {
 		_currentCalendarsId = CalendarsId;
@@ -18,7 +18,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 	    EventEmitter.on(CHANGE_EVENT, callback);
 		},
 		getUserCals: function () {
-			return _calendars;
+			return _myCalendars;
 		}
 	};
 
@@ -28,11 +28,11 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		switch(action.actionType){
 
 			case KronosConstants.RECEIVE_USER_CALS:
-				_calendars = action.cals;
+				_myCalendars = action.cals;
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.UPDATE_LAST_CAL:
-				_calendars[_calendars.length - 1] = action.cal;
+				_myCalendars[_myCalendars.length - 1] = action.cal;
 				CalendarsStore.emitChange();
 				break;
 		}

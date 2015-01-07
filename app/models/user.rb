@@ -9,4 +9,10 @@ class User < ActiveRecord::Base
   has_many :addedevents, :through => :user_addedevents
   has_many :user_groups, :foreign_key => "user_id"
   has_many :groups, :class_name => "Group", :through => :user_groups 
+
+  after_create :create_default_cal
+
+  def create_default_cal
+    self.calendars.create(name: 'Main')
+  end
 end
