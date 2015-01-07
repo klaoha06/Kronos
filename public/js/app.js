@@ -20,7 +20,7 @@ require.config({
        "pickatime": "vendor/pickadate/picker.time",
        "pickalegacy": "vendor/pickadate/legacy",
        "jquery-ui-custom": "vendor/fullcalendar/lib/jquery-ui.custom.min",
-       "fullcalendar": "vendor/fullcalendar/fullcalendar.min",
+       "fullcalendar": "vendor/fullcalendar/fullcalendar",
        "magnific-popup": "vendor/magnific-popup/jquery.magnific-popup"
       },
       shim:    {

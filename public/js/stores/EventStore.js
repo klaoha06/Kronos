@@ -76,6 +76,10 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 			case Constants.RECEIVE_RAW_EVENTS:
 				_addEvents(action.futureEvents, action.pastEvents);
 				EventStore.emitChange();
+				break;
+			case Constants.RECEIVE_RAW_EVENTS:
+				_addEvents(action.futureEvents, action.pastEvents);
+				EventStore.emitChange();
 				break;				
 		}
 

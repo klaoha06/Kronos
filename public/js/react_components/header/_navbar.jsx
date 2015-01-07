@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/header/_auth'], function(React, $, Router, api, Auth){
+define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, api, Auth, CreateEvent){
 	var Link = Router.Link;
 		var Navbar = React.createClass({
 		render: function() {
@@ -27,16 +27,6 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 			    </div>
 			    )
 				}
-		  }
-		});
-
-		var CreateEvent = React.createClass({
-		  render: function() {
-		    return (
-        	<Link to="CreateEvent">
-	        	<button id="createEvent">Create Event</button>
-        	</Link>
-		    );
 		  }
 		});
 

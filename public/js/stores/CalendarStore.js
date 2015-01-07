@@ -34,6 +34,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 			case KronosConstants.UPDATE_LAST_CAL:
 				_calendars[_calendars.length - 1] = action.cal;
 				CalendarsStore.emitChange();
+				break;
 		}
 	});
 
