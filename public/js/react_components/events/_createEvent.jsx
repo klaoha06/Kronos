@@ -57,14 +57,15 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  		}};
 	  		console.log(data);
 	  		EventAPI.createEvent(data);
+	  		$.magnificPopup.close();
 	  		return;
 	  	}
 	  },
 	  render: function() {
 	    return (
 	    	<div>
-	    		<a className="popup-with-form" href="#test-form">Create New Event</a>
-		    	<form id="test-from" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
+	    		<a className="popup-with-form" href="#test-form"><button>Create New Event</button></a>
+		    	<form id="test-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
 	    		<h1>Create Your New Event!</h1>
 		    		Event Name:<br/>
 		    		<input type="text" ref="name"/>

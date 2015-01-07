@@ -30,16 +30,6 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/
 		  }
 		});
 
-		// var CreateEvent = React.createClass({
-		//   render: function() {
-		//     return (
-  //       	<Link to="CreateEvent">
-	 //        	<button id="createEvent">Create Event</button>
-  //       	</Link>
-		//     );
-		//   }
-		// });
-
 	return Navbar;
 
 });

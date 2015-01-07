@@ -71,7 +71,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		render: function() {
 			return (
 				<div>
-				<a className="createCalForm" href="#cal-form">Create New Calendar</a>
+				<a className="createCalForm" href="#cal-form"><button>Create New Calendar</button></a>
 				<form id="cal-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
 					<h1>Create New Calendar</h1>
 					<fieldset>
