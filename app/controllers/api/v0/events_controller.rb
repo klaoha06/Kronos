@@ -31,7 +31,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   # POST /events.json
   def create
     params.permit!
-    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
+    user_id = request.headers['HTTP_USER_ID']
     event = Event.new(event_params)
     event.creator_id = user_id
     if event.save
