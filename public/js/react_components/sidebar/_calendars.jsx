@@ -19,9 +19,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			var cals = this.state.cals;
 			cals.push(cal);
 			this.setState({cals: cals}, function() {
-			  // `setState` accepts a callback. To avoid (improbable) race condition,
-			  // `we'll send the ajax request right after we optimistically set the new
-			  // `state.
 			  console.log(this.state);
 			  CalendarAPI.createCal(cal);
 			});
@@ -39,7 +36,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 
 	var CreateCal = React.createClass({
 		componentDidMount: function() {
-			$('.popup-with-form').magnificPopup({
+			$('.createCalForm').magnificPopup({
 					type: 'inline',
 					preloader: false,
 					focus: '#name',
@@ -74,9 +71,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		render: function() {
 			return (
 				<div>
-				<a className="popup-with-form" href="#test-form">Open form</a>
-				<form id="test-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
-					<h1>Form</h1>
+				<a className="createCalForm" href="#cal-form">Create New Calendar</a>
+				<form id="cal-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
+					<h1>Create New Calendar</h1>
 					<fieldset>
 						<ol>
 							<li>
@@ -101,7 +98,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			console.log(this.props.data);
 			var CalNodes = this.props.data.map(function(calendar, index) {
 				return (
-					<div className="row debug">
+					<div className="row">
 						<Calendar data={calendar} key={index}></Calendar>
 					</div>
 				)
@@ -146,8 +143,8 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		},
 		render: function () {
 			return (
-				<div onClick={this.handleClick}>
-					<p>{this.props.data.name}</p>
+				<div className="debug" onClick={this.handleClick}>
+					<h5>{this.props.data.name}</h5>
 					<div id='external-events' className="hide">
 						<h4>Draggable Events</h4>
 						<div className='fc-event'>My Event 1</div>

@@ -1,12 +1,24 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'picker', 'pickadate', 'pickatime', 'pickalegacy'], function(React, $, Router, api, moment, EventAPI, picker, Pickadate){
-	var ENTER_KEY_CODE = 13;
-
+define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'magnific-popup', 'picker', 'pickadate', 'pickatime', 'pickalegacy'], function(React, $, jqueryUI, Router, api, moment, EventAPI, magnificPopup, picker, Pickadate){
 	var EventCreator = React.createClass({
 
 	  getInitialState: function() {
-	    return {text: ''};
+	    return {event: {}};
 	  },
 	  componentDidMount: function() {
+	  	$('.popup-with-form').magnificPopup({
+	  			type: 'inline',
+	  			preloader: false,
+	  			focus: '#name',
+	  			callbacks: {
+	  				beforeOpen: function() {
+	  					if($(window).width() < 700) {
+	  						this.st.focus = false;
+	  					} else {
+	  						this.st.focus = '#name';
+	  					}
+	  				}
+	  			}
+	  		});
 	  	$(function() {
 	  	  $( ".datepicker" ).pickadate({
 				    editable: true
@@ -45,15 +57,15 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'moment', 'utils/Event
 	  		}};
 	  		console.log(data);
 	  		EventAPI.createEvent(data);
+	  		return;
 	  	}
 	  },
-
 	  render: function() {
-
 	    return (
 	    	<div>
+	    		<a className="popup-with-form" href="#test-form">Create New Event</a>
+		    	<form id="test-from" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
 	    		<h1>Create Your New Event!</h1>
-		    	<form onSubmit={this.handleSubmit} className="eventForm">
 		    		Event Name:<br/>
 		    		<input type="text" ref="name"/>
 		    		<br/><br/>
@@ -101,21 +113,6 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'moment', 'utils/Event
 	      </div>
 	    );
 
-	  },
-
-	  _onChange: function(event, value) {
-	    this.setState({text: event.target.value});
-	  },
-
-	  _onKeyDown: function(event) {
-	    if (event.keyCode === ENTER_KEY_CODE) {
-	      event.preventDefault();
-	      var text = this.state.text.trim();
-	      if (text) {
-	        ChatMessageActionCreators.createMessage(text);
-	      }
-	      this.setState({text: ''});
-	    }
 	  }
 
 	});
