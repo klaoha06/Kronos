@@ -15,12 +15,22 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		_onChange: function() {
 			this.setState(getCalsStore());
 		},
-
+		handleCalSubmit: function(cal){
+			var cals = this.state.cals;
+			cals.push(cal);
+			this.setState({cals: cals}, function() {
+			  // `setState` accepts a callback. To avoid (improbable) race condition,
+			  // `we'll send the ajax request right after we optimistically set the new
+			  // `state.
+			  console.log(this.state);
+			  CalendarAPI.createCal(cal);
+			});
+		},
 		render: function() {
 			return (
 				<div>
 					<UserCalsList data={this.state.cals}/>
-					<CreateCal />
+					<CreateCal onCalSubmit={this.handleCalSubmit}/>
 				</div>
 			)
 		}
@@ -46,10 +56,20 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		},
 		handleSubmit: function(e) {
 			e.preventDefault();
-			console.log(this.refs.title.getDOMNode().value.trim());
-			console.log(this.refs.share.getDOMNode().value.trim());
-			// Optimistically update Store first then send data back the server
+			var name = this.refs.title.getDOMNode().value.trim();
+			var share = (this.refs.share.getDOMNode().value.trim() === 'true');
+			var user_id = $.cookie('user_id');
+			var currentTime = new Date();
+
+			if (!name || !share) {
+			  return;
+			}
+			this.props.onCalSubmit({name: name, share: share, creator_id: user_id});
+			this.refs.title.getDOMNode().value = '';
+			this.refs.share.getDOMNode().value = 'true';
 			$.magnificPopup.close();
+			return;
+			// Optimistically update Store first then send data back the server
 		},
 		render: function() {
 			return (
@@ -86,7 +106,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 					</div>
 				)
 			});
-
 			if (this.props.data.length < 1) {
 				return (
 					<h4>You have not create a calendar! Please Create one.</h4>

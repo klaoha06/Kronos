@@ -14,7 +14,20 @@ define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActio
 			}).fail(function(data){
 				console.log("FAILED REQUEST");
 			});
-
+		},
+		createCal: function(cal) {
+			$.ajax({
+			  url: apiUrl + '/calendars',
+			  dataType: 'json',
+			  type: 'POST',
+			  data: {calendar: cal},
+			  success: function(data) {
+			  	CalendarActions.updateLastCal(data);
+			  }.bind(this),
+			  error: function(xhr, status, err) {
+			    console.error(this.props, status, err.toString());
+			  }.bind(this)
+			});
 		}
 
 	};
