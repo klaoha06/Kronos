@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210134636) do
+ActiveRecord::Schema.define(version: 20150108012336) do
 
   create_table "auths", force: true do |t|
     t.integer  "user_id"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20141210134636) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "calendar_events", force: true do |t|
+    t.integer "calendar_id"
+    t.integer "event_id"
+  end
+
+  add_index "calendar_events", ["calendar_id"], name: "index_calendar_events_on_calendar_id"
+  add_index "calendar_events", ["event_id"], name: "index_calendar_events_on_event_id"
 
   create_table "calendar_groups", force: true do |t|
     t.integer  "calendar_id"
