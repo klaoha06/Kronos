@@ -1,5 +1,17 @@
 class Api::V0::EventsController < Api::V0::ApplicationController
-  before_action :authenticate
+  before_action :authenticate, only: [:create, :update]
+
+  # Need to check if the calendar is created by the user
+  # if it is then the user is the owner or the creator and he/she can see and edit all the events from that calendar
+
+  
+  # if not the owner then is it shared?
+  # if it is shared then the user can see but can't edit
+
+
+  # Need to check if each event in that calendar are created by the owner if so get all user's event in that calendar
+  # Then check for events that is not the user's but shared in that calendar
+
   # GET /events
   # GET /events.json
   def index
@@ -19,15 +31,23 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     render json: {futureEvents: futureEvents, pastEvents: pastEvents}
   end
 
-  # def show_by_cal_id
-  #   events = Event.find_by_
-  # end
-
   # GET /events/1
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
     render json: @event
+  end
+
+  def show_events_by_cal_id
+    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
+    calendar = Calendar.find(params[:id])
+    if calendar.creator_id == user_id # if user is the owner of the calendar..
+      events = calendar.events
+      render json: events
+    else # if user is not the owner of the cal
+      events = calendar.events.where({share: true}).or({creator_id: user_id}) 
+      render json: events
+    end
   end
 
   # POST /events

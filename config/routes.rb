@@ -2,43 +2,43 @@ Rails.application.routes.draw do
   resources :auths, except: [:new, :edit]
   namespace :api do
     namespace :v0 do 
+
       resources :auths  
-      resources :calendars
-      
+
+      resources :calendars do
+        member do
+          get 'events', :controller => :events, to: :show_events_by_cal_id
+        end
+      end
       resources :events, :except => :index
+
       resources :groups, :except => :index do
         collection do
           get 'popular', :to => :popular
         end
       end
-      resources  :users do
-        member do
-          get 'calendars', to: :show_user_cals
-        end
-        resources :events, :only => :index do
-          collection do
-            post 'provider', to: :create_from_provider
-          end
-        end
 
+      resources  :users do
         collection do
            # User Auth
            post 'sessioning_user', to: :sessioning_user
            get 'current_user', to: :current_user
            get 'clear_session', to: :clear_session
         end
-
+        member do
+          get 'calendars', to: :show_user_cals
+        end
+          resources :events, :only => :index do
+            collection do
+              post 'provider', to: :create_from_provider
+            end
+          end
         resources :groups, :only => [:index]
         delete 'unsubscribe_group', to: 'group#unsubscribe_group'
       end
 
     end
   end
-
-
-
-
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
