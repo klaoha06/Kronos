@@ -50,7 +50,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  		alert('please input at least a tile and a start time')
 	  	  return;
 	  	} else {
-	  		// Optimistically Update the View
+	  		// Optimistically Update the CalendarStore
 	  		
 	  		// Send data to server
 	  		var data = {event:{

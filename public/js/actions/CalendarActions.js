@@ -12,9 +12,9 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 				calFromServer: cal
 			});
 		},
-		updateCurrentCal: function(cal_id) {
+		setMainCal: function(cal_id) {
 			Dispatcher.handleViewAction({
-				actionType: KronosConstants.UPDATE_CURRENT_CAL,
+				actionType: KronosConstants.SET_CURRENT_CAL,
 				currentCalId: cal_id
 			});
 		}

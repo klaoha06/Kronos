@@ -94,7 +94,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 
 	var UserCalsList = React.createClass({
 		render: function () {
-			console.log(this.props.data)
 			var CalNodes = this.props.data.map(function(calendar, index) {
 				return (
 					<div className="row">
@@ -136,10 +135,10 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			});
 		},
 		handleClick: function(e){
-			$(e.target).closest("div").find("#external-events").slideToggle();
 			// Show all Events on the main calendar for this calendar id
+			CalendarActions.setMainCal(this.props.data.cal.id);
 			window.location = '/#/users/calendar';
-			CalendarActions.updateCurrentCal(this.props.data.cal.id);
+			$(e.target).closest("div").find("#external-events").slideToggle();
 		},
 		render: function () {
 			return (

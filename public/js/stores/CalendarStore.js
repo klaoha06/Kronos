@@ -54,7 +54,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				_myCalendarsEvents[_myCalendarsEvents.length - 1] = {cal: action.calFromServer, events: []};
 				CalendarsStore.emitChange();
 				break;
-			case KronosConstants.UPDATE_CURRENT_CAL:
+			case KronosConstants.SET_CURRENT_CAL:
 				getCalEventsByCalId(action.currentCalId);
 				CalendarsStore.emitChange();
 				break;

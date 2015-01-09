@@ -39,12 +39,11 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         },
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: this.state.events
+        events: CalendarStore.getCurrentCal()
       });
     },
     _onChange: function() {
-      this.setState(CalendarStore.getCurrentCal());
-      console.log(this.state);
+      // console.log(this.state);
       // $('#calendar').fullCalendar({events: this.state.events} );
       // $('#calendar').fullCalendar( 'rerenderEvents' );
       // $('#calendar').fullCalendar( 'refetchEvents' );
@@ -82,7 +81,7 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         },
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: this.state.events
+        events: CalendarStore.getCurrentCal()
       });
     },
     render: function() {
