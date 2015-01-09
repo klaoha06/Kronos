@@ -51,7 +51,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.UPDATE_LAST_CAL:
-				_myCalendarsEvents[_myCalendarsEvents.length - 1] = action.cal;
+				_myCalendarsEvents[_myCalendarsEvents.length - 1] = {cal: action.calFromServer, events: []};
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.UPDATE_CURRENT_CAL:

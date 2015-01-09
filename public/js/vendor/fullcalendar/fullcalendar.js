@@ -7979,7 +7979,6 @@ function EventManager(options) { // assumed to be a calendar
 		}
 	}
 	
-	
 	function fetchEventSource(source, fetchID) {
 		_fetchEventSource(source, function(eventInputs) {
 			var isArraySource = $.isArray(source.events);

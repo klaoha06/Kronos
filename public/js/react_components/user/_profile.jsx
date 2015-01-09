@@ -69,6 +69,7 @@ define(['react'], function(React) {
 
 	var FBEventList = React.createClass({
 		render: function() {
+				console.log(this.props.data)
 		    var FBEventNodes = this.props.data.map(function(event, index) {
 		    	return (
 		    		<div>

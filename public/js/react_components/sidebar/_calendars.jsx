@@ -15,11 +15,11 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		_onChange: function() {
 			this.setState(getCalsStore());
 		},
-		handleCalSubmit: function(cal){
-			var cals = this.state.cals;
-			cals.push(cal);
-			this.setState({cals: cals}, function() {
-			  CalendarAPI.createCal(cal);
+		handleCalSubmit: function(newCal){
+			debugger;
+			this.state.cals.push({cal: newCal, events: {}});
+			this.setState({cals: this.state.cals}, function() {
+			  CalendarAPI.createCal(newCal);
 			});
 		},
 		render: function() {
@@ -94,6 +94,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 
 	var UserCalsList = React.createClass({
 		render: function () {
+			console.log(this.props.data)
 			var CalNodes = this.props.data.map(function(calendar, index) {
 				return (
 					<div className="row">

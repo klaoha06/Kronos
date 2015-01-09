@@ -74,8 +74,8 @@ class Api::V0::EventsController < Api::V0::ApplicationController
         creator_id: params[:user_id])
       if event
         event.update(title: event_data['name'], 
-          start: event_data['start'], 
-          end: event_data['end'], 
+          start: event_data['start_time'], 
+          end: event_data['end_time'], 
           location: event_data['location'], 
           time_zone: event_data['timezone'], 
           cover_pic: event_data['cover']['source'], 
@@ -90,8 +90,8 @@ class Api::V0::EventsController < Api::V0::ApplicationController
           provider: params[:provider], 
           id_from_provider: event_data['id'], 
           title: event_data['name'], 
-          start: event_data['start'], 
-          end: event_data['end'], 
+          start: event_data['start_time'], 
+          end: event_data['end_time'], 
           location: event_data['location'], 
           time_zone: event_data['timezone'], 
           cover_pic: event_data['cover']['source'], 

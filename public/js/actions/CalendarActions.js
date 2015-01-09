@@ -9,7 +9,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 		updateLastCal: function(cal) {
 			Dispatcher.handleServerAction({
 				actionType: KronosConstants.UPDATE_LAST_CAL,
-				cal: cal
+				calFromServer: cal
 			});
 		},
 		updateCurrentCal: function(cal_id) {

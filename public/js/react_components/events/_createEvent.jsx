@@ -1,10 +1,11 @@
-define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'magnific-popup', 'picker', 'pickadate', 'pickatime', 'pickalegacy'], function(React, $, jqueryUI, Router, api, moment, EventAPI, magnificPopup, picker, Pickadate){
+define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'magnific-popup', 'picker', 'pickadate', 'pickatime', 'pickalegacy', 'stores/CalendarStore', 'actions/CalendarActions'], function(React, $, jqueryUI, Router, api, moment, EventAPI, magnificPopup, picker, Pickadate, Pickatime, Pickalegacy, CalendarStore, CalendarActions){
 	var EventCreator = React.createClass({
 
 	  getInitialState: function() {
-	    return {event: {}};
+	    return {event: {}, cals: []};
 	  },
 	  componentDidMount: function() {
+	  	CalendarStore.addChangeListener(this._onChange);
 	  	$('.createEventForm').magnificPopup({
 	  			type: 'inline',
 	  			preloader: false,
@@ -28,6 +29,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  	  });
 	  	});
 	  },
+	  _onChange: function() {
+	    this.setState({cals: CalendarStore.getUserCals()});
+	  },
 	  handleSubmit: function(e) {
 	  	e.preventDefault();
 	  	// Getting values from form
@@ -40,28 +44,37 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  	var location = this.refs.location.getDOMNode().value.trim();
 	  	var url = this.refs.externalUri.getDOMNode().value.trim();
 	  	var share = this.refs.share.getDOMNode().value.trim();
+			var cal_id = this.refs.cal.getDOMNode().value.trim();
 	  	// Validation
 	  	if (!name || !startDate || !share) {
 	  		alert('please input at least a tile and a start time')
 	  	  return;
 	  	} else {
+	  		// Optimistically Update the View
+	  		
 	  		// Send data to server
 	  		var data = {event:{
-	  			name: name,
+	  			title: name,
 	  			description: description,
 	  			start: startDate + " " + startTime,
 	  			end: endDate + " " + endTime,
 	  			location: location,
 	  			external_uri: url,
 	  			share: share
-	  		}};
-	  		console.log(data);
+	  		}, calendar_id: cal_id};
 	  		EventAPI.createEvent(data);
 	  		$.magnificPopup.close();
 	  		return;
 	  	}
 	  },
 	  render: function() {
+	  	if (typeof this.state.cals !== 'undefined') {
+	  		var CalSelections = $.map(this.state.cals, function(data){
+	  				return (
+	  					<option value={data.cal.id}>{data.cal.name}</option>
+	  				)
+	  		});
+	  	}
 	    return (
 	    	<div>
 	    		<a className="createEventForm" href="#event-form"><button>Create New Event</button></a>
@@ -90,9 +103,12 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 			      <p>
 			      	Have to do Time Zone Picker
 			      </p>
-			      <p>
-			      	Have to do Calendar Picker
-			      </p>
+			      <fieldset>
+			      	<label for="cal">Add to Calendar</label>
+			      	<select ref="cal" id="cal">
+			      		{CalSelections}
+			      	</select>
+			      </fieldset>
 			      <p>
 			      	Location: <input type="text" ref="location"/>
 			      </p>
@@ -120,6 +136,27 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  }
 
 	});
+
+	// var CalendarPicker = React.createClass({
+	// 	render: function(){
+	// 		if (typeof this.state[0] !== 'undefined') {
+	// 			var CalSelections = $.map(this.state, function(data){
+	// 					return (
+	// 						<option value={data.cal.id}>{data.cal.name}</option>
+	// 					)
+	// 			});
+	// 		}
+
+	// 		return (
+	// 				<fieldset>
+	// 					<label for="cal">Add to Calendar</label>
+	// 					<select ref="cal" id="cal">
+	// 						{CalSelections}
+	// 					</select>
+	// 				</fieldset>
+	// 		)
+	// 	}
+	// });
 
 	return EventCreator
 
