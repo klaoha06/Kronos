@@ -5,6 +5,7 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
     },
     componentDidMount: function() {
       CalendarStore.addChangeListener(this._onChange);
+      console.log(this.state);
       // FullCalendar
       $('#calendar').fullCalendar({
         header: {
@@ -43,6 +44,11 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
     },
     _onChange: function() {
       this.setState(CalendarStore.getCurrentCal());
+      console.log(this.state);
+      // $('#calendar').fullCalendar({events: this.state.events} );
+      // $('#calendar').fullCalendar( 'rerenderEvents' );
+      // $('#calendar').fullCalendar( 'refetchEvents' );
+      $('#calendar').fullCalendar( 'destroy' );
       // FullCalendar
       $('#calendar').fullCalendar({
         header: {
