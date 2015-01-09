@@ -45,7 +45,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
       events = calendar.events
       render json: events
     else # if user is not the owner of the cal
-      events = calendar.events.where({share: true}).or({creator_id: user_id}) 
+      events = calendar.events.where("creator_id = ? OR share = ?", user_id, true)
       render json: events
     end
   end
@@ -54,11 +54,11 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   # POST /events.json
   def create
     params.permit!
-    user_id = request.headers['HTTP_USER_ID']
+    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
     event = Event.new(event_params)
     event.creator_id = user_id
     if event.save
-      p event
+      CalendarEvent.create(calendar_id: params[:calendar_id], event_id: event.id)
     else
       render json: event.errors, status: :unprocessable_entity
     end

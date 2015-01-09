@@ -50,7 +50,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 		user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
 		calendars = Calendar.where(creator_id: user_id);
 		calendars.each do |cal|
-			events = cal.events
+			events = cal.events.where("creator_id = ? OR share = ?", user_id, true)
 			user_cals.push({:cal => cal, :events => events})
 		end
 		render json: user_cals
