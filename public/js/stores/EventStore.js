@@ -10,8 +10,8 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				_futureEvents[futureEvent.eventInfo.id] = {
 					id: futureEvent.eventInfo.id,
 					name: futureEvent.eventInfo.name,
-					startTime: futureEvent.eventInfo.start_time,
-					endTime: futureEvent.eventInfo.end_time,
+					startTime: futureEvent.eventInfo.start,
+					endTime: futureEvent.eventInfo.end,
 					picture: futureEvent.eventInfo.cover_pic,
 					creator_id: futureEvent.creatorInfo.id,
 					creator_name: futureEvent.creatorInfo.name,
@@ -24,8 +24,8 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 			_pastEvents[pastEvent.eventInfo.id] = {
 				id: pastEvent.eventInfo.id,
 				name: pastEvent.eventInfo.name,
-				startTime: pastEvent.eventInfo.start_time,
-				endTime: pastEvent.eventInfo.end_time,
+				startTime: pastEvent.eventInfo.start,
+				endTime: pastEvent.eventInfo.end,
 				picture: pastEvent.eventInfo.cover_pic,
 				creator_id: pastEvent.creatorInfo.id,
 				creator_name: pastEvent.creatorInfo.name,

@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
   after_create :create_default_cal
 
   def create_default_cal
-    self.calendars.create(name: 'Main')
+    self.calendars.create(name: 'Main Calendar', main_cal: true)
   end
 end

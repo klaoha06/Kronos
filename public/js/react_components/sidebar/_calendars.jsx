@@ -19,7 +19,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			var cals = this.state.cals;
 			cals.push(cal);
 			this.setState({cals: cals}, function() {
-			  console.log(this.state);
 			  CalendarAPI.createCal(cal);
 			});
 		},
@@ -95,7 +94,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 
 	var UserCalsList = React.createClass({
 		render: function () {
-			console.log(this.props.data);
 			var CalNodes = this.props.data.map(function(calendar, index) {
 				return (
 					<div className="row">
@@ -137,14 +135,15 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			});
 		},
 		handleClick: function(e){
-			console.log(this.props.data.id)
 			$(e.target).closest("div").find("#external-events").slideToggle();
 			// Show all Events on the main calendar for this calendar id
+			window.location = '/#/users/calendar';
+			CalendarActions.updateCurrentCal(this.props.data.cal.id);
 		},
 		render: function () {
 			return (
 				<div className="debug" onClick={this.handleClick}>
-					<h5>{this.props.data.name}</h5>
+					<h5>{this.props.data.cal.name}</h5>
 					<div id='external-events' className="hide">
 						<h4>Draggable Events</h4>
 						<div className='fc-event'>My Event 1</div>

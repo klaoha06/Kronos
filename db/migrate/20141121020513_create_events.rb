@@ -3,8 +3,8 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.references :creator
       t.integer :id_from_provider
-      t.datetime :start_time, :end_time
-      t.string :name, :location, :time_zone, :cover_pic, :provider, :external_uri, :owner_name, :owner_id, :my_status
+      t.datetime :start, :end
+      t.string :title, :location, :time_zone, :cover_pic, :provider, :external_uri, :owner_name, :owner_id, :my_status
       t.text :description
       t.boolean :share, default: false
       t.timestamps

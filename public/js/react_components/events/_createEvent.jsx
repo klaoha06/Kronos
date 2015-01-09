@@ -49,8 +49,8 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  		var data = {event:{
 	  			name: name,
 	  			description: description,
-	  			start_time: startDate + " " + startTime,
-	  			end_time: endDate + " " + endTime,
+	  			start: startDate + " " + startTime,
+	  			end: endDate + " " + endTime,
 	  			location: location,
 	  			external_uri: url,
 	  			share: share
@@ -89,6 +89,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 			      </p>
 			      <p>
 			      	Have to do Time Zone Picker
+			      </p>
+			      <p>
+			      	Have to do Calendar Picker
 			      </p>
 			      <p>
 			      	Location: <input type="text" ref="location"/>

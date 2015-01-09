@@ -19,12 +19,12 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     # We will need to fix this so that only events that this particular user should
     # see actually show up. 
     futureEvents = []
-    Event.where("start_time >= ?", Time.now).order(:start_time).each do |event|
+    Event.where("start >= ?", Time.now).order(:start).each do |event|
       user = User.find(event.creator_id)
       futureEvents.push({:eventInfo => event, :creatorInfo => user})
     end
     pastEvents = []
-    Event.where("start_time < ?", Time.now).order(:start_time).each do |event|
+    Event.where("start < ?", Time.now).order(:start).each do |event|
       user = User.find(event.creator_id)
       pastEvents.push({:eventInfo => event, :creatorInfo => user})
     end
@@ -73,9 +73,9 @@ class Api::V0::EventsController < Api::V0::ApplicationController
         id_from_provider: event_data['id'], 
         creator_id: params[:user_id])
       if event
-        event.update(name: event_data['name'], 
-          start_time: event_data['start_time'], 
-          end_time: event_data['end_time'], 
+        event.update(title: event_data['name'], 
+          start: event_data['start'], 
+          end: event_data['end'], 
           location: event_data['location'], 
           time_zone: event_data['timezone'], 
           cover_pic: event_data['cover']['source'], 
@@ -89,9 +89,9 @@ class Api::V0::EventsController < Api::V0::ApplicationController
           creator_id: params[:user_id], 
           provider: params[:provider], 
           id_from_provider: event_data['id'], 
-          name: event_data['name'], 
-          start_time: event_data['start_time'], 
-          end_time: event_data['end_time'], 
+          title: event_data['name'], 
+          start: event_data['start'], 
+          end: event_data['end'], 
           location: event_data['location'], 
           time_zone: event_data['timezone'], 
           cover_pic: event_data['cover']['source'], 
