@@ -46,8 +46,14 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def show_user_cals
-		calendars = Calendar.where(creator_id: request.headers["HTTP_USER_ID"]);
-		render json: calendars
+		user_cals = []
+		user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
+		calendars = Calendar.where(creator_id: user_id);
+		calendars.each do |cal|
+			events = cal.events
+			user_cals.push({:cal => cal, :events => events})
+		end
+		render json: user_cals
 	end
 
 	def clear_session

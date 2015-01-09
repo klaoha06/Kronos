@@ -2,16 +2,16 @@
   user = User.create(username: Faker::Internet.user_name, name: Faker::Name.first_name, email: Faker::Internet.email, profile_pic: Faker::Avatar.image, fb_id: Faker::Business.credit_card_number)
   user.calendars.create(name: Faker::Commerce.product_name)
   user.events.create(
-  	name: Faker::Commerce.product_name,
-  	start_time: Faker::Time.forward(rand(20), :morning),
-  	end_time: Faker::Time.forward(rand(20)+1, :evening),
+  	title: Faker::Commerce.product_name,
+  	start: Faker::Time.forward(rand(20), :morning),
+  	end: Faker::Time.forward(rand(20)+1, :evening),
   	cover_pic: Faker::Avatar.image,
   	location: Faker::Address.country
   	)
   user.events.create(
-    name: Faker::Commerce.product_name,
-    start_time: Faker::Time.backward(rand(20), :morning),
-    end_time: Faker::Time.backward(rand(20)+1, :evening),
+    title: Faker::Commerce.product_name,
+    start: Faker::Time.backward(rand(20), :morning),
+    end: Faker::Time.backward(rand(20)+1, :evening),
     cover_pic: Faker::Avatar.image,
     location: Faker::Address.country
     )

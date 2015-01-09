@@ -13,7 +13,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 			return {futureEvents: [], pastEvents: []}
 		},
 		componentDidMount: function(){
-			EventAPI.retrieveEvents();
+			EventAPI.retrieveUserEvents();
 			EventStore.addChangeListener(this._onChange);
 		},
 

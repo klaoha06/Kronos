@@ -1,5 +1,5 @@
 class Api::V0::CalendarsController < Api::V0::ApplicationController
-	before_action :authenticate
+	# before_action :authenticate
 
 	def show
 		@calendar = Calendar.find(params[:id])

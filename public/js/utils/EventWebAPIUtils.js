@@ -1,7 +1,7 @@
 define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServerActions){
 
 	var EventAPI = {
-		retrieveEvents: function(){
+		retrieveUserEvents: function(){
 			var user_id = $.cookie('user_id');
 			var url = "/users/"+user_id+"/events";
 
@@ -23,6 +23,17 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 			  dataType: 'json',
 			  type: 'POST',
 			  data: data
+			}).success(function(data){
+				console.log(data);
+			}).fail(function(data){
+			  console.log(data.statusText);
+			});
+		},
+		retrieveCalEvents: function(calendar_id) {
+			 $.ajax({
+			  url: apiUrl + '/events',
+			  dataType: 'json',
+			  data: calendar_id
 			}).success(function(data){
 				console.log(data);
 			}).fail(function(data){
