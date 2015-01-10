@@ -44,6 +44,11 @@
   padding-bottom:30px;
 }
 
+#main-cal-title {
+  text-align: center;
+  text-decoration: underline;
+}
+
 #view-options {
   position: relative;
   width: 100%;

@@ -83,10 +83,19 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         eventLimit: true, // allow "more" link when too many events
         events: CalendarStore.getCurrentCal()
       });
+      this.setState(CalendarStore.getCurrentCal());
+      console.log(this.state);
     },
     render: function() {
+      var mainCalTitle;
+      if (typeof this.state.cal !== 'undefined') {
+        mainCalTitle = this.state.cal.name;
+      }
       return (
-             <div id='calendar'></div>
+            <div id='main-calendar'>
+              <h2 id='main-cal-title'>{mainCalTitle}</h2>
+              <div id='calendar'></div>
+            </div>
         );  
       }
   });
