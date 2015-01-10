@@ -50,9 +50,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  		alert('please input at least a tile and a start time')
 	  	  return;
 	  	} else {
-	  		// Optimistically Update the CalendarStore
-	  		
-	  		// Send data to server
 	  		var data = {event:{
 	  			title: name,
 	  			description: description,
@@ -62,6 +59,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  			external_uri: url,
 	  			share: share
 	  		}, calendar_id: cal_id};
+	  		// Optimistically Update the CalendarStore
+	  		CalendarActions.addEventToCal(data);
+	  		// Send data to server
 	  		EventAPI.createEvent(data);
 	  		$.magnificPopup.close();
 	  		return;

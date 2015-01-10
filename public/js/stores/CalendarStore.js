@@ -8,16 +8,23 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		_myCalendarsEvents.map(function(calendarEvent){
 			if (calendarEvent.cal.main_cal === true) {
 				_currentCalendar = calendarEvent;
-				console.log(_currentCalendar);
 			}
 		});
 	}
 
-	function getCalEventsByCalId(cal_id){
+	function setCalEventsByCalId(cal_id){
 		_myCalendarsEvents.map(function(calendarEvent){
 			if (calendarEvent.cal.id === cal_id) {
 				_currentCalendar = calendarEvent;
-				console.log(_currentCalendar);
+			}
+		});
+	}
+
+	function updateEventInCalByCalId(cal_id, event){
+		_myCalendarsEvents.map(function(calendarEvent){
+			if (calendarEvent.cal.id == cal_id) {
+				calendarEvent.events.push(event);
+				console.log(calendarEvent);
 			}
 		});
 	}
@@ -55,7 +62,11 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.SET_CURRENT_CAL:
-				getCalEventsByCalId(action.currentCalId);
+				setCalEventsByCalId(action.currentCalId);
+				CalendarsStore.emitChange();
+				break;
+			case KronosConstants.ADD_EVENT_TO_CAL:
+				updateEventInCalByCalId(action.newEvent.calendar_id, action.newEvent.event);
 				CalendarsStore.emitChange();
 				break;
 		}

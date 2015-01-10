@@ -25,6 +25,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 			  data: data
 			}).success(function(data){
 				console.log(data);
+				// CalendarStore.updateCalById();
 			}).fail(function(data){
 			  console.log(data.statusText);
 			});

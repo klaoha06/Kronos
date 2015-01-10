@@ -1,5 +1,4 @@
 define([],function(){
-
 	return {
 		// Group
 		GROUP_UNSUBSCRIBE: "GROUP_UNSUBSCRIBE",
@@ -9,9 +8,10 @@ define([],function(){
 		// User
 		RECEIVE_USER_ID: "RECEIVE_USER_ID",
 		CLEAR_USER_ID: "CLEAR_USER_ID",
-		// SidebarCalendars
+		// Calendars
 		RECEIVE_USER_CALS: "RECEIVE_USER_CALS",
 		UPDATE_LAST_CAL: "UPDATE_LAST_CAL",
-		UPDATE_CURRENT_CAL: "SET_CURRENT_CAL"
+		UPDATE_CURRENT_CAL: "SET_CURRENT_CAL",
+		ADD_EVENT_TO_CAL: "ADD_EVENT_TO_CAL"
 	};
 });

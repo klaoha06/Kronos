@@ -9,7 +9,6 @@ define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActio
 			url: apiUrl + url,
 			dataType: 'json'
 			}).done(function(data){
-				console.log(data);
 				CalendarActions.receiveUserCals(data);
 				return data;
 			}).fail(function(data){
