@@ -111,7 +111,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
       end
 
       if event.save
-        CalendarEvent.create(calendar_id: calendar.id, event_id: event.id)
+        CalendarEvent.find_or_create_by(calendar_id: calendar.id, event_id: event.id)
       else
         render json: event.errors, status: :unprocessable_entity
       end

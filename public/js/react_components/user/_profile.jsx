@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 
 	var UserProfile = React.createClass({
 		getInitialState: function() {
@@ -19,7 +19,7 @@ define(['react'], function(React) {
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
 				        }).success(function(data){
-				        	CalendarActions.AddNewCal(data)
+				        	CalendarActions.addOrUpdateCal(data);
 				        }).fail(function(data){
 				        	console.log(data.statusText);
 				        });
@@ -69,7 +69,6 @@ define(['react'], function(React) {
 
 	var FBEventList = React.createClass({
 		render: function() {
-				console.log(this.props.data)
 		    var FBEventNodes = this.props.data.map(function(event, index) {
 		    	return (
 		    		<div>

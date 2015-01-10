@@ -28,8 +28,15 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		});
 	}
 
-	function addNewCal(cal){
-		_myCalendarsEvents.push(cal);
+	function addOrUpdateCal(calEvent){
+		var calendar = $.grep(_myCalendarsEvents, function(calendarEvent){ 
+			return calendarEvent.cal.id == calEvent.cal.id;
+		});
+		if (calendar) {
+			calendar = calEvent;
+		} else {
+			_myCalendarsEvents.push(calEvent);
+		}
 	}
 
 	var CalendarsStore = {
@@ -72,8 +79,8 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				updateEventInCalByCalId(action.newEvent.calendar_id, action.newEvent.event);
 				CalendarsStore.emitChange();
 				break;
-			case KronosConstants.ADD_NEW_CAL:
-				addNewCal(action.newCal);		
+			case KronosConstants.ADD_OR_UPDATE_CAL:
+				addOrUpdateCal(action.calEvent);		
 				CalendarsStore.emitChange();
 				break;
 		}

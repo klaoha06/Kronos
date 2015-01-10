@@ -16,7 +16,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			this.setState(getCalsStore());
 		},
 		handleCalSubmit: function(newCal){
-			debugger;
 			this.state.cals.push({cal: newCal, events: {}});
 			this.setState({cals: this.state.cals}, function() {
 			  CalendarAPI.createCal(newCal);
