@@ -23,6 +23,12 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 				actionType: KronosConstants.ADD_EVENT_TO_CAL,
 				newEvent: event
 			});
+		},
+		addNewCal: function(cal){
+			Dispatcher.handleServerAction({
+				actionType: KronosConstants.ADD_NEW_CAL,
+				newCal: cal
+			});
 		}
 	};
 	return CalendarActions;

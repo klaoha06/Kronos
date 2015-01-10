@@ -19,7 +19,7 @@ define(['react'], function(React) {
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
 				        }).success(function(data){
-				        	// console.log(data);
+				        	CalendarActions.AddNewCal(data)
 				        }).fail(function(data){
 				        	console.log(data.statusText);
 				        });

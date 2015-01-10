@@ -28,6 +28,10 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		});
 	}
 
+	function addNewCal(cal){
+		_myCalendarsEvents.push(cal);
+	}
+
 	var CalendarsStore = {
 		emit: function(event){
 			EventEmitter.emit(event);
@@ -66,6 +70,10 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				break;
 			case KronosConstants.ADD_EVENT_TO_CAL:
 				updateEventInCalByCalId(action.newEvent.calendar_id, action.newEvent.event);
+				CalendarsStore.emitChange();
+				break;
+			case KronosConstants.ADD_NEW_CAL:
+				addNewCal(action.newCal);		
 				CalendarsStore.emitChange();
 				break;
 		}

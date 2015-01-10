@@ -59,7 +59,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  			external_uri: url,
 	  			share: share
 	  		}, calendar_id: cal_id};
-	  		// Optimistically Update the CalendarStore
+	  		// Optimistically Update the View
 	  		CalendarActions.addEventToCal(data);
 	  		// Send data to server
 	  		EventAPI.createEvent(data);

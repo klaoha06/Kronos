@@ -65,14 +65,22 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   end
 
   def create_from_provider
-    if params[:provider] == 'FB'
+    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
+    case params[:provider]
+    when 'FB'
       fb_base_url = 'www.facebook.com/events/'
+      calendar = Calendar.find_or_create_by(name: 'Facebook Events', creator_id: user_id)
+    when 'GoogleCal'
+      puts 'yo'
+    else
+      puts 'donno this provider'
     end
+
     params['events_data'].each do |event_data|
       event = Event.find_by(provider: params[:provider], 
         id_from_provider: event_data['id'], 
         creator_id: params[:user_id])
-      if event
+      if event #update
         event.update(title: event_data['name'], 
           start: event_data['start_time'], 
           end: event_data['end_time'], 
@@ -84,7 +92,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
           description: event_data['description'], 
           my_status: event_data['rsvp_status'], 
           external_uri: (fb_base_url + event_data['id']))
-      else
+      else # create
         event = Event.new(
           creator_id: params[:user_id], 
           provider: params[:provider], 
@@ -101,12 +109,16 @@ class Api::V0::EventsController < Api::V0::ApplicationController
           my_status: event_data['rsvp_status'], 
           external_uri: (fb_base_url + event_data['id']))
       end
+
       if event.save
-        # render json: event, status: :created, location: event
+        CalendarEvent.create(calendar_id: calendar.id, event_id: event.id)
       else
         render json: event.errors, status: :unprocessable_entity
       end
-    end
+    end #create event loop
+
+      render json: {cal: calendar, events: calendar.events}
+
   end
 
   # PATCH/PUT /events/1
