@@ -135,8 +135,8 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		},
 		handleClick: function(e){
 			// Show all Events on the main calendar for this calendar id
-			CalendarActions.setMainCal(this.props.data.cal.id);
 			window.location = '/#/users/calendar';
+			CalendarActions.setMainCal(this.props.data.cal.id);
 			$(e.target).closest("div").find("#external-events").slideToggle();
 		},
 		render: function () {
