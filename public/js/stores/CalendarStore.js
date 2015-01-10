@@ -24,7 +24,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		_myCalendarsEvents.map(function(calendarEvent){
 			if (calendarEvent.cal.id == cal_id) {
 				calendarEvent.events.push(event);
-				console.log(calendarEvent);
 			}
 		});
 	}
