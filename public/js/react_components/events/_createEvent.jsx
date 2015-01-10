@@ -77,7 +77,7 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  	}
 	    return (
 	    	<div>
-	    		<a className="createEventForm" href="#event-form"><button>Create New Event</button></a>
+	    		<a className="createEventForm" href="#event-form" onClick={this._onChange}><button>Create New Event</button></a>
 		    	<form id="event-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
 	    		<h1>Create Your New Event!</h1>
 		    		Event Name:<br/>
@@ -136,27 +136,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  }
 
 	});
-
-	// var CalendarPicker = React.createClass({
-	// 	render: function(){
-	// 		if (typeof this.state[0] !== 'undefined') {
-	// 			var CalSelections = $.map(this.state, function(data){
-	// 					return (
-	// 						<option value={data.cal.id}>{data.cal.name}</option>
-	// 					)
-	// 			});
-	// 		}
-
-	// 		return (
-	// 				<fieldset>
-	// 					<label for="cal">Add to Calendar</label>
-	// 					<select ref="cal" id="cal">
-	// 						{CalSelections}
-	// 					</select>
-	// 				</fieldset>
-	// 		)
-	// 	}
-	// });
 
 	return EventCreator
 
