@@ -6,13 +6,15 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 
 	function _addEvents(futureEvents, pastEvents){
 		futureEvents.forEach(function(futureEvent) {
+			console.log(futureEvent);
 			if(!_futureEvents[futureEvent.eventInfo.id]){
 				_futureEvents[futureEvent.eventInfo.id] = {
 					id: futureEvent.eventInfo.id,
-					name: futureEvent.eventInfo.name,
+					name: futureEvent.eventInfo.title,
 					startTime: futureEvent.eventInfo.start,
 					endTime: futureEvent.eventInfo.end,
 					picture: futureEvent.eventInfo.cover_pic,
+					description: futureEvent.eventInfo.description,
 					creator_id: futureEvent.creatorInfo.id,
 					creator_name: futureEvent.creatorInfo.name,
 					creator_username: futureEvent.creatorInfo.username
@@ -23,10 +25,11 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		if(!_pastEvents[pastEvent.eventInfo.id]){
 			_pastEvents[pastEvent.eventInfo.id] = {
 				id: pastEvent.eventInfo.id,
-				name: pastEvent.eventInfo.name,
+				name: pastEvent.eventInfo.title,
 				startTime: pastEvent.eventInfo.start,
 				endTime: pastEvent.eventInfo.end,
 				picture: pastEvent.eventInfo.cover_pic,
+				description: pastEvent.eventInfo.description,
 				creator_id: pastEvent.creatorInfo.id,
 				creator_name: pastEvent.creatorInfo.name,
 				creator_username: pastEvent.creatorInfo.username

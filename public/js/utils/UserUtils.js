@@ -1,4 +1,29 @@
-define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
+define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions/CalendarActions'], function($, cookie, apiUrl, UserActions, CalendarActions){
+
+  function loadEventsFromFB() {
+    FB.api(
+        "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
+        function (response) {
+          if (response && !response.error) {
+            $.ajax({
+              url: '/api/v0/users/' + $.cookie('user_id') +'/events/provider',
+              type: 'POST',
+              contentType: "application/json; charset=utf-8",
+              data: JSON.stringify({ events_data: response.data, provider: "FB"})
+            }).success(function(data){
+              CalendarActions.addOrUpdateCal(data);
+            }).fail(function(data){
+              console.log(data.statusText);
+            });
+          } else {
+            console.log(response.error.message);
+            localStorage.clear();
+            document.location.href="/";
+            alert('You session has timed out or you are not logged in FB please log in')
+          }
+        }
+    );
+  }
 
   var UserUtils = {
 
@@ -33,6 +58,7 @@ define(['serverSetup','actions/UserActions'], function(apiUrl, UserActions){
                 }).success(function(data){
                    $.cookie('user_id', data,{ expires: date, path: '/' });
                    UserActions.recieveUserId(data);
+                   loadEventsFromFB();
                    document.location.href="/";
                 }).fail(function(data){
                    console.log(data.statusText);

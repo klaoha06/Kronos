@@ -29,6 +29,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  	  });
 	  	});
 	  },
+	  componentWillUnmount: function() {
+	    CalendarStore.removeChangeListener(this._onChange);
+	  },
 	  _onChange: function() {
 	    this.setState({cals: CalendarStore.getUserCals()});
 	  },

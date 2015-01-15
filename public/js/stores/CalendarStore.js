@@ -49,12 +49,15 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		addChangeListener: function(callback) {
 	    EventEmitter.on(CHANGE_EVENT, callback);
 		},
+		removeChangeListener: function(callback) {
+		  EventEmitter.removeListener(CHANGE_EVENT, callback);
+		},
 		getUserCals: function () {
 			return _myCalendarsEvents;
 		},
 		getCurrentCal: function() {
 			return _currentCalendar;
-		}
+		},
 	};
 
 	CalendarsStore.dispatchToken = Dispatcher.register(function(payload){

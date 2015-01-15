@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20150108012336) do
     t.string   "owner_id"
     t.string   "my_status"
     t.text     "description"
+    t.boolean  "important",        default: false
+    t.boolean  "favorite",         default: false
     t.boolean  "share",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"

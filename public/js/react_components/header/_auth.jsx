@@ -1,10 +1,5 @@
-define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/UserUtils', 'stores/UserStore'], function(React, $, cookie, GroupAPI, UserUtils, UserStore){
-  function loadDataOnLogin()
-  {
-    GroupAPI.retrieveSubscribedGroups();
-    EventAPI.retrieveUserEvents();
-    CalendarAPI.retrieveCals();
-  }
+define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/UserUtils', 'stores/UserStore', 'actions/CalendarActions'], function(React, $, cookie, GroupAPI, UserUtils, UserStore, CalendarActions){
+
   function getStateFromStores(){
     return{
       UserId: UserStore.currentUser()

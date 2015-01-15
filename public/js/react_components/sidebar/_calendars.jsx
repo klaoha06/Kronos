@@ -12,6 +12,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 			CalendarStore.addChangeListener(this._onChange);
 			CalendarAPI.getUserCals();
 		},
+		componentWillUnmount: function() {
+		  CalendarStore.removeChangeListener(this._onChange);
+		},
 		_onChange: function() {
 			this.setState(getCalsStore());
 		},

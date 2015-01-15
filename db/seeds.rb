@@ -1,4 +1,4 @@
-10.times do
+8.times do
   user = User.create(username: Faker::Internet.user_name, name: Faker::Name.first_name, email: Faker::Internet.email, profile_pic: Faker::Avatar.image, fb_id: Faker::Business.credit_card_number)
   user.calendars.create(name: Faker::Commerce.product_name)
   user.events.create(
@@ -10,10 +10,11 @@
   	)
   user.events.create(
     title: Faker::Commerce.product_name,
-    start: Faker::Time.backward(rand(20), :morning),
-    end: Faker::Time.backward(rand(20)+1, :evening),
+    start: Faker::Time.between(2.days.ago, Time.now, :morning),
+    end: Faker::Time.forward(rand(22)+1, :morning),
     cover_pic: Faker::Avatar.image,
-    location: Faker::Address.country
+    location: Faker::Address.country,
+    description: Faker::Lorem.sentence
     )
 end
 

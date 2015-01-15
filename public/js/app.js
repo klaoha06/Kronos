@@ -15,6 +15,7 @@ require.config({
        "event-emitter": "vendor/eventemitter",
        "jquery-cookie": "vendor/jquery.cookie",
        "moment": "vendor/moment.min",
+       "moment-twitter": "vendor/moment-twitter",
        "picker": "vendor/pickadate/picker",
        "pickadate": "vendor/pickadate/picker.date",
        "pickatime": "vendor/pickadate/picker.time",

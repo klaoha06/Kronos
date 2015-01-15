@@ -5,7 +5,6 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
     },
     componentDidMount: function() {
       CalendarStore.addChangeListener(this._onChange);
-      console.log(this.state);
       // FullCalendar
       $('#calendar').fullCalendar({
         header: {
@@ -84,7 +83,9 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         events: CalendarStore.getCurrentCal()
       });
       this.setState(CalendarStore.getCurrentCal());
-      console.log(this.state);
+    },
+    componentWillUnmount: function() {
+      CalendarStore.removeChangeListener(this._onChange);
     },
     render: function() {
       var mainCalTitle;
