@@ -1,5 +1,4 @@
 define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions/CalendarActions'], function($, cookie, apiUrl, UserActions, CalendarActions){
-
   function loadEventsFromFB() {
     FB.api(
         "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
@@ -26,7 +25,6 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
   }
 
   var UserUtils = {
-
     logIn: function(){
       FB.login(function(response) {
         if (response.authResponse) {
@@ -34,7 +32,6 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
           var date = new Date();
           date.setTime(date.getTime() + (10800000)); // 3 hours
           $.cookie('access_token', response.authResponse.accessToken,{ expires: date, path: '/' });
-
           localStorage.setItem('fb_id', response.authResponse.userID);
           FB.api('/me', 
              {fields: "id,about,picture.type(large).width(300),birthday,age_range,email,first_name,last_name,gender,hometown,location,locale,name,timezone"}, 
@@ -57,9 +54,8 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
                   data: localStorage
                 }).success(function(data){
                    $.cookie('user_id', data,{ expires: date, path: '/' });
-                   UserActions.recieveUserId(data);
                    loadEventsFromFB();
-                   document.location.href="/";
+                   UserActions.recieveUserId(data);
                 }).fail(function(data){
                    console.log(data.statusText);
                 });

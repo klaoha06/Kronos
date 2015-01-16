@@ -1,10 +1,12 @@
 define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActions){
 
 	var CalendarAPI = {
+		initializeCals: function(){
+
+		},
 		getUserCals: function(){
 			var url = "/users/"+$.cookie('user_id')+"/calendars";
 			var that = this;
-			//Run once to load
 			$.ajax({
 			url: apiUrl + url,
 			dataType: 'json'

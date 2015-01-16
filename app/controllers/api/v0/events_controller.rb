@@ -79,7 +79,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     params['events_data'].each do |event_data|
       event = Event.find_by(provider: params[:provider], 
         id_from_provider: event_data['id'], 
-        creator_id: params[:user_id])
+        creator_id: user_id)
       if event #update
         event.update(title: event_data['name'], 
           start: event_data['start_time'], 
@@ -94,7 +94,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
           external_uri: (fb_base_url + event_data['id']))
       else # create
         event = Event.new(
-          creator_id: params[:user_id], 
+          creator_id: user_id, 
           provider: params[:provider], 
           id_from_provider: event_data['id'], 
           title: event_data['name'], 
@@ -115,10 +115,8 @@ class Api::V0::EventsController < Api::V0::ApplicationController
       else
         render json: event.errors, status: :unprocessable_entity
       end
-    end #create event loop
-
+    end
       render json: {cal: calendar, events: calendar.events}
-
   end
 
   # PATCH/PUT /events/1

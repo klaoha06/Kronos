@@ -1,6 +1,15 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, api, Auth, CreateEvent){
+define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, api, UserStore, Auth, CreateEvent){
 	var Link = Router.Link;
 		var Navbar = React.createClass({
+		getInitialState: function(){
+			return{user_id: []};
+		},
+		componentDidMount: function(){
+			UserStore.addChangeListener(this._onChange);
+		},
+		_onChange: function(){
+			this.setState({user_id: $.cookie('user_id')});
+		},
 		render: function() {
 			var user = {id: $.cookie('user_id')};
 			if(typeof user.id !== 'undefined'){

@@ -32,7 +32,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		var calendar = $.grep(_myCalendarsEvents, function(calendarEvent){ 
 			return calendarEvent.cal.id == calEvent.cal.id;
 		});
-		if (calendar) {
+		if (calendar.length !== 0) {
 			calendar = calEvent;
 		} else {
 			_myCalendarsEvents.push(calEvent);
@@ -83,7 +83,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.ADD_OR_UPDATE_CAL:
-				addOrUpdateCal(action.calEvent);		
+				addOrUpdateCal(action.calEvent);
 				CalendarsStore.emitChange();
 				break;
 		}

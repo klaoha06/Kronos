@@ -8,7 +8,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 	}
 
 	function clearSession(){
-			_currentUserId = false;
+		_currentUserId = false;
 	}
 
 	var UserStore = {
