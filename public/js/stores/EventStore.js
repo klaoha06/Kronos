@@ -6,7 +6,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 
 	function _addEvents(futureEvents, pastEvents){
 		futureEvents.forEach(function(futureEvent) {
-			console.log(futureEvent);
 			if(!_futureEvents[futureEvent.eventInfo.id]){
 				_futureEvents[futureEvent.eventInfo.id] = {
 					id: futureEvent.eventInfo.id,

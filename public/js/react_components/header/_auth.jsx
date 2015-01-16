@@ -17,13 +17,13 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
         this.setState(getStateFromStores());
       },
       FBlogin: function() {
-        FB.getLoginStatus(function(response) {
-          if (response.status === 'connected') {
+        // FB.getLoginStatus(function(response) {
+          // if (response.status === 'connected') {
+          //   UserUtils.logIn();
+          // } else {
             UserUtils.logIn();
-          } else {
-            UserUtils.logIn();
-          }
-        });
+          // }
+        // });
       },
       FBlogout: function() {
         UserUtils.logOut();

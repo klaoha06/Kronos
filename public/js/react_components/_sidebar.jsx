@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, api, GroupStore, MyCalendars){
+define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, api, GroupStore, UserStore, MyCalendars){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -78,6 +78,15 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'j
 
 
 	var Sidebar = React.createClass({
+		getInitialState: function(){
+			return{user_id: []};
+		},
+		componentDidMount: function(){
+			UserStore.addChangeListener(this._onChange);
+		},
+		_onChange: function(){
+			this.setState({user_id: $.cookie('user_id')});
+		},
 		render: function() {
 			var user_id = $.cookie('user_id')
 				if ($.cookie('access_token')) {

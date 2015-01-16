@@ -109,7 +109,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 						</div>
 					</div>
 					<div className=" col span_3 fl-r">
-						<h1>Trending Events</h1>
+						<h1>Trending Calendars</h1>
 					</div>
 				</div>
 				);

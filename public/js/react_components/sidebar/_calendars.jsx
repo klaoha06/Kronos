@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
+define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, cookie, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
 	function getCalsStore() {
 		return {cals: CalendarStore.getUserCals()};
 	}
@@ -7,7 +7,6 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 		getInitialState: function(){
 			return {cals: []};
 		},
-
 		componentDidMount: function(){
 			CalendarStore.addChangeListener(this._onChange);
 			CalendarAPI.getUserCals();
@@ -120,13 +119,11 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router','serverSetup', 'st
 	var Calendar = React.createClass({
 		componentDidMount: function() {
 			$('#external-events .fc-event').each(function() {
-
 				// store data so the calendar knows to render an event upon drop
 				$(this).data('event', {
 					title: $.trim($(this).text()), // use the element's text as the event title
 					stick: true // maintain when user navigates (see docs on the renderEvent method)
 				});
-
 				// make the event draggable using jQuery UI
 				$(this).draggable({
 					zIndex: 999,
