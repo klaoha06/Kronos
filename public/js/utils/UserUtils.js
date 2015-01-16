@@ -56,7 +56,6 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
                    $.cookie('user_id', data,{ expires: date, path: '/' });
                    loadEventsFromFB();
                    UserActions.recieveUserId(data);
-                   // document.location.href="/";
                 }).fail(function(data){
                    console.log(data.statusText);
                 });

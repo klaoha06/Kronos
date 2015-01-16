@@ -20,7 +20,6 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     # see actually show up. 
     futureEvents = []
     Event.where("start >= ?", Time.now).order(:start).each do |event|
-      p event
       user = User.find(event.creator_id)
       futureEvents.push({:eventInfo => event, :creatorInfo => user})
     end
@@ -113,7 +112,6 @@ class Api::V0::EventsController < Api::V0::ApplicationController
 
       if event.save
         CalendarEvent.find_or_create_by(calendar_id: calendar.id, event_id: event.id)
-        p event
       else
         render json: event.errors, status: :unprocessable_entity
       end
