@@ -2,10 +2,13 @@
 	height:50%;
 	overflow: scroll;
 }
-
-.eventImage{
-	height: 50px;
+.no-margin{
+	margin: 0;
+}
+.event-image{
+	height: 400px;
 	float: left;
+	width:100%;
 }
 .event-metadata{
 	float:left;
@@ -15,14 +18,33 @@
 	font-style: italic;
 	font-weight: lighter;
 	font-size: 0.7em;
+	float:right;
+}
+.event-name{
 }
 .creator-name{
 	font-weight:bold;
+	display
 }
 .creator-username{
 	font-weight: lighter;
 }
 
-.eventNode:hover{
+.event-node{
+	margin-bottom: 20px;
 	background-color: #eee;
 }
+.hover-info{
+	color: #3F3F3F;
+	position: absolute;
+	z-index: 1;
+}
+
+.blur{
+	-webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    -o-filter: blur(10px);
+    filter: blur(10px);
+}
+
