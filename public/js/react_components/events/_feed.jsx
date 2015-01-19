@@ -32,13 +32,69 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 
 	});
 
+	var EventNode = React.createClass({
+		getInitialState: function(){
+			return {hover: false}
+		},
+		displayEventInfo: function(){
+			this.setState({hover: true})
+		},
+		removeEventInfo: function(){
+			this.setState({hover: false})
+		},
+		render: function(){
+			var	hoverInfo, eventClass;
+			if(this.state.hover === true){				
+				hoverInfo = (
+						<div className="hover-info">
+						<Link to="UserPage" params={{id: this.props.eventObj.creator_id}}>
+						<h3 className="creator-name ta-l no-margin">{this.props.eventObj.creator_name} </h3>
+						<h4 className="creator-username ta-l no-margin">@{this.props.eventObj.creator_username} </h4>
+						</Link>
+						<p className="event-time ta-l no-margin">Starts: {moment(this.props.eventObj.startTime).twitterLong()}</p> 
+						<br />
+						<p className="event-time ta-l no-margin">Ends: {moment(this.props.eventObj.endTime).twitterLong()}</p>
+						<p className="ta-l">Description: {this.props.eventObj.description}</p>
+						</div>
+				)
+				imageClass = 'debug d-b m-a event-image blur';
+			}
+			else
+			{
+				imageClass = 'debug d-b m-a event-image';
+			}
+			console.log(this.props.eventObj)
+			return (
+			<div className='event-node debug cf span_12' key={this.props.index} id={"event-"+this.props.eventObj.id} onMouseEnter={this.displayEventInfo} onMouseLeave={this.removeEventInfo}>
+				<div>
+				<Link to="Event" params={this.props.eventObj}>
+					<h2 className="event-name no-margin">
+					{this.props.eventObj.name}
+					</h2>
+				</Link>	
+				<img className={imageClass} src={this.props.eventObj.picture}  ></img>
+				{hoverInfo}
+
+				</div>
+				<button className="fl-r" >Add to calendar</button>
+			</div>
+			)
+		}
+	});
+
 	var Feed = React.createClass({
 		getInitialState: function(){
-			return {futureEvents: [], pastEvents: []};
+			return {futureEvents: [], pastEvents: [], hover: false};
 		},
 		componentDidMount: function(){
 			EventAPI.retrieveUserEvents();
 			EventStore.addChangeListener(this._onChange);
+		},
+
+		displayEventInfo: function(e){
+			console.log("display event info");
+			console.log(e.target);
+
 		},
 
 		render: function(){
@@ -46,23 +102,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 				return(
 					<div className="row span_10 mlr-a">
 					<div className="col span_12 ta-c mlr-a">
-					<div className="eventNode debug cf span_12" key={index} id={"event-"+eventObj.id}>
-						<div>
-						<Link to="Event" params={eventObj}>
-							<h2 className="event-name">
-							{eventObj.name}
-							</h2>
-						</Link>
-						<Link to="UserPage" params={{id: eventObj.creator_id}}>
-						<h3 className="creator-name ta-l">{eventObj.creator_name} </h3>
-						<h4 className="creator-username ta-l">@{eventObj.creator_username} </h4><br />
-						</Link>
-						<p className="event-time ta-l">{moment(eventObj.startTime).twitterLong()}</p>
-						<img className="debug d-b m-a" src={eventObj.picture}></img>
-						</div>
-						<button className="fl-r">Subscribe</button>
-
-					</div>
+					<EventNode eventObj={eventObj} index={index} />
 					</div>
 					</div>
 				);
@@ -71,23 +111,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 				return(
 					<div className="row span_10 mlr-a">
 					<div className="col span_12 ta-c mlr-a">
-					<div className="eventNode debug cf" key={index} id={"event-"+eventObj.id}>
-						<div>
-						<Link to="Event" params={eventObj}>
-							<h2 className="event-name">
-							{eventObj.name}
-							</h2>
-						</Link>
-						<Link to="UserPage" params={{id: eventObj.creator_id}}>
-						<h3 className="creator-name ta-l">{eventObj.creator_name} </h3><br />
-						<h4 className="creator-username ta-l">@{eventObj.creator_username} </h4><br />
-						</Link>
-						<p className="event-time ta-l">{moment(eventObj.startTime).twitterLong()}</p>
-						<img src={eventObj.picture} className="debug"></img>
-						</div>
-						<button className="fl-r">Subscribe</button>
-
-					</div>
+					<EventNode eventObj={eventObj} index={index} />
 					</div>
 					</div>
 				);
