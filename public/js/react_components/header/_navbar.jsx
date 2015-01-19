@@ -11,32 +11,22 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 			this.setState({user_id: $.cookie('user_id')});
 		},
 		render: function() {
-			var user = {id: $.cookie('user_id')};
-			if(typeof user.id !== 'undefined'){
-			    return (
-			      <div id="navbar">
-			        {/*<input id="search" type="text" />*/}
-					    <Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
-							<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
-							<div id="console">
-								<CreateEvent />
-			        	<Auth />
-				      </div>
-		        </div>
-			    );
+			var postLoginNav; 
+			if(this.state.user_id.length !== 0){
+				var user = {id: this.state.user_id}
+				postLoginNav = <Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
 			}
-			else{
-				return(
+			return(
 			    <div id="navbar">
 					<Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
+					{postLoginNav}
 			        <div id="console">
 			        	<CreateEvent />
 			        	<Auth />
 			        </div>
 			    </div>
 			    )
-				}
-		  }
+			}
 		});
 
 	return Navbar;
