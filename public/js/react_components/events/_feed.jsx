@@ -42,11 +42,20 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 		removeEventInfo: function(){
 			this.setState({hover: false})
 		},
+		handleResize: function(e){
+			this.setState({eventWidth: this.refs.eventNode.getDOMNode().offsetWidth});
+		},
+		componentDidMount: function(){
+			this.setState({eventWidth: this.refs.eventNode.getDOMNode().offsetWidth});
+			window.addEventListener('resize', this.handleResize)
+		},
 		render: function(){
 			var	hoverInfo, eventClass;
 			if(this.state.hover === true){				
 				hoverInfo = (
-						<div className="hover-info">
+						<div>
+						<div className="hover-background" style={{width: this.state.eventWidth}}></div>
+						<div className="hover-info" style={{width: this.state.eventWidth}}>
 						<Link to="UserPage" params={{id: this.props.eventObj.creator_id}}>
 						<h3 className="creator-name ta-l no-margin">{this.props.eventObj.creator_name} </h3>
 						<h4 className="creator-username ta-l no-margin">@{this.props.eventObj.creator_username} </h4>
@@ -56,6 +65,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 						<p className="event-time ta-l no-margin">Ends: {moment(this.props.eventObj.endTime).twitterLong()}</p>
 						<p className="ta-l">Description: {this.props.eventObj.description}</p>
 						</div>
+						</div>
 				)
 				imageClass = 'debug d-b m-a event-image blur';
 			}
@@ -63,9 +73,8 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 			{
 				imageClass = 'debug d-b m-a event-image';
 			}
-			console.log(this.props.eventObj)
 			return (
-			<div className='event-node debug cf span_12' key={this.props.index} id={"event-"+this.props.eventObj.id} onMouseEnter={this.displayEventInfo} onMouseLeave={this.removeEventInfo}>
+			<div ref="eventNode" className='event-node debug cf span_12' key={this.props.index} id={"event-"+this.props.eventObj.id} onMouseEnter={this.displayEventInfo} onMouseLeave={this.removeEventInfo}>
 				<div>
 				<Link to="Event" params={this.props.eventObj}>
 					<h2 className="event-name no-margin">
@@ -89,6 +98,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 		componentDidMount: function(){
 			EventAPI.retrieveUserEvents();
 			EventStore.addChangeListener(this._onChange);
+
 		},
 
 		displayEventInfo: function(e){
