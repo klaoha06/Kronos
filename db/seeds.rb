@@ -6,7 +6,8 @@
   	start: Faker::Time.forward(rand(20), :morning),
   	end: Faker::Time.forward(rand(20)+1, :evening),
   	cover_pic: Faker::Avatar.image,
-  	location: Faker::Address.country
+  	location: Faker::Address.country,
+    description: Faker::Lorem.paragraph
   	)
   user.events.create(
     title: Faker::Commerce.product_name,
@@ -14,7 +15,7 @@
     end: Faker::Time.forward(rand(22)+1, :morning),
     cover_pic: Faker::Avatar.image,
     location: Faker::Address.country,
-    description: Faker::Lorem.sentence
+    description: Faker::Lorem.paragraph
     )
 end
 
