@@ -1,5 +1,5 @@
 define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], function(React, api, UserActions, Router) {
-
+	var Link = Router.Link
 	//As of right now this page is just being loaded in with React. I think it would 
 	// be better to incorporate flux but I guess we can just leave as is until it gets more complex. 
 
@@ -28,22 +28,27 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 
 			var followButton;
 			var followerText;
+			var friendships;
 			if(this.state.following === true) 
 				followButton = <button onClick={this.handleUnfollow}>UNFOLLOW</button>
 			else
 				followButton = <button onClick={this.handleFollow}>FOLLOW</button>
 
-			if(this.state.follower === true)
-				followerText = <p>Follows you</p>
-			else
-				followerText = <p>Doesn't follow you</p>
+			followerText = this.state.follower === true ? "Follows you" : "Doesn't follow you"
+			if(this.state.user.length !== 0)
+			{
+				friendships = <Link to="Friendships" params={this.state.user}>{this.state.user.name}{"'s Friendships"}</Link>
 
+			}
 			return (
 				<div>
 				<h1>{this.state.user.name}</h1>
 				<img src={this.state.user.profile_pic}/>
+				<br />
+				<p className="italic smaller">{followerText}</p>
 				{followButton}
-				{followerText}
+				<br />
+				{friendships}
 				</div>
 			)
 		},

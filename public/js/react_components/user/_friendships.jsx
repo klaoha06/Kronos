@@ -36,14 +36,20 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 		mixins: [ Router.State ],
 
 		getInitialState: function(){
-			UserAPI.getAllFriendships(this.getParams().id);
 			return{followers: [], following: []}
 		},
 		componentDidMount: function(){
+			UserAPI.getAllFriendships(this.getParams().id);
 			FriendStore.addChangeListener(this._onChange);
 		},
 
 		render: function() {
+			var display_unfollow;
+			if ($.cookie('user_id') === this.getParams().id) {
+				display_unfollow = false
+			}
+			else
+				display_unfollow = true
 
 			var followers = this.state.followers.map(function(follower, index){
 				return (
@@ -53,7 +59,7 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 
 			var following = this.state.following.map(function(user, index){
 				return (
-					<FriendNode friend={user} key={index} follow={false} />
+					<FriendNode friend={user} key={index} follow={display_unfollow} />
 					)
 			})
 
