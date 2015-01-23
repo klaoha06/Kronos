@@ -46,8 +46,10 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "calendars", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
-    t.boolean  "share",      default: false
-    t.boolean  "main_cal",   default: false
+    t.string   "cover_pic"
+    t.text     "description"
+    t.boolean  "share",       default: false
+    t.boolean  "main_cal",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
