@@ -101,12 +101,6 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 
 		},
 
-		displayEventInfo: function(e){
-			console.log("display event info");
-			console.log(e.target);
-
-		},
-
 		render: function(){
 			var futureNodes = this.state.futureEvents.map(function(eventObj, index){
 				return(
@@ -126,7 +120,6 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 					</div>
 				);
 			});
-			// console.log(moment())
 			return(
 				<div className="ta-c">
 					<div className=" col span_9">

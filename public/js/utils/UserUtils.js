@@ -1,11 +1,11 @@
-define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions/CalendarActions'], function($, cookie, apiUrl, UserActions, CalendarActions){
+define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'actions/CalendarActions'], function($, cookie, apiUrl, UserActions, CalendarActions){
   function loadEventsFromFB() {
     FB.api(
         "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
         function (response) {
           if (response && !response.error) {
             $.ajax({
-              url: '/api/v0/users/' + $.cookie('user_id') +'/events/provider',
+              url: apiUrl + '/users/' + $.cookie('user_id') +'/events/provider',
               type: 'POST',
               contentType: "application/json; charset=utf-8",
               data: JSON.stringify({ events_data: response.data, provider: "FB"})
@@ -48,7 +48,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
                 localStorage.setItem('age_range', response.age_range.min);
                 //Send Data Back to Server
                  $.ajax({
-                  url: '/api/v0/users/sessioning_user',
+                  url: apiUrl + '/users/sessioning_user',
                   dataType: 'json',
                   type: 'POST',
                   data: localStorage
@@ -74,7 +74,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
     }), {access_token: $.cookie('access_token')};
     // Clearing Server
     $.ajax({
-      url: '/api/v0/users/clear_session'
+      url: apiUrl + '/users/clear_session'
     });
     // Clear Client
     localStorage.clear();
@@ -82,6 +82,28 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserActions', 'actions
     document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     document.location.href="/";
   },
+
+  getAllFriendships: function(user_id){
+    $.ajax({
+      url: apiUrl + '/users/' + user_id + '/friendships'
+    }).done(function(data){
+      UserActions.loadFriendships(data)
+    }).fail(function(data){
+      console.log('Failed to get friendships.');
+    })
+
+  },
+
+  unFollow: function(user_id){
+    $.ajax({
+      url: apiUrl + '/users/' + user_id + '/unfollow',
+      type: 'POST'
+    }).done(function(data){
+      UserActions.unfollowCompleted(data)
+    }).fail(function(data){
+      UserActions.unfollowFailed(data)
+    })
+  }
 
   };
 

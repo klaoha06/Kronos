@@ -21,11 +21,14 @@ end
 
 User.all.each do |user|
   user.addedcalendars << Calendar.where.not(creator_id: user.id).sample
-end
-
-
-User.all.each do |user|
   user.addedevents << Event.where.not(creator_id: user.id).sample
+  begin
+  user.followers << User.where.not(id: user.id).sample(5)
+  rescue ActiveRecord::RecordNotUnique
+    puts 'Tried to add an existing relationship.. Continuing to load'
+  rescue ActiveRecord::RecordInvalid
+    puts 'Tried to follow self.. Continuing to load'
+  end
 end
 
 15.times do 
@@ -38,3 +41,5 @@ end
 	end
 	User.first.groups << group
 end
+
+
