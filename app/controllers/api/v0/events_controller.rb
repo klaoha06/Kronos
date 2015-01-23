@@ -75,40 +75,40 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     else
       puts 'donno this provider'
     end
-
     params['events_data'].each do |event_data|
       event = Event.find_by(provider: params[:provider], 
         id_from_provider: event_data['id'], 
         creator_id: user_id)
-      if event #update
-        event.update(title: event_data['name'], 
-          start: event_data['start_time'], 
-          end: event_data['end_time'], 
-          location: event_data['location'], 
-          time_zone: event_data['timezone'], 
-          cover_pic: event_data['cover']['source'], 
-          owner_name: event_data['owner']['name'], 
-          owner_id: event_data['owner']['id'], 
-          description: event_data['description'], 
-          my_status: event_data['rsvp_status'], 
-          external_uri: (fb_base_url + event_data['id']))
-      else # create
-        event = Event.new(
-          creator_id: user_id, 
-          provider: params[:provider], 
-          id_from_provider: event_data['id'], 
-          title: event_data['name'], 
-          start: event_data['start_time'], 
-          end: event_data['end_time'], 
-          location: event_data['location'], 
-          time_zone: event_data['timezone'], 
-          cover_pic: event_data['cover']['source'], 
-          owner_name: event_data['owner']['name'], 
-          owner_id: event_data['owner']['id'], 
-          description: event_data['description'], 
-          my_status: event_data['rsvp_status'], 
-          external_uri: (fb_base_url + event_data['id']))
-      end
+        if event #update
+          event.update(title: event_data['name'], 
+            start: event_data['start_time'], 
+            end: event_data['end_time'], 
+            location: event_data['location'], 
+            time_zone: event_data['timezone'], 
+            owner_name: event_data['owner']['name'], 
+            owner_id: event_data['owner']['id'], 
+            description: event_data['description'], 
+            my_status: event_data['rsvp_status'], 
+            external_uri: (fb_base_url + event_data['id']))
+        else # create
+          event = Event.new(
+            creator_id: user_id, 
+            provider: params[:provider], 
+            id_from_provider: event_data['id'], 
+            title: event_data['name'], 
+            start: event_data['start_time'], 
+            end: event_data['end_time'], 
+            location: event_data['location'], 
+            time_zone: event_data['timezone'], 
+            owner_name: event_data['owner']['name'], 
+            owner_id: event_data['owner']['id'], 
+            description: event_data['description'], 
+            my_status: event_data['rsvp_status'], 
+            external_uri: (fb_base_url + event_data['id']))
+        end
+        if event_data['cover']
+          event.cover_pic = event_data['cover']['source']
+        end
 
       if event.save
         CalendarEvent.find_or_create_by(calendar_id: calendar.id, event_id: event.id)
