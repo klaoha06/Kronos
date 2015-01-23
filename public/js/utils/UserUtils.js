@@ -61,49 +61,60 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
                 });
              }
           );
-       } else {
-        console.log('User cancelled login or did not fully authorize.');
-      }
-    }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
-  },
+         } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
+    },
 
-  logOut: function() {
-    //Log Out of FB
-    FB.logout(function(response) {
-      UserActions.deleteUserId();
-    }), {access_token: $.cookie('access_token')};
-    // Clearing Server
-    $.ajax({
-      url: apiUrl + '/users/clear_session'
-    });
-    // Clear Client
-    localStorage.clear();
-    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    document.location.href="/";
-  },
+    logOut: function() {
+      //Log Out of FB
+      FB.logout(function(response) {
+        UserActions.deleteUserId();
+      }), {access_token: $.cookie('access_token')};
+      // Clearing Server
+      $.ajax({
+        url: apiUrl + '/users/clear_session'
+      });
+      // Clear Client
+      localStorage.clear();
+      document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.location.href="/";
+    },
 
-  getAllFriendships: function(user_id){
-    $.ajax({
-      url: apiUrl + '/users/' + user_id + '/friendships'
-    }).done(function(data){
-      UserActions.loadFriendships(data)
-    }).fail(function(data){
-      console.log('Failed to get friendships.');
-    })
+    getAllFriendships: function(user_id){
+      $.ajax({
+        url: apiUrl + '/users/' + user_id + '/friendships'
+      }).done(function(data){
+        UserActions.loadFriendships(data)
+      }).fail(function(data){
+        console.log('Failed to get friendships.');
+      })
 
-  },
+    },
 
-  unFollow: function(user_id){
-    $.ajax({
-      url: apiUrl + '/users/' + user_id + '/unfollow',
-      type: 'POST'
-    }).done(function(data){
-      UserActions.unfollowCompleted(data)
-    }).fail(function(data){
-      UserActions.unfollowFailed(data)
-    })
-  }
+    unfollow: function(user_id){
+      $.ajax({
+        url: apiUrl + '/users/' + user_id + '/unfollow',
+        type: 'POST'
+      }).done(function(data){
+        UserActions.unfollowCompleted(data)
+      }).fail(function(data){
+        UserActions.unfollowFailed(data)
+      })
+    },
+
+    follow: function(user_id){
+      $.ajax({
+        url: apiUrl + '/users/' + user_id + '/follow',
+        type: 'POST'
+      }).done(function(data){
+        UserActions.followCompleted(data);
+      }).fail(function(data){
+        UserActions.followFailed(data);
+      })
+    }
 
   };
 

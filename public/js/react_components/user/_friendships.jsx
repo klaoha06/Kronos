@@ -4,12 +4,10 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 	function getStateFromStores(){
 		return{ followers: FriendStore.getAllFollowers(), following: FriendStore.getAllFollowing()}
 	}
-
-
 	var FriendNode = React.createClass({
 
 		removeFriend: function(e){
-			UserAction.Unfollowollow(this.props.friend.id)
+			UserAction.unfollow(this.props.friend.id)
 		},
 
 		render: function(){
@@ -20,7 +18,6 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 					<button className="Unfollow" onClick={this.removeFriend}>Unfollow</button>
 				)
 			}
-
 			return(
 				<li className="debug">
 				<img className="profilePic" src={this.props.friend.profile_pic}></img>

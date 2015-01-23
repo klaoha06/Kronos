@@ -41,8 +41,10 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 	end
 
 	def show
-		user = User.find(params[:id].to_i)
-		render json: user
+		user = User.find(params[:id])
+		current_is_follower = Follow.where(:follower_id => @current_user.id, :following_id => user.id).empty? ? false : true
+		follows_current = Follow.where(:follower_id => user.id, :following_id => @current_user.id).empty? ? false : true
+		render json: {:user => user, :friendship => {following: current_is_follower, follower: follows_current}}
 	end
 
 	def show_user_cals
@@ -72,6 +74,11 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 		follow = Follow.find_by(follower_id: @current_user.id, following_id: params[:id])
 		follow.destroy! if follow
 		render json: User.find(params[:id])
+	end
+
+	def follow
+		follow = Follow.create(follower_id: @current_user.id, following_id: params[:id])
+		render json: follow ? follow : 'error' 
 	end
 
 end
