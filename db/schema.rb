@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108012336) do
+ActiveRecord::Schema.define(version: 20150123011553) do
 
   create_table "auths", force: true do |t|
     t.integer  "user_id"
@@ -46,10 +46,8 @@ ActiveRecord::Schema.define(version: 20150108012336) do
   create_table "calendars", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
-    t.string   "cover_pic"
-    t.text     "description"
-    t.boolean  "share",       default: false
-    t.boolean  "main_cal",    default: false
+    t.boolean  "share",      default: false
+    t.boolean  "main_cal",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,6 +73,17 @@ ActiveRecord::Schema.define(version: 20150108012336) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "follows", force: true do |t|
+    t.integer  "following_id"
+    t.integer  "follower_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "follows", ["follower_id"], name: "index_follows_on_follower_id"
+  add_index "follows", ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
+  add_index "follows", ["following_id"], name: "index_follows_on_following_id"
 
   create_table "groups", force: true do |t|
     t.string   "name"

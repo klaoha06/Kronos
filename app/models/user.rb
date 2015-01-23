@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
   has_many :user_groups, :foreign_key => "user_id"
   has_many :groups, :class_name => "Group", :through => :user_groups 
 
+  has_many :active_follows, :class_name => 'Follow', :foreign_key => 'follower_id'
+  has_many :passive_follows, :class_name => 'Follow', :foreign_key => 'following_id'
+  has_many :followers, :through => :passive_follows
+  has_many :following, :through => :active_follows, :source => :following
+
   after_create :create_default_cal
 
   def create_default_cal
