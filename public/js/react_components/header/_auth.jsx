@@ -51,7 +51,7 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
       render: function() {
         return (
          <a href={"#/users/" + $.cookie('user_id')}>
-           <img id="profilePic" src={localStorage.getItem('profilePic')} />
+           <img className="profilePic" src={localStorage.getItem('profilePic')} />
          </a>
         );
       }

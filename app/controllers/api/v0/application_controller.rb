@@ -7,6 +7,7 @@ class Api::V0::ApplicationController < ActionController::API
 		if auth
 			if (Time.now - auth.created_at < 11000)
 				# User In Session
+				@current_user = User.find(auth.user_id)
 				return true
 			else
 				# Session Time Out

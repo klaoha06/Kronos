@@ -2,7 +2,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 	var Link = Router.Link;
 		var Navbar = React.createClass({
 		getInitialState: function(){
-			return{user_id: []};
+			return{user_id: $.cookie('user_id')};
 		},
 		componentDidMount: function(){
 			UserStore.addChangeListener(this._onChange);
@@ -14,12 +14,19 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 			var postLoginNav; 
 			if(this.state.user_id.length !== 0){
 				var user = {id: this.state.user_id}
-				postLoginNav = <Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
+				postLoginNav = (
+					<div className="fl-r">
+					<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
+					<Link to="Friendships" params={user} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
+					</div>
+					);
 			}
 			return(
 			    <div id="navbar">
+			    	<div className="fl-l">
 					<Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
 					{postLoginNav}
+					</div>
 			        <div id="console">
 			        	<CreateEvent />
 			        	<Auth />
