@@ -12,7 +12,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 		},
 		render: function() {
 			var postLoginNav; 
-			if(this.state.user_id.length !== 0){
+			if(this.state.user_id !== undefined){
 				var user = {id: this.state.user_id}
 				postLoginNav = (
 					<div className="fl-r">
