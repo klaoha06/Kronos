@@ -11,9 +11,9 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 			this.setState({user_id: $.cookie('user_id')});
 		},
 		render: function() {
-			var postLoginNav; 
-			if(this.state.user_id.length !== 0){
-				var user = {id: this.state.user_id}
+			var postLoginNav;
+			if(typeof this.state.user_id !== 'undefined'){
+				var user = {id: this.state.user_id};
 				postLoginNav = (
 					<div className="fl-r">
 					<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
