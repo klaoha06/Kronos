@@ -20,12 +20,20 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 				friends: friends
 			})
 		},
+
 		unfollowCompleted: function(){
 			//don't really need to do anything as we should have already unfollowed. Can double check 
 		},
 		unfollowFailed: function(){
 			//Will need to handle the error case, I.e. re-display the failed unfollow
 			console.log('That unfollow failed ! ')
+		},
+		followCompleted: function(){
+			//if we hit this our optimistic update is confirmed.
+		},
+		followFailed: function(){
+			//Will need to handle the error case, I.e. display error message
+
 		}
 	};
 	return UserActions;

@@ -91,4 +91,10 @@
   list-style-type:none;
 }
 
+.italic{
+  font-style: italic;
+}
 
+.smaller{
+  font-size: 0.5em;
+}

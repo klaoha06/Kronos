@@ -121,8 +121,8 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 				);
 			});
 			return(
-				<div className="ta-c">
-					<div className=" col span_9">
+				<div className="col ta-c span_12 cf">
+					<div className="span_9 m-a">
 						<div id="futurecontainer" className="debug">
 							<h1>Upcoming Events</h1>
 							{futureNodes}
@@ -135,9 +135,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils
 								{pastNodes}
 						</div>
 					</div>
-					<div className=" col span_3 fl-r">
-						<h1>Trending Calendars</h1>
-					</div>
+			
 				</div>
 				);
 		},

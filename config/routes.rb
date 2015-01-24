@@ -29,6 +29,7 @@ Rails.application.routes.draw do
           get 'calendars', to: :show_user_cals
           get 'friendships', to: :friendships
           post 'unfollow', to: :unfollow
+          post 'follow', to: :follow
         end
           resources :events, :only => :index do
             collection do

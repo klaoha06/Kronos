@@ -14,6 +14,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'j
 			var postLoginNav;
 			if(typeof this.state.user_id !== 'undefined'){
 				var user = {id: this.state.user_id};
+
 				postLoginNav = (
 					<div className="fl-r">
 					<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
