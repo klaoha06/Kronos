@@ -11,6 +11,8 @@ gem 'sqlite3'
 
 gem 'faker'
 
+gem 'rspec-rails', '~> 3.0'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
