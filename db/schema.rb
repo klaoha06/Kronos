@@ -46,10 +46,6 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "calendars", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
-    t.string   "cover_pic"
-    t.text     "description"
-    t.boolean  "share",       default: false
-    t.boolean  "main_cal",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,9 +53,9 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "events", force: true do |t|
     t.integer  "creator_id"
     t.integer  "id_from_provider"
-    t.datetime "start"
-    t.datetime "end"
-    t.string   "title"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "name"
     t.string   "location"
     t.string   "time_zone"
     t.string   "cover_pic"
@@ -69,9 +65,6 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.string   "owner_id"
     t.string   "my_status"
     t.text     "description"
-    t.boolean  "important",        default: false
-    t.boolean  "favorite",         default: false
-    t.boolean  "share",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
