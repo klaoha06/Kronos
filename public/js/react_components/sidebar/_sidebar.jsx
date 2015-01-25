@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, api, GroupStore, UserStore, MyCalendars){
+define(['react', 'jquery', 'react-router','API_URL', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, API_URL, GroupStore, UserStore, MyCalendars){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -52,7 +52,7 @@ define(['react', 'jquery', 'react-router','serverSetup', 'stores/GroupStore', 's
 		loadDataFromServer: function(){
 			var that = this;
 			$.ajax({
-				url: api + this.props.url,
+				url: API_URL + this.props.url,
 				dataType: 'json',
 				context: this
 			}).done(function(data){

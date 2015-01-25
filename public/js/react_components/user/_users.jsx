@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'react-router'], function(React, api, Router) {
+define(['react', 'react-router'], function(React, Router) {
 
 	var RouteHandler = Router.RouteHandler;
 

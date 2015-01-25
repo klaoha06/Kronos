@@ -1,4 +1,4 @@
-define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServerActions){
+define(['API_URL','actions/EventServerActions'], function(API_URL, EventServerActions){
 
 	var EventAPI = {
 		retrieveUserEvents: function(){
@@ -8,7 +8,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 			var that = this;
 			//Run once to load
 			$.ajax({
-			url: apiUrl + url,
+			url: API_URL + url,
 			dataType: 'json'
 			}).done(function(data){
 				EventServerActions.loadAllEvents(data);
@@ -19,7 +19,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 		},
 		createEvent: function(data) {
 			 $.ajax({
-			  url: apiUrl + '/events',
+			  url: API_URL + '/events',
 			  dataType: 'json',
 			  type: 'POST',
 			  data: data
@@ -32,7 +32,7 @@ define(['serverSetup','actions/EventServerActions'], function(apiUrl, EventServe
 		},
 		retrieveCalEvents: function(calendar_id) {
 			 $.ajax({
-			  url: apiUrl + '/events',
+			  url: API_URL + '/events',
 			  dataType: 'json',
 			  data: calendar_id
 			}).success(function(data){

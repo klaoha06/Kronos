@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, api, UserAPI, Router, UserAction) {
+define(['react', 'API_URL', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, API_URL, UserAPI, Router, UserAction) {
 	var Link = Router.Link;
 
 
@@ -39,7 +39,7 @@ define(['react', 'serverSetup', 'utils/UserUtils', 'react-router', 'actions/User
 		loadDataFromServer: function(user_id){
 			var that = this;
 			$.ajax({
-			  url: api + '/users/' + user_id + '/friendships'
+			  url: API_URL + '/users/' + user_id + '/friendships'
 			}).done(function(friends) {
 				var temp_followers = [];
 				var temp_following = [];

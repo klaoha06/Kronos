@@ -1,11 +1,11 @@
-define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'actions/CalendarActions'], function($, cookie, apiUrl, UserActions, CalendarActions){
+define(['jquery', 'jquery-cookie', 'API_URL','actions/UserServerActions', 'actions/CalendarActions'], function($, cookie, API_URL, UserActions, CalendarActions){
   function loadEventsFromFB() {
     FB.api(
         "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
         function (response) {
           if (response && !response.error) {
             $.ajax({
-              url: apiUrl + '/users/' + $.cookie('user_id') +'/events/provider',
+              url: API_URL + '/users/' + $.cookie('user_id') +'/events/provider',
               type: 'POST',
               contentType: "application/json; charset=utf-8",
               data: JSON.stringify({ events_data: response.data, provider: "FB"})
@@ -48,7 +48,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
                 localStorage.setItem('age_range', response.age_range.min);
                 //Send Data Back to Server
                  $.ajax({
-                  url: apiUrl + '/users/sessioning_user',
+                  url: API_URL + '/users/sessioning_user',
                   dataType: 'json',
                   type: 'POST',
                   data: localStorage
@@ -74,7 +74,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
       }), {access_token: $.cookie('access_token')};
       // Clearing Server
       $.ajax({
-        url: apiUrl + '/users/clear_session'
+        url: API_URL + '/users/clear_session'
       });
       // Clear Client
       localStorage.clear();
@@ -85,7 +85,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
 
     unfollow: function(user_id){
       $.ajax({
-        url: apiUrl + '/users/' + user_id + '/unfollow',
+        url: API_URL + '/users/' + user_id + '/unfollow',
         type: 'POST'
       }).done(function(data){
         UserActions.unfollowCompleted(data)
@@ -96,7 +96,7 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
 
     follow: function(user_id){
       $.ajax({
-        url: apiUrl + '/users/' + user_id + '/follow',
+        url: API_URL + '/users/' + user_id + '/follow',
         type: 'POST'
       }).done(function(data){
         UserActions.followCompleted(data);

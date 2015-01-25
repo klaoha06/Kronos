@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/EventViewActions', 'moment'], function(React, $, Router, api, EventViewActions, moment){
+define(['react', 'jquery', 'react-router', 'actions/EventViewActions', 'moment'], function(React, $, Router, EventViewActions, moment){
 
 	var Event = React.createClass({
 		mixins: [Router.State], //Gives us ability to check URL with this.getParams

@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','serverSetup', 'utils/EventWebAPIUtils', 'stores/EventStore', 'moment', 'moment-twitter'], function(React, $, Router, api, EventAPI, EventStore, moment, twitter){
+define(['react', 'jquery', 'react-router', 'utils/EventWebAPIUtils', 'stores/EventStore', 'moment', 'moment-twitter'], function(React, $, Router, EventAPI, EventStore, moment, twitter){
 	var Link = Router.Link;
 
 	function getStateFromStores(){

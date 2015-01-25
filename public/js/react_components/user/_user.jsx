@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, api, UserActions, Router, UserProfile) {
+define(['react', 'API_URL', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, API_URL, UserActions, Router, UserProfile) {
 	var Link = Router.Link
 	//As of right now this page is just being loaded in with React. I think it would 
 	// be better to incorporate flux but I guess we can just leave as is until it gets more complex. 
@@ -12,7 +12,7 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router', 'jsx!
 		loadDataFromServer: function(user_id) {
 			var that = this;
 			$.ajax({
-				url: api + '/users/' + user_id,
+				url: API_URL + '/users/' + user_id,
 				dataType: 'json'
 			}).done(function(data){
 				that.setState({user: data.user, following: data.friendship.following, follower: data.friendship.follower});

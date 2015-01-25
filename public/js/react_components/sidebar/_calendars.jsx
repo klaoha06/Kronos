@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','serverSetup', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, cookie, jqueryUI, Router, api, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
+define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router', 'stores/CalendarStore' , 'actions/CalendarActions', 'utils/CalendarWebAPIUtils', 'magnific-popup'], function(React, $, cookie, jqueryUI, Router, CalendarStore, CalendarActions, CalendarAPI, magnificPopup){
 	function getCalsStore() {
 		return {cals: CalendarStore.getUserCals()};
 	}

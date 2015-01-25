@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'moment', 'utils/EventWebAPIUtils', 'magnific-popup', 'picker', 'pickadate', 'pickatime', 'pickalegacy', 'stores/CalendarStore', 'actions/CalendarActions'], function(React, $, jqueryUI, Router, api, moment, EventAPI, magnificPopup, picker, Pickadate, Pickatime, Pickalegacy, CalendarStore, CalendarActions){
+define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'moment', 'utils/EventWebAPIUtils', 'magnific-popup', 'picker', 'pickadate', 'pickatime', 'pickalegacy', 'stores/CalendarStore', 'actions/CalendarActions'], function(React, $, jqueryUI, Router, moment, EventAPI, magnificPopup, picker, Pickadate, Pickatime, Pickalegacy, CalendarStore, CalendarActions){
 	var EventCreator = React.createClass({
 
 	  getInitialState: function() {

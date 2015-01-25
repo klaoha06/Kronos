@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'stores/UserStore', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, api, UserStore, Auth, CreateEvent){
+define(['react', 'jquery', 'react-router', 'stores/UserStore', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, UserStore, Auth, CreateEvent){
 	var Link = Router.Link;
 		var Navbar = React.createClass({
 		getInitialState: function(){

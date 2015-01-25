@@ -1,4 +1,4 @@
-define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
+define(['react', 'actions/CalendarActions', 'API_URL'], function(React, CalendarActions, API_URL) {
 
 	var UserProfile = React.createClass({
 		getInitialState: function() {
@@ -14,7 +14,7 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
 				        $.ajax({
-				        	url: '/api/v0/users/' + $.cookie('user_id') +'/events/provider',
+				        	url: API_URL + '/users/' + $.cookie('user_id') +'/events/provider',
 				        	type: 'POST',
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
