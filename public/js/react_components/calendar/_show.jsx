@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup'], function(React, $, Router, api){
+define(['react', 'jquery', 'react-router', 'API_URL'], function(React, $, Router, API_URL){
 	var Link = Router.Link
 	var ShowCalendar = React.createClass({
 
@@ -31,7 +31,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup'], function(React, $, Ro
 		loadDataFromServer: function(){
 			var that = this;
 			$.ajax({
-				url: api + '/calendars/'+this.getParams().id,
+				url: API_URL + '/calendars/'+this.getParams().id,
 				dataType: 'json',
 				context: this
 			}).done(function(data){

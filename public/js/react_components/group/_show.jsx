@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupViewActions'], function(React, $, Router, api, GroupViewActions){
+define(['react', 'jquery', 'react-router', 'API_URL', 'actions/GroupViewActions'], function(React, $, Router, API_URL, GroupViewActions){
 	
 	var Link = Router.Link;
 
@@ -36,7 +36,7 @@ define(['react', 'jquery', 'react-router', 'serverSetup', 'actions/GroupViewActi
 		loadDataFromServer: function(){
 			var that = this;
 			$.ajax({
-				url: api + '/groups/'+this.getParams().id,
+				url: API_URL + '/groups/'+this.getParams().id,
 				dataType: 'json',
 				context: this
 			}).done(function(data){

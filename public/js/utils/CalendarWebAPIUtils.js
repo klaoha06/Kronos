@@ -1,4 +1,4 @@
-define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActions){
+define(['API_URL','actions/CalendarActions'], function(API_URL, CalendarActions){
 
 	var CalendarAPI = {
 		initializeCals: function(){
@@ -8,7 +8,7 @@ define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActio
 			var url = "/users/"+$.cookie('user_id')+"/calendars";
 			var that = this;
 			$.ajax({
-			url: apiUrl + url,
+			url: API_URL + url,
 			dataType: 'json'
 			}).done(function(data){
 				CalendarActions.receiveUserCals(data);
@@ -19,7 +19,7 @@ define(['serverSetup','actions/CalendarActions'], function(apiUrl, CalendarActio
 		},
 		createCal: function(cal) {
 			$.ajax({
-			  url: apiUrl + '/calendars',
+			  url: API_URL + '/calendars',
 			  dataType: 'json',
 			  type: 'POST',
 			  data: {calendar: cal},

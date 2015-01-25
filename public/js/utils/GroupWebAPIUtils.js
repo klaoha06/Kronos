@@ -1,4 +1,4 @@
-define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServerActions){
+define(['API_URL','actions/GroupServerActions'], function(API_URL, GroupServerActions){
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){
@@ -8,7 +8,7 @@ define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServe
 			var that = this;
 			//Run once to load
 			$.ajax({
-			url: apiUrl + url,
+			url: API_URL + url,
 			dataType: 'json'
 			}).done(function(data){
 				GroupServerActions.loadAllGroups(data);
@@ -23,7 +23,7 @@ define(['serverSetup','actions/GroupServerActions'], function(apiUrl, GroupServe
 			var url = "/users/" + user_id + "/unsubscribe_group"
 
 			$.ajax({
-				url: apiUrl + url, 
+				url: API_URL + url, 
 				method: "DELETE",
 				data: {group_id: id}
 			}).done(function(){

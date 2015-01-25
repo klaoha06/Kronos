@@ -6,7 +6,6 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 	'jsx!react_components/user/_friendships', 'jsx!react_components/user/_user'], function(React, UserCalendar, Router, Group, Navbar, Sidebar, Calendar, Users, Feed, Event, CreateEvent, Friendships, UserPage){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
-
 	var RouteHandler = Router.RouteHandler;
 	var DefaultRoute = Router.DefaultRoute;
 	var Route = Router.Route;
