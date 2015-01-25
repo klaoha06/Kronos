@@ -18,17 +18,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     # For now just returning all events in the future and all events in the past
     # We will need to fix this so that only events that this particular user should
     # see actually show up. 
-    futureEvents = []
-    Event.where("start >= ?", Time.now).order(:start).each do |event|
-      user = User.find(event.creator_id)
-      futureEvents.push({:eventInfo => event, :creatorInfo => user})
-    end
-    pastEvents = []
-    Event.where("start < ?", Time.now).order(:start).each do |event|
-      user = User.find(event.creator_id)
-      pastEvents.push({:eventInfo => event, :creatorInfo => user})
-    end
-    render json: {futureEvents: futureEvents, pastEvents: pastEvents}
+    render json: {futureEvents: get_future_events, pastEvents: get_past_events}
   end
 
   # GET /events/1
@@ -142,7 +132,21 @@ class Api::V0::EventsController < Api::V0::ApplicationController
 
   private
     
-    def event_params
-      params[:event]
+  def event_params
+    params[:event]
+  end
+
+  def get_future_events
+    Event.where("start >= ?", Time.now).order(:start).map do |event|
+      user = User.find(event.creator_id)
+      { :eventInfo => event, :creatorInfo => user }
     end
+  end
+
+  def get_past_events
+    Event.where("start < ?", Time.now).order(:start).map do |event|
+      user = User.find(event.creator_id)
+      { :eventInfo => event, :creatorInfo => user }
+    end
+  end
 end
