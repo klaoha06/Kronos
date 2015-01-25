@@ -1,4 +1,4 @@
-define(['react', 'react-router', 'jsx!react_components/header/_navbar', 'jsx!react_components/sidebar/_sidebar', 'jquery', 'jquery-cookie', 'stores/UserStore'], function(React, Router, Navbar, Sidebar, $, cookie, UserStore){
+define(['react', 'react-router', 'jsx!react_components/header/_navbar', 'jsx!react_components/sidebar/_sidebar', 'stores/UserStore'], function(React, Router, Navbar, Sidebar, UserStore){
 	var RouteHandler = Router.RouteHandler
 
 	var App = React.createClass({
