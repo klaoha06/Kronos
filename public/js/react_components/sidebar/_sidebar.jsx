@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, GroupStore, UserStore, MyCalendars){
+define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, GroupStore, MyCalendars){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{
@@ -78,21 +78,11 @@ define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'stores/UserStor
 
 
 	var Sidebar = React.createClass({
-		getInitialState: function(){
-			return{user_id: $.cookie('user_id')};
-		},
-		componentDidMount: function(){
-			UserStore.addChangeListener(this._onChange);
-		},
-		_onChange: function(){
-			this.setState({user_id: $.cookie('user_id')});
-		},
 		render: function() {
 			//I commented out groups. I honestly feel we should be focussing on the more granular
 			//levels first. Once we have events/calendars, then we can add groups where it fits but 
 			//I think starting smaller first and building from there is better. 
-			var user_id = $.cookie('user_id')
-				if ($.cookie('access_token')) {
+				if (this.props.loggedInUser) {
 					return (
 					  <div id="sidebar" className="debug col span_2">
 					  {/*<h1>Groups </h1>
@@ -101,24 +91,24 @@ define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'stores/UserStor
 					  		<PopularGroups name= "popular" url="/groups/popular" />
 					  	</ul>*/}
 					<h1>My Calendars</h1>
-						<MyCalendars />
-
+						<MyCalendars loggedInUser={this.props.loggedInUser} />
 						<h1>Trending Calendars</h1>
 
 					</div>
 
 					);
-				} else {
-			    return (
-			      <div id="sidebar" className="debug col span_2">
-			      	<h1>Trending Calendars</h1>
-			      {/*<h1>Groups </h1>}
-			      			      	<ul id="sidebarList" className="debug">
-			      			      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
-			      			      		<PopularGroups name= "popular" url="/groups/popular" />
-			      			      	</ul>*/}
-			      </div>
-			    );
+				} 
+				else {
+			    	return (
+				      <div id="sidebar" className="debug col span_2">
+				      	<h1>Trending Calendars</h1>
+				      {/*<h1>Groups </h1>}
+				      			      	<ul id="sidebarList" className="debug">
+				      			      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
+				      			      		<PopularGroups name= "popular" url="/groups/popular" />
+				      			      	</ul>*/}
+				      </div>
+			    	);
 				}
 		  }	
 	});

@@ -1,10 +1,8 @@
-define(['actions/GroupServerActions'], function(GroupServerActions){
+define(['actions/GroupServerActions', 'stores/UserStore'], function(GroupServerActions, UserStore){
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){
-			var user_id = $.cookie('user_id');
-			var url = "/users/"+user_id+"/groups";
-
+			var url = "/users/"+UserStore.currentUser()+"/groups";
 			var that = this;
 			//Run once to load
 			$.ajax({
@@ -19,8 +17,7 @@ define(['actions/GroupServerActions'], function(GroupServerActions){
 
 		},
 		unsubscribeGroup: function(id){
-			var user_id = $.cookie('user_id');
-			var url = "/users/" + user_id + "/unsubscribe_group"
+			var url = "/users/" + UserStore.currentUser() + "/unsubscribe_group"
 
 			$.ajax({
 				url: API_URL + url, 

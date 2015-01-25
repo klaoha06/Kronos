@@ -14,7 +14,7 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 				      if (response && !response.error) {
 				        that.setState({FBEvents: response.data});
 				        $.ajax({
-				        	url: API_URL + '/users/' + $.cookie('user_id') +'/events/provider',
+				        	url: API_URL + '/users/' + this.props.loggedInUser +'/events/provider',
 				        	type: 'POST',
 				        	contentType: "application/json; charset=utf-8",
 				        	data: JSON.stringify({ events_data: response.data, provider: "FB"})
@@ -76,7 +76,6 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 		    		</FBEvent>
 		    		</div>
 		    	);
-
 		    });
 
 		    return (
@@ -84,7 +83,6 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 		    		{FBEventNodes}
 		    	</div>
 		    );
-
 		}
 	});
 

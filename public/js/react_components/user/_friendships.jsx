@@ -59,19 +59,18 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 		componentDidMount: function(){
 			this.loadDataFromServer(this.props.user_id);
 		},
-		componentWillReceiveProps: function(nextProp){
-			if(nextProp.user_id !== this.props.user_id)
-				this.loadDataFromServer(nextProp.user_id)
+		componentWillReceiveProps: function(nextProps){
+			if((nextProps.user_id !== this.props.user_id) || (nextProps.loggedInUser !== this.props.loggedInUser))
+				this.loadDataFromServer(nextProps.user_id)
 		},
 		render: function() {			
 			var display_unfollow;
 			var user_name;
-
 			if(this.state.user !== undefined)
 			{
 				user_name = this.state.user.name
 			}
-			if ($.cookie('user_id') === this.props.user_id) {
+			if (this.props.loggedInUser === this.props.user_id) {
 				display_unfollow = false
 			}
 			else
@@ -109,8 +108,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				)
 		},
 		handleUnfollow: function(index){
-			console.log('making it to handleUnfollow?')
-			console.log(this.state.following)
 			var temp_following = this.state.following;
 			temp_following.splice(index, 1);
 			console.log(temp_following)
@@ -123,7 +120,7 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 		mixins: [ Router.State ],
 		render: function(){
 			return (
-				<Friendships user_id={this.getParams().id} />
+				<Friendships user_id={this.getParams().id} loggedInUser={this.props.loggedInUser}/>
 				)
 		}
 	})

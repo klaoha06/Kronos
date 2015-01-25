@@ -21,6 +21,9 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		addChangeListener: function(callback) {
 	    EventEmitter.on(CHANGE_EVENT, callback);
 		},
+		removeChangeListener: function(callback) {
+		  EventEmitter.removeListener(CHANGE_EVENT, callback);
+		},
 		currentUser: function(){
 			return _currentUserId;
 		}

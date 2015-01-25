@@ -1,10 +1,8 @@
-define(['actions/EventServerActions'], function(EventServerActions){
+define(['actions/EventServerActions', 'stores/UserStore'], function(EventServerActions, UserStore){
 
 	var EventAPI = {
 		retrieveUserEvents: function(){
-			var user_id = $.cookie('user_id');
-			var url = "/users/"+user_id+"/events";
-
+			var url = "/users/"+UserStore.currentUser() + "/events";
 			var that = this;
 			//Run once to load
 			$.ajax({
