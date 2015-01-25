@@ -1,4 +1,4 @@
-define(['react', 'API_URL', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, API_URL, UserAPI, Router, UserAction) {
+define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, UserAPI, Router, UserAction) {
 	var Link = Router.Link;
 
 

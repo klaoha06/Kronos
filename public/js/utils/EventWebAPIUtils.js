@@ -1,4 +1,4 @@
-define(['API_URL','actions/EventServerActions'], function(API_URL, EventServerActions){
+define(['actions/EventServerActions'], function(EventServerActions){
 
 	var EventAPI = {
 		retrieveUserEvents: function(){

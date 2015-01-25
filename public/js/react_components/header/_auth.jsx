@@ -16,7 +16,8 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
       _onchange: function() {
         this.setState(getStateFromStores());
       },
-      FBlogin: function() {
+      FBlogin: function(evt) {
+        evt.preventDefault();
         // FB.getLoginStatus(function(response) {
           // if (response.status === 'connected') {
           //   UserUtils.logIn();

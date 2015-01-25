@@ -1,4 +1,4 @@
-define(['react', 'actions/CalendarActions', 'API_URL'], function(React, CalendarActions, API_URL) {
+define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 
 	var UserProfile = React.createClass({
 		getInitialState: function() {

@@ -1,5 +1,8 @@
-define(['jquery', 'jquery-cookie', 'API_URL','actions/UserServerActions', 'actions/CalendarActions'], function($, cookie, API_URL, UserActions, CalendarActions){
+define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/CalendarActions', 'react-router'], function($, cookie, UserActions, CalendarActions, Router){
+
+
   function loadEventsFromFB() {
+    mixins: [ Router.Navigation ],
     FB.api(
         "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
         function (response) {
@@ -17,16 +20,23 @@ define(['jquery', 'jquery-cookie', 'API_URL','actions/UserServerActions', 'actio
           } else {
             console.log(response.error.message);
             localStorage.clear();
+            document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            // document.location.href="/"; <--- Shouldn't directly manipulate route, use Router functions (I.e. transitionTo). 
+            //Need to figure out how to incorporate that with Flux
             document.location.href="/";
-            alert('You session has timed out or you are not logged in FB please log in')
-          }
+            }
         }
     );
   }
 
   var UserUtils = {
+    mixins: [ Router.Navigation ],
     logIn: function(){
+      that = this;
       FB.login(function(response) {
+        console.log(response)
+
         if (response.authResponse) {
           //Setting Cookie
           var date = new Date();
@@ -36,6 +46,7 @@ define(['jquery', 'jquery-cookie', 'API_URL','actions/UserServerActions', 'actio
           FB.api('/me', 
              {fields: "id,about,picture.type(large).width(300),birthday,age_range,email,first_name,last_name,gender,hometown,location,locale,name,timezone"}, 
              function(response) {
+              console.log(response)
                 // Setting Client's localStorage
                 localStorage.setItem('email', response.email);
                 localStorage.setItem('name', response.name);
@@ -47,24 +58,35 @@ define(['jquery', 'jquery-cookie', 'API_URL','actions/UserServerActions', 'actio
                 localStorage.setItem('birthday', response.birthday);
                 localStorage.setItem('age_range', response.age_range.min);
                 //Send Data Back to Server
-                 $.ajax({
-                  url: API_URL + '/users/sessioning_user',
-                  dataType: 'json',
-                  type: 'POST',
-                  data: localStorage
-                }).success(function(data){
-                   $.cookie('user_id', data,{ expires: date, path: '/' });
-                   loadEventsFromFB();
-                   UserActions.recieveUserId(data);
-                }).fail(function(data){
-                   console.log(data.statusText);
-                });
+                that.loginToServer();
+              
              }
           );
          } else {
           console.log('User cancelled login or did not fully authorize.');
         }
+        return false;
       }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
+    },
+    loginToServer: function(){
+         $.ajax({
+          url: API_URL + '/users/sessioning_user',
+          dataType: 'json',
+          type: 'POST',
+          data: localStorage
+        }).success(function(data){
+          var date = new Date();
+          date.setTime(date.getTime() + (10800000)); // 3 hours
+          $.cookie('user_id', data,{ expires: date, path: '/' });
+          loadEventsFromFB();
+          UserActions.recieveUserId(data);
+        }).fail(function(data){
+          console.log(data.statusText);
+          localStorage.clear();
+          document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+          document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+          document.location.href="/";
+        });
     },
 
     logOut: function() {

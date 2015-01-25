@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'API_URL', 'actions/GroupViewActions'], function(React, $, Router, API_URL, GroupViewActions){
+define(['react', 'jquery', 'react-router', 'actions/GroupViewActions'], function(React, $, Router, GroupViewActions){
 	
 	var Link = Router.Link;
 

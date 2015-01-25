@@ -1,4 +1,4 @@
-define(['API_URL','actions/CalendarActions'], function(API_URL, CalendarActions){
+define(['actions/CalendarActions'], function(CalendarActions){
 
 	var CalendarAPI = {
 		initializeCals: function(){
