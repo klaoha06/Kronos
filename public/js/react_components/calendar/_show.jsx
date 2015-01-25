@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router', 'API_URL'], function(React, $, Router, API_URL){
+define(['react', 'jquery', 'react-router'], function(React, $, Router){
 	var Link = Router.Link
 	var ShowCalendar = React.createClass({
 

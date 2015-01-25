@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'react-router','API_URL', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, API_URL, GroupStore, UserStore, MyCalendars){
+define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'stores/UserStore', 'jsx!react_components/sidebar/_calendars'], function(React, $, Router, GroupStore, UserStore, MyCalendars){
 	var Link = Router.Link;
 	function getStateFromStores(){
 		return{

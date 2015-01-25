@@ -1,4 +1,4 @@
-define(['API_URL','actions/GroupServerActions'], function(API_URL, GroupServerActions){
+define(['actions/GroupServerActions'], function(GroupServerActions){
 	var GroupAPIs = {
 
 		retrieveSubscribedGroups: function(){

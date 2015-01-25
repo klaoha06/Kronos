@@ -1,4 +1,4 @@
-define(['react', 'API_URL', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, API_URL, UserActions, Router, UserProfile) {
+define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, UserActions, Router, UserProfile) {
 	var Link = Router.Link
 	//As of right now this page is just being loaded in with React. I think it would 
 	// be better to incorporate flux but I guess we can just leave as is until it gets more complex. 
