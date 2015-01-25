@@ -1,13 +1,12 @@
-define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, api, FriendStore, UserAPI, Router, UserAction) {
+define(['react', 'serverSetup', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, api, UserAPI, Router, UserAction) {
 	var Link = Router.Link;
 
-	function getStateFromStores(){
-		return{ followers: FriendStore.getAllFollowers(), following: FriendStore.getAllFollowing()}
-	}
+
 	var FriendNode = React.createClass({
 
 		removeFriend: function(e){
 			UserAction.unfollow(this.props.friend.id)
+			this.props.onUnfollow(this.props.index)
 		},
 
 		render: function(){
@@ -33,19 +32,46 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 
 
 	var Friendships = React.createClass({
-		mixins: [ Router.State ],
 
 		getInitialState: function(){
 			return{followers: [], following: []}
 		},
-		componentDidMount: function(){
-			UserAPI.getAllFriendships(this.getParams().id);
-			FriendStore.addChangeListener(this._onChange);
+		loadDataFromServer: function(user_id){
+			var that = this;
+			$.ajax({
+			  url: api + '/users/' + user_id + '/friendships'
+			}).done(function(friends) {
+				var temp_followers = [];
+				var temp_following = [];
+				friends.followers.forEach(function(follower){
+				  	temp_followers.push(follower)
+			    });
+
+			    friends.following.forEach(function(user_following){
+				  	temp_following.push(user_following)
+			  	});
+				that.setState({user: friends.user, followers: temp_followers, following: temp_following});
+			}).fail(function(data){
+			  console.log('Failed to get friendships.');
+			})
 		},
 
-		render: function() {
+		componentDidMount: function(){
+			this.loadDataFromServer(this.props.user_id);
+		},
+		componentWillReceiveProps: function(nextProp){
+			if(nextProp.user_id !== this.props.user_id)
+				this.loadDataFromServer(nextProp.user_id)
+		},
+		render: function() {			
 			var display_unfollow;
-			if ($.cookie('user_id') === this.getParams().id) {
+			var user_name;
+
+			if(this.state.user !== undefined)
+			{
+				user_name = this.state.user.name
+			}
+			if ($.cookie('user_id') === this.props.user_id) {
 				display_unfollow = false
 			}
 			else
@@ -53,17 +79,18 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 
 			var followers = this.state.followers.map(function(follower, index){
 				return (
-					<FriendNode friend={follower} key={index} follow={true} />
+					<FriendNode friend={follower} follow={true} key={index} />
 					)
 			})
-
+			var that = this;
 			var following = this.state.following.map(function(user, index){
 				return (
-					<FriendNode friend={user} key={index} follow={display_unfollow} />
+					<FriendNode friend={user} key={index} index={index} follow={display_unfollow} onUnfollow={that.handleUnfollow} />
 					)
 			})
-
 				return (
+					<div>
+					<h2>{user_name}{"'s friendships"}</h2>
 					<div className="row">
 					<div className="col span_6 debug">
 					<h1>Followers</h1>
@@ -78,15 +105,30 @@ define(['react', 'serverSetup', 'stores/FriendStore', 'utils/UserUtils', 'react-
 						</ul>
 					</div>
 					</div>
+					</div>
 				)
 		},
-		_onChange: function() {
-		   this.setState(getStateFromStores());
-		 }
+		handleUnfollow: function(index){
+			console.log('making it to handleUnfollow?')
+			console.log(this.state.following)
+			var temp_following = this.state.following;
+			temp_following.splice(index, 1);
+			console.log(temp_following)
+			this.setState({following: temp_following})
+		}
 
 	})
 
+	var FriendshipContainer = React.createClass({
+		mixins: [ Router.State ],
+		render: function(){
+			return (
+				<Friendships user_id={this.getParams().id} />
+				)
+		}
+	})
 
-	return Friendships
+
+	return FriendshipContainer
 
 });

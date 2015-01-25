@@ -83,17 +83,6 @@ define(['jquery', 'jquery-cookie', 'serverSetup','actions/UserServerActions', 'a
       document.location.href="/";
     },
 
-    getAllFriendships: function(user_id){
-      $.ajax({
-        url: apiUrl + '/users/' + user_id + '/friendships'
-      }).done(function(data){
-        UserActions.loadFriendships(data)
-      }).fail(function(data){
-        console.log('Failed to get friendships.');
-      })
-
-    },
-
     unfollow: function(user_id){
       $.ajax({
         url: apiUrl + '/users/' + user_id + '/unfollow',

@@ -60,18 +60,18 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 							<RouteHandler />
 						</div>
         	</div>
-				</div>
+			</div>
 			)
 		}
 	})
 	var routes = (
 		<Route handler={App}>
+			<DefaultRoute name="Feed" handler={Feed} />
 			<Route name="Groups" path="group/:id" handler={Group} />
 			<Route name="Calendar" path="calendar/:id" handler={Calendar} />
 			<Route name="UserCalendar" path="users/calendar" handler={UserCalendar} />
-			<Route name="UserPage" path="users/:id" handler={User} />
-			<Route name="Friendships" path="users/:id/friendships" handler={Friendships} />
-			<Route name="Feed" path="/" handler={Feed} />
+			<Route name="UserPage" path="/users/:id" handler={User} />
+			<Route name="Friendships" path="/users/:id/friendships" handler={Friendships} />
 			<Route name="Event" path="event/:id" handler={Event} />
 		</Route>
 	);

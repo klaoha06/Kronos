@@ -14,13 +14,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 			  actionType: KronosConstants.CLEAR_USER_ID
 			});
 		},
-		loadFriendships: function(friends){
-			Dispatcher.handleServerAction({
-				actionType: KronosConstants.RECEIVE_RAW_FRIENDS,
-				friends: friends
-			})
-		},
-
 		unfollowCompleted: function(){
 			//don't really need to do anything as we should have already unfollowed. Can double check 
 		},

@@ -9,23 +9,25 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 			return {user: [], following: false, follower: false};
 		},
 
-		loadDataFromServer: function() {
+		loadDataFromServer: function(user_id) {
 			var that = this;
 			$.ajax({
-				url: api + '/users/' + this.getParams().id,
+				url: api + '/users/' + user_id,
 				dataType: 'json'
 			}).done(function(data){
 				that.setState({user: data.user, following: data.friendship.following, follower: data.friendship.follower});
-			}).fail(function(data){
+			}.bind(this)).fail(function(data){
 				console.log("FAILED REQUEST");
-			});
+			})
 		},
-
 		componentDidMount: function () {
-			this.loadDataFromServer();
+			this.loadDataFromServer(this.props.user_id);
+		},
+		componentWillReceiveProps: function(nextProps){
+			if(nextProps.user_id !== this.props.user_id)
+				this.loadDataFromServer(nextProps.user_id);
 		},
 		render: function() {
-
 			var followButton;
 			var followerText;
 			var friendships;
@@ -43,7 +45,7 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 			return (
 				<div>
 				<h1>{this.state.user.name}</h1>
-				<img src={this.state.user.profile_pic}/>
+				<img src={this.state.user.profile_pic} />
 				<br />
 				<p className="italic smaller">{followerText}</p>
 				{followButton}

@@ -19,7 +19,7 @@ define(['react', 'serverSetup', 'jsx!react_components/user/_profile', 'jsx!react
 				)
 			} else {
 				return (
-					<User />
+					<User user_id={this.getParams().id}/>
 				)
 			}
 		}
