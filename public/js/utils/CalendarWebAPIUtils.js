@@ -1,11 +1,11 @@
-define(['actions/CalendarActions'], function(CalendarActions){
+define(['actions/CalendarActions', 'stores/UserStore'], function(CalendarActions, UserStore){
 
 	var CalendarAPI = {
 		initializeCals: function(){
 
 		},
 		getUserCals: function(){
-			var url = "/users/"+$.cookie('user_id')+"/calendars";
+			var url = "/users/"+ UserStore.currentUser() + "/calendars";
 			var that = this;
 			$.ajax({
 			url: API_URL + url,

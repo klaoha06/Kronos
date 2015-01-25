@@ -35,8 +35,6 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
     logIn: function(){
       that = this;
       FB.login(function(response) {
-        console.log(response)
-
         if (response.authResponse) {
           //Setting Cookie
           var date = new Date();
@@ -46,7 +44,6 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
           FB.api('/me', 
              {fields: "id,about,picture.type(large).width(300),birthday,age_range,email,first_name,last_name,gender,hometown,location,locale,name,timezone"}, 
              function(response) {
-              console.log(response)
                 // Setting Client's localStorage
                 localStorage.setItem('email', response.email);
                 localStorage.setItem('name', response.name);
@@ -78,8 +75,8 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
           var date = new Date();
           date.setTime(date.getTime() + (10800000)); // 3 hours
           $.cookie('user_id', data,{ expires: date, path: '/' });
-          loadEventsFromFB();
           UserActions.recieveUserId(data);
+          loadEventsFromFB();
         }).fail(function(data){
           console.log(data.statusText);
           localStorage.clear();

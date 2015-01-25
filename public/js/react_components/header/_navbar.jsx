@@ -1,28 +1,19 @@
-define(['react', 'jquery', 'react-router', 'stores/UserStore', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, UserStore, Auth, CreateEvent){
+define(['react', 'jquery', 'react-router', 'jsx!react_components/header/_auth', 'jsx!react_components/events/_createEvent'], function(React, $, Router, Auth, CreateEvent){
 	var Link = Router.Link;
-		var Navbar = React.createClass({
-		getInitialState: function(){
-			return{user_id: $.cookie('user_id')};
-		},
-		componentDidMount: function(){
-			UserStore.addChangeListener(this._onChange);
-		},
-		_onChange: function(){
-			this.setState({user_id: $.cookie('user_id')});
-		},
+
+	var Navbar = React.createClass({
 		render: function() {
 			var postLoginNav;
-			if(typeof this.state.user_id !== 'undefined'){
-				var user = {id: this.state.user_id};
-
+			if(this.props.loggedInUser)
+			{
 				postLoginNav = (
 					<div className="fl-r">
-					<Link to="UserCalendar" params={user}><i className="fa fa-2x fa-calendar"></i></Link>
-					<Link to="Friendships" params={user} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
+					<Link to="UserCalendar" params={{id: this.props.loggedInUser}}><i className="fa fa-2x fa-calendar"></i></Link>
+					<Link to="Friendships" params={{id: this.props.loggedInUser}} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
 					</div>
 					);
 			}
-			return(
+			return (
 			    <div id="navbar">
 			    	<div className="fl-l">
 					<Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
@@ -30,12 +21,12 @@ define(['react', 'jquery', 'react-router', 'stores/UserStore', 'jsx!react_compon
 					</div>
 			        <div id="console">
 			        	<CreateEvent />
-			        	<Auth />
+			        	<Auth loggedInUser={this.props.loggedInUser} />
 			        </div>
 			    </div>
-			    )
-			}
-		});
+			)
+		}
+	});
 
 	return Navbar;
 

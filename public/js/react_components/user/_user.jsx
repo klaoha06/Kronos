@@ -24,7 +24,7 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 			this.loadDataFromServer(this.props.user_id);
 		},
 		componentWillReceiveProps: function(nextProps){
-			if(nextProps.user_id !== this.props.user_id)
+			if ((nextProps.user_id !== this.props.user_id) ||  (nextProps.loggedInUser !== this.props.loggedInUser))
 				this.loadDataFromServer(nextProps.user_id);
 		},
 		render: function() {
@@ -78,13 +78,13 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 		// },
 
 		render: function() {
-			if ($.cookie('user_id') == this.getParams().id) {
+			if (this.props.loggedInUser == this.getParams().id) {
 				return (
-					<UserProfile />
+					<UserProfile loggedInUser={this.props.loggedInUser} />
 				)
 			} else {
 				return (
-					<UserPage user_id={this.getParams().id}/>
+					<UserPage user_id={this.getParams().id} loggedInUser={this.props.loggedInUser}/>
 				)
 			}
 		}

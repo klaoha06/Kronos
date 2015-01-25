@@ -3,37 +3,6 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router', 
 		return {cals: CalendarStore.getUserCals()};
 	}
 
-	var MyCalendars = React.createClass({
-		getInitialState: function(){
-			return {cals: []};
-		},
-		componentDidMount: function(){
-			CalendarStore.addChangeListener(this._onChange);
-			CalendarAPI.getUserCals();
-		},
-		componentWillUnmount: function() {
-		  CalendarStore.removeChangeListener(this._onChange);
-		},
-		_onChange: function() {
-			this.setState(getCalsStore());
-		},
-		handleCalSubmit: function(newCal){
-			this.state.cals.push({cal: newCal, events: {}});
-			this.setState({cals: this.state.cals}, function() {
-			  CalendarAPI.createCal(newCal);
-			});
-		},
-		render: function() {
-			return (
-				<div>
-					<UserCalsList data={this.state.cals} />
-					<CreateCal onCalSubmit={this.handleCalSubmit} />
-				</div>
-			)
-		}
-
-	});
-
 	var CreateCal = React.createClass({
 		componentDidMount: function() {
 			$('.createCalForm').magnificPopup({
@@ -55,13 +24,12 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router', 
 			e.preventDefault();
 			var name = this.refs.title.getDOMNode().value.trim();
 			var share = (this.refs.share.getDOMNode().value.trim() === 'true');
-			var user_id = $.cookie('user_id');
 			var currentTime = new Date();
 
 			if (!name || !share) {
 			  return;
 			}
-			this.props.onCalSubmit({name: name, share: share, creator_id: user_id});
+			this.props.onCalSubmit({name: name, share: share, creator_id: this.props.loggedInUser});
 			this.refs.title.getDOMNode().value = '';
 			this.refs.share.getDOMNode().value = 'true';
 			$.magnificPopup.close();
@@ -160,7 +128,37 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router', 
 			);
 		}
 	})
+	
+	var MyCalendars = React.createClass({
+		getInitialState: function(){
+			return {cals: []};
+		},
+		componentDidMount: function(){
+			CalendarStore.addChangeListener(this._onChange);
+			CalendarAPI.getUserCals();
+		},
+		componentWillUnmount: function() {
+		 	CalendarStore.removeChangeListener(this._onChange);
+		},
+		_onChange: function() {
+			this.setState(getCalsStore());
+		},
+		handleCalSubmit: function(newCal){
+			this.state.cals.push({cal: newCal, events: {}});
+			this.setState({cals: this.state.cals}, function() {
+				CalendarAPI.createCal(newCal);
+			});
+		},
+		render: function() {
+			return (
+				<div>
+					<UserCalsList data={this.state.cals} />
+					<CreateCal onCalSubmit={this.handleCalSubmit} loggedInUser={this.props.loggedInUser} />
+				</div>
+			)
+		}
 
+	});
 	return MyCalendars;
 
 });

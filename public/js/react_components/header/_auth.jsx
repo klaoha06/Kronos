@@ -1,21 +1,18 @@
-define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/UserUtils', 'stores/UserStore', 'actions/CalendarActions'], function(React, $, cookie, GroupAPI, UserUtils, UserStore, CalendarActions){
+define(['react', 'utils/UserUtils', 'actions/CalendarActions', 'react-router'], function(React, UserUtils, CalendarActions, Router){
 
-  function getStateFromStores(){
-    return{
-      UserId: UserStore.currentUser()
-    };
-  }
+    var Link = Router.Link
+
+    var UserPageButton = React.createClass({
+      render: function() {
+        return (
+         <Link to="UserPage" params={{id: this.props.loggedInUser}}>
+           <img className="profilePic" src={localStorage.getItem('profilePic')} />
+         </Link>
+        );
+      }
+    });
 
     var LogInButton = React.createClass({
-      getInitialState: function() {
-        return getStateFromStores();
-      },
-      componentDidMount: function() {
-        UserStore.addChangeListener(this._onchange);
-      },
-      _onchange: function() {
-        this.setState(getStateFromStores());
-      },
       FBlogin: function(evt) {
         evt.preventDefault();
         // FB.getLoginStatus(function(response) {
@@ -30,10 +27,10 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
         UserUtils.logOut();
       },
       render: function() {
-        if ($.cookie('access_token')) {
+        if (this.props.loggedInUser) {
           return (
             <div>
-              <UserPageButton />
+              <UserPageButton loggedInUser={this.props.loggedInUser} />
               <button id='logInOut' onClick={this.FBlogout}>Log Out</button>
             </div>
           );
@@ -45,19 +42,7 @@ define(['react', 'jquery', 'jquery-cookie', 'utils/GroupWebAPIUtils', 'utils/Use
           );
         };
       }
-
     });
 
-    var UserPageButton = React.createClass({
-      render: function() {
-        return (
-         <a href={"#/users/" + $.cookie('user_id')}>
-           <img className="profilePic" src={localStorage.getItem('profilePic')} />
-         </a>
-        );
-      }
-    });
-  
   return LogInButton
-
 });
