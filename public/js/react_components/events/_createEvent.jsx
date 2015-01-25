@@ -72,9 +72,9 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'serverSetup', 'm
 	  },
 	  render: function() {
 	  	if (typeof this.state.cals !== 'undefined') {
-	  		var CalSelections = $.map(this.state.cals, function(data){
+	  		var CalSelections = this.state.cals.map(function(data, index){
 	  				return (
-	  					<option value={data.cal.id}>{data.cal.name}</option>
+	  					<option value={data.cal.id} key={index}>{data.cal.name} </option>
 	  				)
 	  		});
 	  	}

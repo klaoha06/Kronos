@@ -67,7 +67,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def friendships
 		user = User.find(params[:id])
-		render json: {followers: user.followers, following: user.following}
+		render json: {user: user, followers: user.followers, following: user.following}
 	end
 
 	def unfollow

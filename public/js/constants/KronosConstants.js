@@ -8,7 +8,6 @@ define([],function(){
 		// User
 		RECEIVE_USER_ID: "RECEIVE_USER_ID",
 		CLEAR_USER_ID: "CLEAR_USER_ID",
-		RECEIVE_RAW_FRIENDS: "RECEIVE_RAW_FRIENDS",
 		UNFOLLOW: "UNFOLLOW",
 		FOLLOW: "FOLLOW",
 		// Calendars

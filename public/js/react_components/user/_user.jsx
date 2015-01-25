@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], function(React, api, UserActions, Router) {
+define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, api, UserActions, Router, UserProfile) {
 	var Link = Router.Link
 	//As of right now this page is just being loaded in with React. I think it would 
 	// be better to incorporate flux but I guess we can just leave as is until it gets more complex. 
@@ -9,23 +9,25 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 			return {user: [], following: false, follower: false};
 		},
 
-		loadDataFromServer: function() {
+		loadDataFromServer: function(user_id) {
 			var that = this;
 			$.ajax({
-				url: api + '/users/' + this.getParams().id,
+				url: api + '/users/' + user_id,
 				dataType: 'json'
 			}).done(function(data){
 				that.setState({user: data.user, following: data.friendship.following, follower: data.friendship.follower});
-			}).fail(function(data){
+			}.bind(this)).fail(function(data){
 				console.log("FAILED REQUEST");
-			});
+			})
 		},
-
 		componentDidMount: function () {
-			this.loadDataFromServer();
+			this.loadDataFromServer(this.props.user_id);
+		},
+		componentWillReceiveProps: function(nextProps){
+			if(nextProps.user_id !== this.props.user_id)
+				this.loadDataFromServer(nextProps.user_id);
 		},
 		render: function() {
-
 			var followButton;
 			var followerText;
 			var friendships;
@@ -43,7 +45,7 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 			return (
 				<div>
 				<h1>{this.state.user.name}</h1>
-				<img src={this.state.user.profile_pic}/>
+				<img src={this.state.user.profile_pic} />
 				<br />
 				<p className="italic smaller">{followerText}</p>
 				{followButton}
@@ -63,8 +65,32 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 		}
 	});
 
+	var Users = React.createClass({
+		mixins: [Router.State], 
 
-	return UserPage
+		//FVJ 1/22 -- Commenting out the below because React router will return the current ID
+		// if we use Router.State via this.getParams().id. We shouldn't have to keep track of 
+		// the user's ID b/c we are already doing that in the route. 
+
+		// getInitialState: function() {
+			// var userId = url.substring(url.lastIndexOf('/') + 1);
+			// return {userId: userId }
+		// },
+
+		render: function() {
+			if ($.cookie('user_id') == this.getParams().id) {
+				return (
+					<UserProfile />
+				)
+			} else {
+				return (
+					<UserPage user_id={this.getParams().id}/>
+				)
+			}
+		}
+	});
+
+	return Users
 
 });
 

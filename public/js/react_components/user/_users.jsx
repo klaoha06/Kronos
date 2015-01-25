@@ -1,30 +1,22 @@
-define(['react', 'serverSetup', 'jsx!react_components/user/_profile', 'jsx!react_components/user/_user', 'react-router'], function(React, api, UserProfile, User, Router) {
+define(['react', 'serverSetup', 'react-router'], function(React, api, Router) {
 
-	var UserPage = React.createClass({
-		mixins: [Router.State], 
+	var RouteHandler = Router.RouteHandler;
 
-		//FVJ 1/22 -- Commenting out the below because React router will return the current ID
-		// if we use Router.State via this.getParams().id. We shouldn't have to keep track of 
-		// the user's ID b/c we are already doing that in the route. 
-
-		// getInitialState: function() {
-			// var userId = url.substring(url.lastIndexOf('/') + 1);
-			// return {userId: userId }
-		// },
+	var UsersContainer = React.createClass({
+		mixins: [Router.State],
 
 		render: function() {
-			if ($.cookie('user_id') == this.getParams().id) {
-				return (
-					<UserProfile />
+
+			//RouteHandler is basically like ng-view
+			//By using it, we allow this component to have children underneath teh same route
+			return(
+				<div>
+				<RouteHandler />
+				</div>
 				)
-			} else {
-				return (
-					<User />
-				)
-			}
 		}
 	});
 
-	return UserPage
+	return UsersContainer
 
 });

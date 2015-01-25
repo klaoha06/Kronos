@@ -20,18 +20,18 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				};
 			}
 		});
-	pastEvents.forEach(function(pastEvent) {
-		if(!_pastEvents[pastEvent.eventInfo.id]){
-			_pastEvents[pastEvent.eventInfo.id] = {
-				id: pastEvent.eventInfo.id,
-				name: pastEvent.eventInfo.title,
-				startTime: pastEvent.eventInfo.start,
-				endTime: pastEvent.eventInfo.end,
-				picture: pastEvent.eventInfo.cover_pic,
-				description: pastEvent.eventInfo.description,
-				creator_id: pastEvent.creatorInfo.id,
-				creator_name: pastEvent.creatorInfo.name,
-				creator_username: pastEvent.creatorInfo.username
+		pastEvents.forEach(function(pastEvent) {
+			if(!_pastEvents[pastEvent.eventInfo.id]){
+				_pastEvents[pastEvent.eventInfo.id] = {
+					id: pastEvent.eventInfo.id,
+					name: pastEvent.eventInfo.title,
+					startTime: pastEvent.eventInfo.start,
+					endTime: pastEvent.eventInfo.end,
+					picture: pastEvent.eventInfo.cover_pic,
+					description: pastEvent.eventInfo.description,
+					creator_id: pastEvent.creatorInfo.id,
+					creator_name: pastEvent.creatorInfo.name,
+					creator_username: pastEvent.creatorInfo.username
 				}
 			}
 		});
@@ -47,6 +47,9 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		},
 		addChangeListener: function(callback) {
 		    EventEmitter.on(CHANGE_EVENT, callback);
+		},
+		removeChangeListener: function(callback) {
+		  	EventEmitter.removeListener(CHANGE_EVENT, callback);
 		},
 		getAllFutureEvents: function(){
 			var events = [];
@@ -78,11 +81,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 			case Constants.RECEIVE_RAW_EVENTS:
 				_addEvents(action.futureEvents, action.pastEvents);
 				EventStore.emitChange();
-				break;
-			case Constants.RECEIVE_RAW_EVENTS:
-				_addEvents(action.futureEvents, action.pastEvents);
-				EventStore.emitChange();
-				break;				
+			break;			
 		}
 
 	});
