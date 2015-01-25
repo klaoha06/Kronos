@@ -1,4 +1,4 @@
-define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], function(React, api, UserActions, Router) {
+define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router', 'jsx!react_components/user/_profile'], function(React, api, UserActions, Router, UserProfile) {
 	var Link = Router.Link
 	//As of right now this page is just being loaded in with React. I think it would 
 	// be better to incorporate flux but I guess we can just leave as is until it gets more complex. 
@@ -65,8 +65,32 @@ define(['react', 'serverSetup', 'actions/UserViewActions', 'react-router'], func
 		}
 	});
 
+	var Users = React.createClass({
+		mixins: [Router.State], 
 
-	return UserPage
+		//FVJ 1/22 -- Commenting out the below because React router will return the current ID
+		// if we use Router.State via this.getParams().id. We shouldn't have to keep track of 
+		// the user's ID b/c we are already doing that in the route. 
+
+		// getInitialState: function() {
+			// var userId = url.substring(url.lastIndexOf('/') + 1);
+			// return {userId: userId }
+		// },
+
+		render: function() {
+			if ($.cookie('user_id') == this.getParams().id) {
+				return (
+					<UserProfile />
+				)
+			} else {
+				return (
+					<UserPage user_id={this.getParams().id}/>
+				)
+			}
+		}
+	});
+
+	return Users
 
 });
 

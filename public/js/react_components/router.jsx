@@ -1,9 +1,9 @@
 define(['react', 'jsx!react_components/user/_calendar', 'react-router', 
 	'jsx!react_components/group/_show', 'jsx!react_components/header/_navbar', 
-	'jsx!react_components/_sidebar', 'jsx!react_components/calendar/_show', 
+	'jsx!react_components/sidebar/_sidebar', 'jsx!react_components/calendar/_show', 
 	'jsx!react_components/user/_users', 'jsx!react_components/events/_feed', 
 	'jsx!react_components/events/_show', 'jsx!react_components/events/_createEvent',
-	'jsx!react_components/user/_friendships'], function(React, UserCalendar, Router, Group, Navbar, Sidebar, Calendar, User, Feed, Event, CreateEvent, Friendships){
+	'jsx!react_components/user/_friendships', 'jsx!react_components/user/_user'], function(React, UserCalendar, Router, Group, Navbar, Sidebar, Calendar, Users, Feed, Event, CreateEvent, Friendships, UserPage){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
 
@@ -47,7 +47,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 	      // }
 	    }
 	});   
-	
+
 	var App = React.createClass({
 		render: function () {
 			var style = {border: 0};
@@ -69,9 +69,11 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 			<DefaultRoute name="Feed" handler={Feed} />
 			<Route name="Groups" path="group/:id" handler={Group} />
 			<Route name="Calendar" path="calendar/:id" handler={Calendar} />
-			<Route name="UserCalendar" path="users/calendar" handler={UserCalendar} />
-			<Route name="UserPage" path="/users/:id" handler={User} />
-			<Route name="Friendships" path="/users/:id/friendships" handler={Friendships} />
+			<Route name="Users" path="users" handler={Users} >
+				<Route name="UserCalendar" path="calendar" handler={UserCalendar} />
+				<Route name="UserPage" path=":id" handler={UserPage} />
+				<Route name="Friendships" path=":id/friendships" handler={Friendships} />
+			</Route>
 			<Route name="Event" path="event/:id" handler={Event} />
 		</Route>
 	);

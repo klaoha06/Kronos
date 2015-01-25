@@ -26,8 +26,8 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','
 		render: function() {
 			return (
 				<div>
-					<UserCalsList data={this.state.cals}/>
-					<CreateCal onCalSubmit={this.handleCalSubmit}/>
+					<UserCalsList data={this.state.cals} />
+					<CreateCal onCalSubmit={this.handleCalSubmit} />
 				</div>
 			)
 		}
@@ -97,14 +97,13 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','
 		render: function () {
 			var CalNodes = this.props.data.map(function(calendar, index) {
 				return (
-					<div className="row">
-						<Calendar data={calendar} key={index}></Calendar>
-					</div>
+						<Calendar data={calendar} key={index} />
+
 				)
 			});
 			if (this.props.data.length < 1) {
 				return (
-					<h4>You have not create a calendar! Please Create one.</h4>
+					<h4>You have not created a calendar! Please create one.</h4>
 				)
 			} else {			
 				return (
@@ -141,6 +140,7 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','
 		},
 		render: function () {
 			return (
+				<div className="row">
 				<div className="debug" onClick={this.handleClick}>
 					<h5>{this.props.data.cal.name}</h5>
 					<div id='external-events' className="hide">
@@ -155,6 +155,7 @@ define(['react', 'jquery', 'jquery-cookie', 'jquery-ui-custom', 'react-router','
 							<label for='drop-remove'>remove after drop</label>
 						</p>
 					</div>
+				</div>
 				</div>
 			);
 		}
