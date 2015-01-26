@@ -13,6 +13,7 @@ define(['react', 'utils/UserUtils', 'actions/CalendarActions', 'react-router'], 
     });
 
     var LogInButton = React.createClass({
+      mixins: [ Router.Navigation ],
       FBlogin: function(evt) {
         evt.preventDefault();
         // FB.getLoginStatus(function(response) {
@@ -25,6 +26,7 @@ define(['react', 'utils/UserUtils', 'actions/CalendarActions', 'react-router'], 
       },
       FBlogout: function() {
         UserUtils.logOut();
+        this.transitionTo('/')
       },
       render: function() {
         if (this.props.loggedInUser) {
