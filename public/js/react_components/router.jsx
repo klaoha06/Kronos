@@ -48,7 +48,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 			</Route>
 		);
 
-		Router.run(routes, function (Handler) {
+		Router.run(routes, Router.HistoryLocation, function (Handler) {
 			React.render(<Handler/>, document.body);
 		});
 
