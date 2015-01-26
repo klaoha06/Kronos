@@ -78,7 +78,7 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def follow
 		follow = Follow.create(follower_id: @current_user.id, following_id: params[:id])
-		render json: follow ? follow : 'error' 
+		render json: follow ? follow : follow.errors, status: 403 
 	end
 
 end
