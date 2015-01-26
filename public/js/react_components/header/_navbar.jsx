@@ -3,24 +3,20 @@ define(['react', 'jquery', 'react-router', 'jsx!react_components/header/_auth', 
 
 	var Navbar = React.createClass({
 		render: function() {
-			var postLoginNav;
-			if(this.props.loggedInUser)
-			{
-				postLoginNav = (
-					<div className="fl-r">
-					<Link to="UserCalendar" params={{id: this.props.loggedInUser}}><i className="fa fa-2x fa-calendar"></i></Link>
-					<Link to="Friendships" params={{id: this.props.loggedInUser}} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
-					</div>
-					);
-			}
 			return (
 			    <div id="navbar">
 			    	<div className="fl-l">
 					<Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
-					{postLoginNav}
+					{this.props.loggedInUser ? 
+						(<div className="fl-r">
+							<Link to="UserCalendar" params={{id: this.props.loggedInUser}}><i className="fa fa-2x fa-calendar"></i></Link>
+							<Link to="Friendships" params={{id: this.props.loggedInUser}} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
+						</div>) : 
+						('')
+					}
 					</div>
 			        <div id="console">
-			        	<CreateEvent />
+			        	{this.props.loggedInUser ? <CreateEvent /> : '' }
 			        	<Auth loggedInUser={this.props.loggedInUser} />
 			        </div>
 			    </div>

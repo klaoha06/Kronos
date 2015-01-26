@@ -54,7 +54,9 @@ define(['react', 'jquery', 'react-router', 'utils/EventWebAPIUtils', 'stores/Eve
 		},
 		render: function(){
 			var	hoverInfo, eventClass;
-			if(this.state.hover === true){				
+			var imageClass = 'debug d-b m-a event-image';
+			if(this.state.hover === true){	
+				imageClass = 'debug d-b m-a event-image blur';			
 				hoverInfo = (
 						<div>
 						<div className="hover-background" style={{width: this.state.eventWidth}}></div>
@@ -70,12 +72,8 @@ define(['react', 'jquery', 'react-router', 'utils/EventWebAPIUtils', 'stores/Eve
 						</div>
 						</div>
 				)
-				imageClass = 'debug d-b m-a event-image blur';
 			}
-			else
-			{
-				imageClass = 'debug d-b m-a event-image';
-			}
+
 			return (
 			<div className="row span_10 mlr-a">
 				<div className="col span_12 ta-c mlr-a">
@@ -109,25 +107,25 @@ define(['react', 'jquery', 'react-router', 'utils/EventWebAPIUtils', 'stores/Eve
 		    EventStore.removeChangeListener(this._onChange);
 		},
 		render: function(){
-			var futureNodes = this.state.futureEvents.map(function(eventObj, index){
-				return( <EventNode eventObj={eventObj} key={eventObj.id} /> );
-			});
-			var pastNodes = this.state.pastEvents.map(function(eventObj, index){
-				return( <EventNode eventObj={eventObj} key={eventObj.id} /> );
-			});
 			return(
 				<div className="col ta-c span_12 cf">
 					<div className="span_9 m-a">
 						<div id="futurecontainer" className="debug">
 							<h1>Upcoming Events</h1>
-							{futureNodes}
+							{this.state.futureEvents.map(function(eventObj, index){
+								return( <EventNode eventObj={eventObj} key={eventObj.id} /> )
+								})
+							}
 						</div>
 						<hr/>
 						<TimeNow />
 						<hr/>
 						<div id="pastcontainer" className="debug">
 							<h1>Past Events</h1>
-								{pastNodes}
+							{this.state.pastEvents.map(function(eventObj, index){
+								return( <EventNode eventObj={eventObj} key={eventObj.id} /> )
+								})
+							}
 						</div>
 					</div>
 			

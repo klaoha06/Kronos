@@ -82,35 +82,26 @@ define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'jsx!react_compo
 			//I commented out groups. I honestly feel we should be focussing on the more granular
 			//levels first. Once we have events/calendars, then we can add groups where it fits but 
 			//I think starting smaller first and building from there is better. 
-				if (this.props.loggedInUser) {
-					return (
-					  <div id="sidebar" className="debug col span_2">
-					  {/*<h1>Groups </h1>
-					  	<ul id="sidebarList" className="debug">
-					  		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
-					  		<PopularGroups name= "popular" url="/groups/popular" />
-					  	</ul>*/}
-					<h1>My Calendars</h1>
+			return (
+			  <div id="sidebar" className="debug col span_2">
+			  {/*<h1>Groups </h1>
+			  	<ul id="sidebarList" className="debug">
+			  		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
+			  		<PopularGroups name= "popular" url="/groups/popular" />
+			  	</ul>*/}
+				
+				{ this.props.loggedInUser ? 
+					(<div>
+						<h1>My Calendars</h1>
 						<MyCalendars loggedInUser={this.props.loggedInUser} />
-						<h1>Trending Calendars</h1>
+					</div>) : ''}
+				<h1>Trending Calendars</h1>
 
-					</div>
+			</div>
 
-					);
-				} 
-				else {
-			    	return (
-				      <div id="sidebar" className="debug col span_2">
-				      	<h1>Trending Calendars</h1>
-				      {/*<h1>Groups </h1>}
-				      			      	<ul id="sidebarList" className="debug">
-				      			      		<SubscribedGroups name= "subscribed" url= {"/users/"+user_id+"/subscriptions"} />
-				      			      		<PopularGroups name= "popular" url="/groups/popular" />
-				      			      	</ul>*/}
-				      </div>
-			    	);
-				}
-		  }	
+			);
+			
+		}	
 	});
 
 	return Sidebar;

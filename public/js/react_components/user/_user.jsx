@@ -28,35 +28,31 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 				this.loadDataFromServer(nextProps.user_id);
 		},
 		render: function() {
-			var followButton;
-			var followerText;
-			var friendships;
-			if(this.state.following === true) 
-				followButton = <button onClick={this.handleUnfollow}>UNFOLLOW</button>
-			else
-				followButton = <button onClick={this.handleFollow}>FOLLOW</button>
-
-			followerText = this.state.follower === true ? "Follows you" : "Doesn't follow you"
-			if(this.state.user.length !== 0)
-			{
-				friendships = <Link to="Friendships" params={this.state.user}>{this.state.user.name}{"'s Friendships"}</Link>
-
-			}
 			return (
 				<div>
 				<h1>{this.state.user.name}</h1>
 				<img src={this.state.user.profile_pic} />
 				<br />
-				<p className="italic smaller">{followerText}</p>
-				{followButton}
+				<p className="italic smaller">
+				{ this.state.follower === true ? 
+					("Follows you") : 
+					("Doesn't follow you")
+				}
+				</p>
+				{ this.state.following === true ? 
+					(<button onClick={this.handleUnfollow}>UNFOLLOW</button>) : 
+					(<button onClick={this.handleFollow}>FOLLOW</button>) 
+				}
 				<br />
-				{friendships}
+				{ this.state.user.length !== 0 ? 
+					(<Link to="Friendships" params={this.state.user}>{this.state.user.name}{"'s Friendships"}</Link>) : 
+					('')
+				}
 				</div>
 			)
 		},
 		handleUnfollow: function(){
 			this.setState({following: false}) 
-
 			UserActions.unfollow(this.state.user.id)
 		},
 		handleFollow: function(){
@@ -68,26 +64,17 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 	var Users = React.createClass({
 		mixins: [Router.State], 
 
-		//FVJ 1/22 -- Commenting out the below because React router will return the current ID
-		// if we use Router.State via this.getParams().id. We shouldn't have to keep track of 
-		// the user's ID b/c we are already doing that in the route. 
-
-		// getInitialState: function() {
-			// var userId = url.substring(url.lastIndexOf('/') + 1);
-			// return {userId: userId }
-		// },
-
-		render: function() {
-			if (this.props.loggedInUser == this.getParams().id) {
-				return (
-					<UserProfile loggedInUser={this.props.loggedInUser} />
-				)
-			} 
-			else {
-				return (
-					<UserPage user_id={this.getParams().id} loggedInUser={this.props.loggedInUser}/>
-				)
-			}
+		render: function(){
+			var user = this.props.loggedInUser
+			console.log(this.props.loggedInUser)
+			return(
+				<div>
+				{ this.props.loggedInUser === this.getParams().id ? 
+					(<UserProfile loggedInUser={this.props.loggedInUser} />) : 
+					(<UserPage user_id={this.getParams().id} loggedInUser={this.props.loggedInUser}/>)
+				}
+				</div>
+			)
 		}
 	});
 
