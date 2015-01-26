@@ -25,7 +25,7 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
                   birthday: response.birthday,
                   age_range: response.age_range.min
                 }
-                //As per http://jsperf.com/localstorage-setting-multiple-keys-vs-1-big-collection/2
+                //FJ -- As per http://jsperf.com/localstorage-setting-multiple-keys-vs-1-big-collection/2
                 //It's a bit faster to just store all as one JSON object rather than many calls to localStorage
                 localStorage.setItem('userInfo', JSON.stringify(userInfo))
 
