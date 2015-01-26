@@ -10,12 +10,11 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 		},
 
 		loadDataFromServer: function(user_id) {
-			var that = this;
 			$.ajax({
 				url: API_URL + '/users/' + user_id,
 				dataType: 'json'
 			}).done(function(data){
-				that.setState({user: data.user, following: data.friendship.following, follower: data.friendship.follower});
+				this.setState({user: data.user, following: data.friendship.following, follower: data.friendship.follower});
 			}.bind(this)).fail(function(data){
 				console.log("FAILED REQUEST");
 			})
