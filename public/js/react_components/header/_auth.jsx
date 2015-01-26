@@ -6,7 +6,7 @@ define(['react', 'utils/UserUtils', 'actions/CalendarActions', 'react-router'], 
       render: function() {
         return (
          <Link to="UserPage" params={{id: this.props.loggedInUser}}>
-           <img className="profilePic" src={localStorage.getItem('profilePic')} />
+           <img className="profilePic" src={JSON.parse(localStorage.getItem('userInfo')).profilePic} />
          </Link>
         );
       }

@@ -34,12 +34,13 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 		},
 
 		render: function() {
+			var userInfo = JSON.parse(localStorage.getItem('userInfo'));
 			return (
 				<div>
 					<div id="banner"></div>
-					<h1>Hi, {localStorage.getItem('first_name') + " "+localStorage.getItem('last_name')[0] + "."}</h1>
-					<img src={localStorage.getItem('profilePic')}/>
-					<p>Email: {localStorage.getItem('email')}</p>
+					<h1>Hi, {userInfo.first_name + " "+userInfo.last_name[0] + "."}</h1>
+					<img src={userInfo.profilePic}/>
+					<p>Email: {userInfo.email}</p>
 					<button id="test" onClick={this.loadEventsFromFB}>Sync With Your Facebook Events</button>
 					<p>Click me! (just show casing we can get events from FB)</p>
 					<FBEventList data={this.state.FBEvents}/>
