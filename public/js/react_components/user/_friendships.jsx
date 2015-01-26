@@ -57,7 +57,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 		},
 		render: function() {			
 			var that = this;
-			console.log(this.state)
 			return (
 				<div>
 					<h2>{this.state.user !== undefined ? this.state.user.name + "'s friendships": "Error loading page"}</h2>

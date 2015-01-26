@@ -5,8 +5,8 @@ define(['jquery', 'jquery-cookie', 'utils/UserUtils'], function($, cookie, UserA
     	{
     		UserAPI.loginToServer();
     	}
-    	// else
-    	// 	UserAPI.clearClient();
+    	else
+    		UserAPI.clearClient();
     })
 	
 });
