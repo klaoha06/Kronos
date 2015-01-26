@@ -42,10 +42,10 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
                 that.loginToServer();
              }
           );
-         } else {
+         } 
+        else 
           console.log('User cancelled login or did not fully authorize.');
-        }
-        return false;
+        
       }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
     },
     loginToServer: function(){
