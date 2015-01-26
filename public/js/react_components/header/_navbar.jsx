@@ -11,8 +11,7 @@ define(['react', 'jquery', 'react-router', 'jsx!react_components/header/_auth', 
 						(<div className="fl-r">
 							<Link to="UserCalendar" params={{id: this.props.loggedInUser}}><i className="fa fa-2x fa-calendar"></i></Link>
 							<Link to="Friendships" params={{id: this.props.loggedInUser}} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
-						</div>) : 
-						('')
+						</div>) : ('')
 					}
 					</div>
 			        <div id="console">
