@@ -2,7 +2,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 
 	var GroupServerActions = {
 		loadAllGroups: function(rawGroups){
-			console.log(rawGroups);
 			Dispatcher.handleServerAction({
 				actionType: Constants.RECEIVE_RAW_GROUPS,
 				rawGroups: rawGroups

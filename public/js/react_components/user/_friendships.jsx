@@ -1,14 +1,11 @@
 define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, UserAPI, Router, UserAction) {
 	var Link = Router.Link;
 
-
 	var FriendNode = React.createClass({
-
 		removeFriend: function(e){
 			UserAction.unfollow(this.props.friend.id)
 			this.props.onUnfollow(this.props.index)
 		},
-
 		render: function(){
 			var change_friendship;
 			if(this.props.follow === false)
@@ -29,7 +26,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 			)
 		}
 	})
-
 
 	var Friendships = React.createClass({
 
@@ -113,7 +109,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 			console.log(temp_following)
 			this.setState({following: temp_following})
 		}
-
 	})
 
 	var FriendshipContainer = React.createClass({
@@ -124,7 +119,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				)
 		}
 	})
-
 
 	return FriendshipContainer
 

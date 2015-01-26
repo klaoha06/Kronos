@@ -26,7 +26,6 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 		},
 		followFailed: function(){
 			//Will need to handle the error case, I.e. display error message
-
 		}
 	};
 	return UserActions;

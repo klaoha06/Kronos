@@ -22,9 +22,8 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
             localStorage.clear();
             document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
             document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-            // document.location.href="/"; <--- Shouldn't directly manipulate route, use Router functions (I.e. transitionTo). 
-            //Need to figure out how to incorporate that with Flux
-            document.location.href="/";
+            UserActions.deleteUserId();
+
             }
         }
     );
@@ -82,7 +81,7 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
           localStorage.clear();
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
           document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-          document.location.href="/";
+          UserActions.deleteUserId();
         });
     },
 
@@ -99,7 +98,7 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
       localStorage.clear();
       document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
       document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-      document.location.href="/";
+      UserActions.deleteUserId();
     },
 
     unfollow: function(user_id){
@@ -123,7 +122,6 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
         UserActions.followFailed(data);
       })
     }
-
   };
 
   return UserUtils;

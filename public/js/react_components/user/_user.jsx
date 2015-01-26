@@ -82,7 +82,8 @@ define(['react', 'actions/UserViewActions', 'react-router', 'jsx!react_component
 				return (
 					<UserProfile loggedInUser={this.props.loggedInUser} />
 				)
-			} else {
+			} 
+			else {
 				return (
 					<UserPage user_id={this.getParams().id} loggedInUser={this.props.loggedInUser}/>
 				)

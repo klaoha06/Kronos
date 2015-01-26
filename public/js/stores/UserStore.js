@@ -38,7 +38,7 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				sessioningUser(action.userId);
 				UserStore.emitChange();
 				break;
-			case KronosConstants.ClEAR_USER_ID:
+			case KronosConstants.CLEAR_USER_ID:
 				clearSession();
 				UserStore.emitChange();
 				break;				

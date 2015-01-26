@@ -15,7 +15,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 	require(['app_prep/ajax_setup', 'jsx!react_components/main/app'], function( ajax_setup, App){
 	 		 
 	 	//FJ -- For the life of me I can't figure out how to just have this in a separate file
-	 	// and require it. 
+	 	// and require it. 	
  	 	window.fbAsyncInit = function(){
  	 		FB.init({
  				appId      : '751003924936029',

@@ -12,14 +12,18 @@ define(['react', 'react-router', 'jsx!react_components/header/_navbar', 'jsx!rea
 				User.removeChangeListener(this._onChange);
 			},
 			render: function () {
-				var style = {border: 0};
+				var display;
+				if(this.state.loggedInUser)
+					display = (<RouteHandler loggedInUser={this.state.loggedInUser}/>)
+				else
+					display = (<h1> Please login. </h1>)
 				return(
 	        	<div id="container">
 					<Navbar loggedInUser={this.state.loggedInUser} />
 	         		<div id="main-container" className="row gutters">
 						<Sidebar loggedInUser={this.state.loggedInUser} />
 	          			<div id="main-panel" className="debug col span_10 cf">
-							<RouteHandler loggedInUser={this.state.loggedInUser}/>
+							{display}
 						</div>
 	        		</div>
 				</div>
