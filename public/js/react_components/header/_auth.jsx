@@ -16,33 +16,23 @@ define(['react', 'utils/UserUtils', 'actions/CalendarActions', 'react-router'], 
       mixins: [ Router.Navigation ],
       FBlogin: function(evt) {
         evt.preventDefault();
-        // FB.getLoginStatus(function(response) {
-          // if (response.status === 'connected') {
-          //   UserUtils.logIn();
-          // } else {
             UserUtils.logIn();
-          // }
-        // });
       },
       FBlogout: function() {
         UserUtils.logOut();
         this.transitionTo('/')
       },
       render: function() {
-        if (this.props.loggedInUser) {
-          return (
-            <div>
+        return( 
+          <div>
+          {this.props.loggedInUser ? 
+            (<div>
               <UserPageButton loggedInUser={this.props.loggedInUser} />
-              <button id='logInOut' onClick={this.FBlogout}>Log Out</button>
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <button id='logInOut' onClick={this.FBlogin}>Log In</button>
-            </div>
-          );
-        };
+              <button id='logInOut' onClick={this.FBlogout}>Log Out</button></div>) : 
+            (<button id='logInOut' onClick={this.FBlogin}>Log In</button>)
+          }
+          </div>
+        )
       }
     });
 

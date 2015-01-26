@@ -63,23 +63,19 @@ define(['react', 'jquery', 'jquery-ui-custom', 'react-router', 'stores/CalendarS
 
 	var UserCalsList = React.createClass({
 		render: function () {
-			var CalNodes = this.props.data.map(function(calendar, index) {
-				return (
-						<Calendar data={calendar} key={index} />
-
+			return(
+				<div>
+				{this.props.data.length < 1 ? 
+					(<h4>You have not created a calendar! Please create one.</h4>) :
+					(<div className="UserCals">
+						{this.props.data.map(function(calendar, index) {
+							return (<Calendar data={calendar} key={index} />)
+							})
+						}
+					</div>)
+				}
+				</div>
 				)
-			});
-			if (this.props.data.length < 1) {
-				return (
-					<h4>You have not created a calendar! Please create one.</h4>
-				)
-			} else {			
-				return (
-					<div className="UserCals">
-						{CalNodes}
-					</div>
-				)
-			}
 		}
 	});
 

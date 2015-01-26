@@ -72,8 +72,7 @@ define(['react', 'actions/CalendarActions'], function(React, CalendarActions) {
 		    var FBEventNodes = this.props.data.map(function(event, index) {
 		    	return (
 		    		<div>
-		    		<FBEvent data={event} key={index}>
-		    		</FBEvent>
+		    		<FBEvent data={event} key={index} />
 		    		</div>
 		    	);
 		    });

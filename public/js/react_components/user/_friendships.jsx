@@ -7,13 +7,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 			this.props.onUnfollow(this.props.index)
 		},
 		render: function(){
-			var change_friendship;
-			if(this.props.follow === false)
-			{
-				change_friendship = (
-					<button className="Unfollow" onClick={this.removeFriend}>Unfollow</button>
-				)
-			}
 			return(
 				<li className="debug">
 				<img className="profilePic" src={this.props.friend.profile_pic}></img>
@@ -21,7 +14,10 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				<h3 className="creator-name ta-l no-margin">{this.props.friend.name} </h3>
 				<h4 className="creator-username ta-l no-margin">@{this.props.friend.username} </h4>
 				</Link>
-				{change_friendship}
+				{this.props.display_unfollow === true ? 
+					(<button className="Unfollow" onClick={this.removeFriend}>Unfollow</button>) : 
+					('')
+				}
 				</li>
 			)
 		}
@@ -60,53 +56,36 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				this.loadDataFromServer(nextProps.user_id)
 		},
 		render: function() {			
-			var display_unfollow;
-			var user_name;
-			if(this.state.user !== undefined)
-			{
-				user_name = this.state.user.name
-			}
-			if (this.props.loggedInUser === this.props.user_id) {
-				display_unfollow = false
-			}
-			else
-				display_unfollow = true
-
-			var followers = this.state.followers.map(function(follower, index){
-				return (
-					<FriendNode friend={follower} follow={true} key={index} />
-					)
-			})
 			var that = this;
-			var following = this.state.following.map(function(user, index){
-				return (
-					<FriendNode friend={user} key={index} index={index} follow={display_unfollow} onUnfollow={that.handleUnfollow} />
-					)
-			})
-				return (
-					<div>
-					<h2>{user_name}{"'s friendships"}</h2>
+			return (
+				<div>
+					<h2>{this.state.user !== undefined ? this.state.user.name + "'s friendships": "Error loading page"}</h2>
 					<div className="row">
-					<div className="col span_6 debug">
-					<h1>Followers</h1>
-						<ul className="friends_list" >
-						{followers}
-						</ul>
+						<div className="col span_6 debug">
+							<h1>Followers</h1>
+							<ul className="friends_list" >
+								{this.state.followers.map(function(follower, index){
+									return (<FriendNode friend={follower} display_unfollow={false} key={index} />)
+									})
+								}
+							</ul>
+						</div>
+						<div className="col span_6 debug">
+							<h1>Following</h1>
+							<ul className="friends_list">
+								{this.state.following.map(function(user, index){
+									return (<FriendNode friend={user} key={index} index={index} onUnfollow={that.handleUnfollow} display_unfollow={that.props.loggedInUser == that.props.user_id ? true : false} />)
+									})
+								}
+							</ul>
+						</div>
 					</div>
-					<div className="col span_6 debug">
-						<h1>Following</h1>
-						<ul className="friends_list">
-						{following}
-						</ul>
-					</div>
-					</div>
-					</div>
-				)
+				</div>
+			)
 		},
 		handleUnfollow: function(index){
 			var temp_following = this.state.following;
 			temp_following.splice(index, 1);
-			console.log(temp_following)
 			this.setState({following: temp_following})
 		}
 	})

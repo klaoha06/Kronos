@@ -88,15 +88,11 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
       CalendarStore.removeChangeListener(this._onChange);
     },
     render: function() {
-      var mainCalTitle;
-      if (typeof this.state.cal !== 'undefined') {
-        mainCalTitle = this.state.cal.name;
-      }
       return (
-            <div id='main-calendar'>
-              <h2 id='main-cal-title'>{mainCalTitle}</h2>
-              <div id='calendar'></div>
-            </div>
+          <div id='main-calendar'>
+            <h2 id='main-cal-title'>{typeof this.state.cal !== 'undefined' ? this.state.cal.name : ''}</h2>
+            <div id='calendar'></div>
+          </div>
         );  
       }
   });
