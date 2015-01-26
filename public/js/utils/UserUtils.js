@@ -49,11 +49,13 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
       }, {scope: 'email,user_birthday,user_events,rsvp_event', return_scopes: true});
     },
     loginToServer: function(){
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        userInfo.fb_id = localStorage.getItem('fb_id');
          $.ajax({
           url: API_URL + '/users/sessioning_user',
           dataType: 'json',
           type: 'POST',
-          data: localStorage
+          data: userInfo
         }).success(function(data){
           var date = new Date();
           date.setTime(date.getTime() + (10800000)); // 3 hours
