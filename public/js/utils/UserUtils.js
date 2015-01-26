@@ -1,36 +1,6 @@
 define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/CalendarActions', 'react-router'], function($, cookie, UserActions, CalendarActions, Router){
 
-
-  function loadEventsFromFB() {
-    mixins: [ Router.Navigation ],
-    FB.api(
-        "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
-        function (response) {
-          if (response && !response.error) {
-            $.ajax({
-              url: API_URL + '/users/' + $.cookie('user_id') +'/events/provider',
-              type: 'POST',
-              contentType: "application/json; charset=utf-8",
-              data: JSON.stringify({ events_data: response.data, provider: "FB"})
-            }).success(function(data){
-              CalendarActions.addOrUpdateCal(data);
-            }).fail(function(data){
-              console.log(data.statusText);
-            });
-          } else {
-            console.log(response.error.message);
-            localStorage.clear();
-            document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-            document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-            UserActions.deleteUserId();
-
-            }
-        }
-    );
-  }
-
   var UserUtils = {
-    mixins: [ Router.Navigation ],
     logIn: function(){
       that = this;
       FB.login(function(response) {
@@ -70,35 +40,41 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
           dataType: 'json',
           type: 'POST',
           data: localStorage
-        }).success(function(data){
+        }.bind(this)).success(function(data){
           var date = new Date();
           date.setTime(date.getTime() + (10800000)); // 3 hours
           $.cookie('user_id', data,{ expires: date, path: '/' });
           UserActions.recieveUserId(data);
-          loadEventsFromFB();
+          this.loadEventsFromFB();
         }).fail(function(data){
-          console.log(data.statusText);
-          localStorage.clear();
-          document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-          document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-          UserActions.deleteUserId();
+           console.log(data.statusText)
+           this.clearClient();
         });
     },
 
-    logOut: function() {
-      //Log Out of FB
-      FB.logout(function(response) {
-        UserActions.deleteUserId();
-      }), {access_token: $.cookie('access_token')};
-      // Clearing Server
-      $.ajax({
-        url: API_URL + '/users/clear_session'
-      });
-      // Clear Client
-      localStorage.clear();
-      document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-      document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-      UserActions.deleteUserId();
+    loadEventsFromFB: function() {
+        var that = this;
+        FB.api(
+            "me/events?fields=name,cover,start_time,end_time,timezone,location,rsvp_status,description,feed_targeting,owner&limit=30",
+            function (response) {
+              if (response && !response.error) {
+                $.ajax({
+                  url: API_URL + '/users/' + $.cookie('user_id') +'/events/provider',
+                  type: 'POST',
+                  contentType: "application/json; charset=utf-8",
+                  data: JSON.stringify({ events_data: response.data, provider: "FB"})
+                }).success(function(data){
+                  CalendarActions.addOrUpdateCal(data);
+                }).fail(function(data){
+                  console.log(data.statusText);
+                });
+              } 
+              else {
+                console.log(response.error.message);
+                that.clearClient();
+              }
+            }
+        );
     },
 
     unfollow: function(user_id){
@@ -121,6 +97,25 @@ define(['jquery', 'jquery-cookie','actions/UserServerActions', 'actions/Calendar
       }).fail(function(data){
         UserActions.followFailed(data);
       })
+    },
+
+    clearClient: function(){
+      localStorage.clear();
+      document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      UserActions.deleteUserId();
+    },
+
+    logOut: function() {
+      //Log Out of FB
+      var that = this;
+      FB.logout(function(response) {
+        that.clearClient();
+      }), {access_token: $.cookie('access_token')};
+      // Clearing Server
+      $.ajax({
+        url: API_URL + '/users/clear_session'
+      });
     }
   };
 
