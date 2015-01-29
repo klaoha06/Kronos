@@ -27,10 +27,12 @@ define(['react', 'react-router', 'jsx!react_components/header/_navbar', 'jsx!rea
 							<Sidebar loggedInUser={this.state.loggedInUser} />
 		          			<div id="main-panel" className="debug col span_10 cf">
 		          				<ReactCSSTransitionGroup transitionName="page-transition">
-								{ this.state.loggedInUser !== false ? 
+								{/* this.state.loggedInUser !== false ? 
 									(<RouteHandler loggedInUser={this.state.loggedInUser} key={this.getRoutes().reverse()[0].name}/>) : 
 									(<h1> Please login. </h1>)
-								}
+									Can control utilize a login page at app level here login page here
+								*/}
+								<RouteHandler loggedInUser={this.state.loggedInUser} key={this.getRoutes().reverse()[0].name}/>
 								</ReactCSSTransitionGroup>
 							</div>
 		        		</div>
