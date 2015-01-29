@@ -94,6 +94,7 @@ define(['react', 'jquery', 'react-router', 'stores/GroupStore', 'jsx!react_compo
 					(<div>
 						<h1>My Calendars</h1>
 						<MyCalendars loggedInUser={this.props.loggedInUser} />
+						<Link to="UserIndex">All Users</Link>
 					</div>) : ''}
 				<h1>Trending Calendars</h1>
 

@@ -40,6 +40,12 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	end
 
+	def index
+		#Need to figure out the correct call to get only users who the current user follows
+		users = User.where.not(:id => @current_user.id)
+		render json: users
+	end
+
 	def show
 		user = User.find(params[:id])
 		current_is_follower = Follow.where(:follower_id => @current_user.id, :following_id => user.id).empty? ? false : true
@@ -78,7 +84,11 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	def follow
 		follow = Follow.create(follower_id: @current_user.id, following_id: params[:id])
-		render json: follow ? follow : follow.errors, status: 403 
+		if follow 
+			render json: follow 
+	 	else 
+	 		render json: follow.errors, status: 403
+	 	end
 	end
 
 end
