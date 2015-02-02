@@ -110,41 +110,41 @@ define([
         });
       }
       return (
-          <div>
+        <div>
           <a className="createEventForm" href="#event-form" onClick={this._onChange}><button>Create New Event</button></a>
           <form id="event-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
-          <h1>Create Your New Event!</h1>
-          Event Name:<br/>
-          <input type="text" ref="name"/>
-          <br/><br/>
-          Description:<br/>
-          <textarea ref="description" />
-          <br/><br/>
-          <p>Start Date: <input type="text" ref="startDate" className="datepicker"/></p>  
-          <p>Start Time: <input type="text" ref="startTime" className="timepicker"/></p>
-          <p>End Date: <input type="text" ref="endDate" className="datepicker"/></p>
-          <p>End Time: <input type="text" ref="endTime" className="timepicker"/></p>
-          <p>Have to do Time Zone Picker</p>
-          <fieldset>
-          <label for="cal">Add to Calendar</label>
-          <select ref="cal" id="cal">
-          {CalSelections}
-          </select>
+            <h1>Create Your New Event!</h1>
+            Event Name:<br/>
+            <input type="text" ref="name"/>
+            <br/><br/>
+            Description:<br/>
+            <textarea ref="description" />
+            <br/><br/>
+            <p>Start Date: <input type="text" ref="startDate" className="datepicker"/></p>  
+            <p>Start Time: <input type="text" ref="startTime" className="timepicker"/></p>
+            <p>End Date: <input type="text" ref="endDate" className="datepicker"/></p>
+            <p>End Time: <input type="text" ref="endTime" className="timepicker"/></p>
+            <p>Have to do Time Zone Picker</p>
+            <fieldset>
+              <label for="cal">Add to Calendar</label>
+              <select ref="cal" id="cal">
+                {CalSelections}
+              </select>
             </fieldset>
             <p>Location: <input type="text" ref="location"/></p>
             <p>Extenal Link: <input type="text" ref="externalUri"/></p>
             <p>Upload Pictures for This Event: <input type="file" /></p>
             <fieldset>
-            <label for="share">Share this event?</label>
-            <select ref="share" id="share">
-            <option value="true">Yes!</option>
-            <option value="false">No</option>
-            </select>
+              <label for="share">Share this event?</label>
+              <select ref="share" id="share">
+                <option value="true">Yes!</option>
+                <option value="false">No</option>
+              </select>
             </fieldset>
             <input type="submit" value="Create Event"/>
-            </form>
-            </div>
-            );
+          </form>
+        </div>
+      );
     }
   });
 	return EventCreator
