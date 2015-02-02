@@ -4,7 +4,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   # Need to check if the calendar is created by the user
   # if it is then the user is the owner or the creator and he/she can see and edit all the events from that calendar
 
-  
+
   # if not the owner then is it shared?
   # if it is shared then the user can see but can't edit
 
@@ -17,7 +17,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   def index
     # For now just returning all events in the future and all events in the past
     # We will need to fix this so that only events that this particular user should
-    # see actually show up. 
+    # see actually show up.
     render json: {futureEvents: get_future_events, pastEvents: get_past_events}
   end
 
@@ -66,34 +66,34 @@ class Api::V0::EventsController < Api::V0::ApplicationController
       puts 'donno this provider'
     end
     params['events_data'].each do |event_data|
-      event = Event.find_by(provider: params[:provider], 
-        id_from_provider: event_data['id'], 
+      event = Event.find_by(provider: params[:provider],
+        id_from_provider: event_data['id'],
         creator_id: user_id)
         if event #update
-          event.update(title: event_data['name'], 
-            start: event_data['start_time'], 
-            end: event_data['end_time'], 
-            location: event_data['location'], 
-            time_zone: event_data['timezone'], 
-            owner_name: event_data['owner']['name'], 
-            owner_id: event_data['owner']['id'], 
-            description: event_data['description'], 
-            my_status: event_data['rsvp_status'], 
+          event.update(title: event_data['name'],
+            start: event_data['start_time'],
+            end: event_data['end_time'],
+            location: event_data['location'],
+            time_zone: event_data['timezone'],
+            owner_name: event_data['owner']['name'],
+            owner_id: event_data['owner']['id'],
+            description: event_data['description'],
+            my_status: event_data['rsvp_status'],
             external_uri: (fb_base_url + event_data['id']))
         else # create
           event = Event.new(
-            creator_id: user_id, 
-            provider: params[:provider], 
-            id_from_provider: event_data['id'], 
-            title: event_data['name'], 
-            start: event_data['start_time'], 
-            end: event_data['end_time'], 
-            location: event_data['location'], 
-            time_zone: event_data['timezone'], 
-            owner_name: event_data['owner']['name'], 
-            owner_id: event_data['owner']['id'], 
-            description: event_data['description'], 
-            my_status: event_data['rsvp_status'], 
+            creator_id: user_id,
+            provider: params[:provider],
+            id_from_provider: event_data['id'],
+            title: event_data['name'],
+            start: event_data['start_time'],
+            end: event_data['end_time'],
+            location: event_data['location'],
+            time_zone: event_data['timezone'],
+            owner_name: event_data['owner']['name'],
+            owner_id: event_data['owner']['id'],
+            description: event_data['description'],
+            my_status: event_data['rsvp_status'],
             external_uri: (fb_base_url + event_data['id']))
         end
         if event_data['cover']
@@ -131,22 +131,22 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   end
 
   private
-    
+
   def event_params
     params[:event]
   end
 
   def get_future_events
-    Event.where("start >= ?", Time.now).order(:start).map do |event|
-      user = User.find(event.creator_id)
-      { :eventInfo => event, :creatorInfo => user }
-    end
+    user = User.find_by_id(params[:id])
+    future_events = user.get_future_events
+
+    render json: future_events
   end
 
   def get_past_events
-    Event.where("start < ?", Time.now).order(:start).map do |event|
-      user = User.find(event.creator_id)
-      { :eventInfo => event, :creatorInfo => user }
-    end
+    user = User.find_by_id(params[:id])
+    past_events = user.get_past_events
+
+    render json: past_events
   end
 end
