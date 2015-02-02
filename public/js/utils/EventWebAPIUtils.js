@@ -5,22 +5,30 @@ define([
     EventServerActions,
     UserStore
   ) {
+  function tester(data) {
+    console.log(data);
+  }
   var EventAPI = {
     retrieveUserEvents: function() {
       //Run once to load
       $.get(API_URL + "/users/" + UserStore.currentUser() + "/events")
-        .done(EventServerActions.loadAllEvents.bind(this))
-        .fail(function(data) { console.log("FAILED REQUEST"); }.bind(this));
+        .done(EventServerActions.loadAllEvents)
+        .fail(function(data) { console.log("FAILED REQUEST"); });
     },
     createEvent: function(data) {
       $.post(API_URL + '/events', data)
         .done(function(data) { console.log(data); })
         .fail(function(data) { console.log(data); });
     },
-    retrieveCalEvents: function(calendar_id) {
-      $.get(API_URL + '/events', calendar_id)
+    retrieveCalEvents: function(calendarId) {
+      $.get(API_URL + '/events', calendarId)
         .done(function(data){ console.log(data); })
         .fail(function(data){ console.log(data.statusText); });
+    },
+    retrieveEventDetails: function(eventId) {
+      $.get(API_URL + '/events/' + eventId)
+        .done(EventServerActions.loadEventDetails)
+        .fail(function(data) { console.log("FAILED REQUEST"); });
     }
   };
   return EventAPI;
