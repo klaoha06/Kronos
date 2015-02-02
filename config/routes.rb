@@ -24,6 +24,7 @@ Rails.application.routes.draw do
            post 'sessioning_user', to: :sessioning_user
            get 'current_user', to: :current_user
            get 'clear_session', to: :clear_session
+           get 'suggestions', to: :suggestions
         end
         member do
           get 'calendars', to: :show_user_cals

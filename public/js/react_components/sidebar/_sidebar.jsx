@@ -92,7 +92,7 @@ define([
           <div>
              <h1>My Calendars</h1>
              <MyCalendars loggedInUser={this.props.loggedInUser} />
-             <Link to="UserIndex">All Users</Link>
+             <Link to="UserSuggestions">Who To Follow</Link>
            </div>
         );
       } else {
