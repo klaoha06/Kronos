@@ -5,9 +5,6 @@ define([
     EventServerActions,
     UserStore
   ) {
-  function tester(data) {
-    console.log(data);
-  }
   var EventAPI = {
     retrieveUserEvents: function() {
       //Run once to load
