@@ -1,24 +1,22 @@
-define(['flux'], function(flux){
+define(['flux'], function(flux) {
+  var Dispatcher = flux.Dispatcher;
+  var KronosDispatcher = new Dispatcher();
 
-	var Dispatcher = flux.Dispatcher;
-	var KronosDispatcher = new Dispatcher();
+  KronosDispatcher.handleViewAction = function(action) {
+    var payload = {
+      source: 'VIEW_ACTION',
+      action: action
+    };
+    this.dispatch(payload);
+  };
 
-	KronosDispatcher.handleViewAction = function(action){
+  KronosDispatcher.handleServerAction = function(action) {
+    var payload = {
+      source: 'SERVER_ACTION',
+      action: action
+    };
+    this.dispatch(payload);
+  };
 
-		var payload = {
-			source: 'VIEW_ACTION',
-			action: action
-		};
-		this.dispatch(payload);
-	};
-
-	KronosDispatcher.handleServerAction = function(action){
-		var payload = {
-			source: 'SERVER_ACTION',
-			action: action
-		};
-		this.dispatch(payload);
-	};
-
-	return KronosDispatcher;
+  return KronosDispatcher;
 });

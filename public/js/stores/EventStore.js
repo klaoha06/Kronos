@@ -1,91 +1,108 @@
-define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitter'], function(Dispatcher, Constants, events){
-	var CHANGE_EVENT = 'change';
-	var EventEmitter = new events();
-	var _futureEvents = {};
-	var _pastEvents = {};
+define([
+  'dispatcher/KronosDispatcher',
+  'constants/KronosConstants',
+  'event-emitter'],
+  function(
+    Dispatcher,
+    Constants,
+    events
+  ) {
+  var CHANGE_EVENT = 'change';
+  var EventEmitter = new events();
+  var _futureEvents = {};
+  var _pastEvents = {};
+  var _eventDetails = {};
 
-	function _addEvents(futureEvents, pastEvents){
-		futureEvents.forEach(function(futureEvent) {
-			if(!_futureEvents[futureEvent.eventInfo.id]){
-				_futureEvents[futureEvent.eventInfo.id] = {
-					id: futureEvent.eventInfo.id,
-					name: futureEvent.eventInfo.title,
-					startTime: futureEvent.eventInfo.start,
-					endTime: futureEvent.eventInfo.end,
-					picture: futureEvent.eventInfo.cover_pic,
-					description: futureEvent.eventInfo.description,
-					creator_id: futureEvent.creatorInfo.id,
-					creator_name: futureEvent.creatorInfo.name,
-					creator_username: futureEvent.creatorInfo.username
-				};
-			}
-		});
-		pastEvents.forEach(function(pastEvent) {
-			if(!_pastEvents[pastEvent.eventInfo.id]){
-				_pastEvents[pastEvent.eventInfo.id] = {
-					id: pastEvent.eventInfo.id,
-					name: pastEvent.eventInfo.title,
-					startTime: pastEvent.eventInfo.start,
-					endTime: pastEvent.eventInfo.end,
-					picture: pastEvent.eventInfo.cover_pic,
-					description: pastEvent.eventInfo.description,
-					creator_id: pastEvent.creatorInfo.id,
-					creator_name: pastEvent.creatorInfo.name,
-					creator_username: pastEvent.creatorInfo.username
-				}
-			}
-		});
-	}
+  function _addEvents(futureEvents, pastEvents) {
+    addEvents(futureEvents, _futureEvents);
+    addEvents(pastEvents, _pastEvents);
+  }
 
+  function addEvents(events, eventBucket) {
+    events.forEach(function(e) {
+      if(!eventBucket[e.eventInfo.id]) {
+        eventBucket[e.eventInfo.id] = {
+          id: e.eventInfo.id,
+          name: e.eventInfo.title,
+          startTime: e.eventInfo.start,
+          endTime: e.eventInfo.end,
+          picture: e.eventInfo.cover_pic,
+          description: e.eventInfo.description,
+          creator_id: e.creatorInfo.id,
+          creator_name: e.creatorInfo.name,
+          creator_username: e.creatorInfo.username
+        };
+      }
+    });
+  }
 
-	var EventStore = {
-		emit: function(event){
-			EventEmitter.emit(event);
-		},
-		emitChange: function() {
-		  	this.emit(CHANGE_EVENT);
-		},
-		addChangeListener: function(callback) {
-		    EventEmitter.on(CHANGE_EVENT, callback);
-		},
-		removeChangeListener: function(callback) {
-		  	EventEmitter.removeListener(CHANGE_EVENT, callback);
-		},
-		getAllFutureEvents: function(){
-			var events = [];
-			for (var id in _futureEvents){
-				events.push(_futureEvents[id]);
-			}
-			var sortedEvents = events.sort(function(a, b){ 
-				return moment(b.startTime) - moment(a.startTime)
-			});
-			return sortedEvents;
-		},
-		getAllPastEvents: function(){
-			var events = [];
-			for (var id in _pastEvents){
-				events.push(_pastEvents[id]);
-			}
-			var sortedEvents = events.sort(function(a, b){ 
-				return moment(b.startTime) - moment(a.startTime)
-			}) 
-			return sortedEvents;
-		}
-	}
+  function _addEventDetails(eventDetails) {
+    _eventDetails = {
+      id: eventDetails.id,
+      title: eventDetails.title,
+      startTime: eventDetails.start,
+      endTime: eventDetails.end,
+      location: eventDetails.location,
+      picture: eventDetails.cover_pic,
+      description: eventDetails.description,
+      creatorId: eventDetails.creator_id,
+      creatorName: eventDetails.owner_name
+    };
+  }
 
-	EventStore.dispatchToken = Dispatcher.register(function(payload){
-		var action = payload.action;
-		var text;
+  var EventStore = {
+    emit: function(event){
+      EventEmitter.emit(event);
+    },
+    emitChange: function() {
+      this.emit(CHANGE_EVENT);
+    },
+    addChangeListener: function(callback) {
+      EventEmitter.on(CHANGE_EVENT, callback);
+    },
+    removeChangeListener: function(callback) {
+      EventEmitter.removeListener(CHANGE_EVENT, callback);
+    },
+    getAllFutureEvents: function() {
+      var events = [];
+      for (var id in _futureEvents){
+        events.push(_futureEvents[id]);
+      }
+      var sortedEvents = events.sort(function(a, b){
+        return moment(b.startTime) - moment(a.startTime)
+      });
+      return sortedEvents;
+    },
+    getAllPastEvents: function() {
+      var events = [];
+      for (var id in _pastEvents){
+        events.push(_pastEvents[id]);
+      }
+      var sortedEvents = events.sort(function(a, b){
+        return moment(b.startTime) - moment(a.startTime)
+      });
+      return sortedEvents;
+    },
+    getEventDetails: function() {
+      return _eventDetails;
+    }
+  }
 
-		switch(action.actionType){
-			case Constants.RECEIVE_RAW_EVENTS:
-				_addEvents(action.futureEvents, action.pastEvents);
-				EventStore.emitChange();
-			break;			
-		}
+  EventStore.dispatchToken = Dispatcher.register(function(payload) {
+    var action = payload.action;
+    var text;
 
-	});
+    switch (action.actionType){
+      case Constants.RECEIVE_RAW_EVENTS:
+        _addEvents(action.futureEvents, action.pastEvents);
+        EventStore.emitChange();
+        break;			
+      case Constants.RECEIVE_EVENT_DETAILS:
+        _addEventDetails(action.eventDetails);
+        EventStore.emitChange();
+        break;
+    }
+  });
 
-	return EventStore;
-
+  return EventStore;
 });
