@@ -14,7 +14,7 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				<h3 className="creator-name ta-l no-margin">{this.props.friend.name} </h3>
 				<h4 className="creator-username ta-l no-margin">@{this.props.friend.username} </h4>
 				</Link>
-				{this.props.display_unfollow === true ? 
+			  {this.props.display_unfollow === true ? 
 					(<button className="Unfollow" onClick={this.removeFriend}>Unfollow</button>) : 
 					('')
 				}
