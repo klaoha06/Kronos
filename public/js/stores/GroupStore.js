@@ -38,7 +38,7 @@ define([
     getAllGroups: function() {
       return Object.keys(_subscribedGroups).map(function(id) {
         return _subscribedGroups[id];
-      };
+      });
     }
   };
 
