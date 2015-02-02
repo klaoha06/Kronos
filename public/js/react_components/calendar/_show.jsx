@@ -1,8 +1,8 @@
-define(['react', 'jquery', 'react-router'], function(React, $, Router){
-	var Link = Router.Link
+define(['react', 'jquery', 'react-router'], function(React, $, Router) {
+	var Link = Router.Link;
 	var ShowCalendar = React.createClass({
 
-		render: function(){
+		render: function() {
 			// var eventNodes = this.props.calendars.map(function(calendar, index){
 
 			// 	return(
@@ -11,7 +11,7 @@ define(['react', 'jquery', 'react-router'], function(React, $, Router){
 			// 		</div>
 			// 		)
 			// });
-			return(
+			return (
 				<div>
 					<h6>ID: {this.props.calendar.id} </h6>
 					<h6>Creator ID: {this.props.calendar.creator_id} </h6>
@@ -20,7 +20,7 @@ define(['react', 'jquery', 'react-router'], function(React, $, Router){
 					<h6>Events: </h6>
 					{/*eventNodes*/}
 				</div>
-				)
+      );
 		}
 	})
 
@@ -28,34 +28,30 @@ define(['react', 'jquery', 'react-router'], function(React, $, Router){
 	var Calendar = React.createClass({
 		mixins: [ Router.State ],
 
-		loadDataFromServer: function(){
-			var that = this;
-			$.ajax({
-				url: API_URL + '/calendars/'+this.getParams().id,
-				dataType: 'json',
-				context: this
-			}).done(function(data){
-				console.log(data)
-				this.setState({calendar: data});
-			}).fail(function(data){
-				console.log("FAILED REQUEST")
-			})
+		loadDataFromServer: function() {
+			$.get(API_URL + '/calendars/' + this.getParams().id)
+        .done(function(data) {
+          console.log(data);
+          this.setState({ calendar: data });
+        }.bind(this))
+        .fail(function(data){
+          console.log("FAILED REQUEST");
+        }.bind(this));
 		},
-		getInitialState: function(){
-			this.loadDataFromServer()
-			return {calendar: {}}
+		getInitialState: function() {
+			this.loadDataFromServer();
+			return { calendar: {} };
 		},
-		componentWillReceiveProps: function () {
-		    this.setState(this.loadDataFromServer());
-		 },
+		componentWillReceiveProps: function() {
+      this.loadDataFromServer();
+		},
 		render: function(){
-			console.log()
-			return(
+			return (
 				<div className="calendarContainer">
 					<ShowCalendar calendar={this.state.calendar} />
 				</div>
-				)
+      );
 		}
 	})
 	return Calendar;
-})
+});
