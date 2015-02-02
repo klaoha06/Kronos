@@ -40,8 +40,8 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	end
 
-	def index
-		#Need to figure out the correct call to get only users who the current user follows
+	def suggestions
+		#Need to figure out the correct call to get only users who we recommend should be followed
 		users = User.where.not(:id => @current_user.id)
 		render json: users
 	end

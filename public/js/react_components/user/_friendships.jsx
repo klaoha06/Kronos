@@ -1,6 +1,7 @@
+//Returns: FriendshipContainer
+//Description: Renders a given users' followers/following
 define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], function(React, UserAPI, Router, UserAction) {
 	var Link = Router.Link;
-
 	var FriendNode = React.createClass({
 		removeFriend: function(e){
 			UserAction.unfollow(this.props.friend.id)
@@ -14,7 +15,7 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				<h3 className="creator-name ta-l no-margin">{this.props.friend.name} </h3>
 				<h4 className="creator-username ta-l no-margin">@{this.props.friend.username} </h4>
 				</Link>
-				{this.props.display_unfollow === true ? 
+			  {this.props.display_unfollow === true ? 
 					(<button className="Unfollow" onClick={this.removeFriend}>Unfollow</button>) : 
 					('')
 				}
@@ -22,32 +23,27 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 			)
 		}
 	})
-
 	var Friendships = React.createClass({
-
 		getInitialState: function(){
 			return{followers: [], following: []}
 		},
 		loadDataFromServer: function(user_id){
-			var that = this;
-			$.ajax({
-			  url: API_URL + '/users/' + user_id + '/friendships'
-			}).done(function(friends) {
+			$.get(API_URL + '/users/' + user_id + '/friendships')
+      .done(function(friends) {
 				var temp_followers = [];
 				var temp_following = [];
 				friends.followers.forEach(function(follower){
 				  	temp_followers.push(follower)
 			    });
-
 			    friends.following.forEach(function(user_following){
 				  	temp_following.push(user_following)
 			  	});
-				that.setState({user: friends.user, followers: temp_followers, following: temp_following});
-			}).fail(function(data){
+				this.setState({user: friends.user, followers: temp_followers, following: temp_following});
+			}.bind(this))
+      .fail(function(data){
 			  console.log('Failed to get friendships.');
-			})
+			});
 		},
-
 		componentDidMount: function(){
 			this.loadDataFromServer(this.props.user_id);
 		},
@@ -89,7 +85,6 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 			this.setState({following: temp_following})
 		}
 	})
-
 	var FriendshipContainer = React.createClass({
 		mixins: [ Router.State ],
 		render: function(){
@@ -98,7 +93,5 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 				)
 		}
 	})
-
 	return FriendshipContainer
-
 });

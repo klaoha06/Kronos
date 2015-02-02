@@ -2,7 +2,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 	'jsx!react_components/group/_show', 'jsx!react_components/calendar/_show', 
 	'jsx!react_components/user/_users', 'jsx!react_components/events/_feed', 
 	'jsx!react_components/events/_show', 'jsx!react_components/events/_createEvent',
-	'jsx!react_components/user/_friendships', 'jsx!react_components/user/_user', 'jsx!react_components/user/_index'], function(React, UserCalendar, Router, Group, Calendar, Users, Feed, Event, CreateEvent, Friendships, UserPage, UserIndex){
+	'jsx!react_components/user/_friendships', 'jsx!react_components/user/_show', 'jsx!react_components/user/_suggestions'], function(React, UserCalendar, Router, Group, Calendar, Users, Feed, Event, CreateEvent, Friendships, UserPage, UserSuggestions){
 	//I can't figure out how to get RequireJS to include these at a global level
 	//so just declaring them locally here 
 	var RouteHandler = Router.RouteHandler;
@@ -40,7 +40,7 @@ define(['react', 'jsx!react_components/user/_calendar', 'react-router',
 				<Route name="Groups" path="group/:id" handler={Group} />
 				<Route name="Calendar" path="calendar/:id" handler={Calendar} />
 				<Route name="Users" path="users" handler={Users} >
-					<Route name="UserIndex" path="list" handler={UserIndex} />
+					<Route name="UserSuggestions" path="suggestions" handler={UserSuggestions} />
 					<Route name="UserCalendar" path="calendar" handler={UserCalendar} />
 					<Route name="UserPage" path=":id" handler={UserPage} />
 					<Route name="Friendships" path=":id/friendships" handler={Friendships} />
