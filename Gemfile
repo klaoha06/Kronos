@@ -15,6 +15,7 @@ gem 'rspec-rails', '~> 3.0'
 
 group :test do
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
 
