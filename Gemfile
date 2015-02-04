@@ -13,6 +13,10 @@ gem 'faker'
 
 gem 'rspec-rails', '~> 3.0'
 
+group :test do
+  gem 'database_cleaner'
+end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
