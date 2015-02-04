@@ -40,9 +40,9 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
 	end
 
-	def index
-		#Need to figure out the correct call to get only users who the current user follows
-		users = User.where.not(:id => @current_user.id)
+	def suggestions
+		#This should be a "smart" algorithm. For now just returning all users not being followed by current user
+		users = User.where.not(:id => @current_user.following_ids | [@current_user.id])
 		render json: users
 	end
 

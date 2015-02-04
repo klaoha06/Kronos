@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150123011553) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "auths", force: true do |t|
     t.integer  "user_id"
     t.string   "access_token"
@@ -26,8 +29,8 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.integer "event_id"
   end
 
-  add_index "calendar_events", ["calendar_id"], name: "index_calendar_events_on_calendar_id"
-  add_index "calendar_events", ["event_id"], name: "index_calendar_events_on_event_id"
+  add_index "calendar_events", ["calendar_id"], name: "index_calendar_events_on_calendar_id", using: :btree
+  add_index "calendar_events", ["event_id"], name: "index_calendar_events_on_event_id", using: :btree
 
   create_table "calendar_groups", force: true do |t|
     t.integer  "calendar_id"
@@ -46,6 +49,10 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "calendars", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
+    t.string   "cover_pic"
+    t.text     "description"
+    t.boolean  "share",       default: false
+    t.boolean  "main_cal",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,9 +60,9 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "events", force: true do |t|
     t.integer  "creator_id"
     t.integer  "id_from_provider"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string   "name"
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "title"
     t.string   "location"
     t.string   "time_zone"
     t.string   "cover_pic"
@@ -65,6 +72,9 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.string   "owner_id"
     t.string   "my_status"
     t.text     "description"
+    t.boolean  "important",        default: false
+    t.boolean  "favorite",         default: false
+    t.boolean  "share",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,9 +86,9 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.datetime "updated_at"
   end
 
-  add_index "follows", ["follower_id"], name: "index_follows_on_follower_id"
-  add_index "follows", ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
-  add_index "follows", ["following_id"], name: "index_follows_on_following_id"
+  add_index "follows", ["follower_id"], name: "index_follows_on_follower_id", using: :btree
+  add_index "follows", ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true, using: :btree
+  add_index "follows", ["following_id"], name: "index_follows_on_following_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string   "name"
@@ -116,7 +126,6 @@ ActiveRecord::Schema.define(version: 20150123011553) do
   create_table "users", force: true do |t|
     t.integer  "age_range"
     t.integer  "default_time_zone"
-    t.integer  "fb_id"
     t.string   "username"
     t.string   "name"
     t.string   "first_name"
@@ -124,6 +133,7 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.string   "gender"
     t.string   "email"
     t.string   "profile_pic"
+    t.string   "fb_id"
     t.datetime "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
