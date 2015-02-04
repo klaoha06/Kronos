@@ -10,7 +10,7 @@ define(['react', 'utils/UserUtils', 'react-router', 'actions/UserViewActions'], 
 		render: function(){
 			return(
 				<li className="debug">
-				<img className="profilePic" src={this.props.friend.profile_pic}></img>
+				<img className="listPic" src={this.props.friend.profile_pic}></img>
 				<Link to="UserPage" params={{id: this.props.friend.id}}>
 				<h3 className="creator-name ta-l no-margin">{this.props.friend.name} </h3>
 				<h4 className="creator-username ta-l no-margin">@{this.props.friend.username} </h4>

@@ -21,13 +21,6 @@
   transform: translateY(-50%);
 }
 
-.profilePic {
-  width: 45px;
-  height: 45px;
-  border-radius: 150px;
-  margin-right: 10px;
-  margin-left: 10px;
-}
 
 #logInOut {
 }
@@ -116,4 +109,12 @@ ul{
 
 .page-transition-leave.page-transition-leave-active {
   opacity: 0.01;
+}
+
+.listPic{
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
