@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     Event.where("start >= ?", Time.now).order(:start).map do |event|
       if (followings.include?(event.creator_id))
         user = User.find(event.creator_id)
-        return { :eventInfo => event, :creatorInfo => user }
+        { :eventInfo => event, :creatorInfo => user }
       else
         next
       end
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     Event.where("start < ?", Time.now).order(:start).map do |event|
       if (followings.include?(event.creator_id))
         user = User.find(event.creator_id)
-        return { :eventInfo => event, :creatorInfo => user }
+        { :eventInfo => event, :creatorInfo => user }
       else
         next
       end

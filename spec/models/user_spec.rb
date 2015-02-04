@@ -16,14 +16,14 @@ RSpec.describe User, :type => :model do
   describe '#get_future_events' do
     it "should return all future events for calendar user is following" do
       formatted_future_event = { eventInfo: @event_future, creatorInfo: @followee }
-      expect(@current_user.get_future_events).to eq formatted_future_event
+      expect(@current_user.get_future_events).to include formatted_future_event
     end
   end
 
   describe '#get_past_events' do
     it "should return all past events for calendar user is following" do
       formatted_past_event = { eventInfo: @event_past, creatorInfo: @followee }
-      expect(@current_user.get_past_events).to eq formatted_past_event
+      expect(@current_user.get_past_events).to include formatted_past_event
     end
   end
 end
