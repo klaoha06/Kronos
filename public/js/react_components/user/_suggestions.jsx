@@ -1,12 +1,21 @@
 //Returns: UserSuggestions
 //Description: Renders a list of users or calendars we recommend should be followed
-define(['react', 'react-router', 'jquery', 'actions/UserViewActions'], function(React, Router, $, UserAction){
+define([
+  'react', 
+  'react-router', 
+  'jquery', 
+  'actions/UserViewActions'], 
+  function(
+    React, 
+    Router, 
+    $, 
+    UserAction
+  ){
   var Link = Router.Link;
   var UserNode = React.createClass({
     mixins: [ Router.Navigation ],
-    addFriend: function(){  
-      UserAction.follow(this.props.user.id);
-      this.transitionTo("UserPage", {id: this.props.user.id});
+    getInitialState: function(){
+      return {currently_following : false} 
     },
     render: function(){
       return(
@@ -16,9 +25,20 @@ define(['react', 'react-router', 'jquery', 'actions/UserViewActions'], function(
         <h3 className="creator-name ta-l no-margin">{this.props.user.name} </h3>
         <h4 className="creator-username ta-l no-margin">@{this.props.user.username} </h4>
         </Link>
-        <button className="follow" onClick={this.addFriend}>Follow</button>
+        {this.state.currently_following ? 
+          <button onClick={this.removeFriend}>Unfollow</button> :
+          <button onClick={this.addFriend}>Follow</button> 
+        }
         </li>
       )
+    },
+    addFriend: function(){  
+      UserAction.follow(this.props.user.id);
+      this.setState({currently_following : true})
+    },
+    removeFriend: function(){
+      UserAction.unfollow(this.props.user.id)
+      this.setState({currently_following : false})
     }
   });
   var UserSuggestions = React.createClass({
