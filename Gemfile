@@ -11,6 +11,8 @@ gem 'pg'
 
 gem 'faker'
 
+gem 'pry'
+
 gem 'rspec-rails', '~> 3.0'
 
 group :test do
