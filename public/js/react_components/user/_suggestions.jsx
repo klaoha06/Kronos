@@ -20,7 +20,7 @@ define([
     render: function(){
       return(
         <li className="debug ta-l">
-        <img className="profilePic" src={this.props.user.profile_pic}></img>
+        <img className="listPic" src={this.props.user.profile_pic}></img>
         <Link to="UserPage" params={{id: this.props.user.id}}>
         <h3 className="creator-name ta-l no-margin">{this.props.user.name} </h3>
         <h4 className="creator-username ta-l no-margin">@{this.props.user.username} </h4>

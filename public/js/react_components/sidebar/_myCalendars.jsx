@@ -54,7 +54,7 @@ define([
     render: function() {
       return (
         <div>
-          <a className="createCalForm" href="#cal-form"><button>Create New Calendar</button></a>
+          <a className="createCalForm" href="#cal-form"><i className="fa fa-plus"></i></a>
           <form id="cal-form" className="mfp-hide white-popup-block" onSubmit={this.handleSubmit}>
             <h1>Create New Calendar</h1>
             <fieldset>
@@ -97,6 +97,7 @@ define([
   });
 
   var Calendar = React.createClass({
+    mixins: [Router.Navigation],
     componentDidMount: function() {
       $('#external-events .fc-event').each(function() {
         // store data so the calendar knows to render an event upon drop
@@ -115,7 +116,7 @@ define([
     },
     handleClick: function(e){
       // Show all Events on the main calendar for this calendar id
-      window.location = '/#/users/calendar';
+      this.transitionTo('UserCalendar');
       CalendarActions.setMainCal(this.props.data.cal.id);
       $(e.target).closest("div").find("#external-events").slideToggle();
     },
@@ -123,7 +124,7 @@ define([
       return (
           <div className="row">
           <div className="debug" onClick={this.handleClick}>
-          <h5>{this.props.data.cal.name}</h5>
+          <h5 className='sidebarSubheader'>{this.props.data.cal.name}</h5>
           <div id='external-events' className="hide">
           <h4>Draggable Events</h4>
           <div className='fc-event'>My Event 1</div>
@@ -170,7 +171,6 @@ define([
           </div>
           )
     }
-
   });
   return MyCalendars;
 
