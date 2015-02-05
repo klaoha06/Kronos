@@ -18,7 +18,7 @@ define([
     },
     FBlogout: function() {
       UserUtils.logOut();
-      this.transitionTo('/')
+      this.transitionTo('/');
     },
     render: function() {
       if (this.props.loggedInUser) {
