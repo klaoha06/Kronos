@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
       else
         next
       end
-    end
+    end.compact
   end
 
   def get_past_events
@@ -46,6 +46,6 @@ class User < ActiveRecord::Base
       else
         next
       end
-    end
+    end.compact
   end
 end

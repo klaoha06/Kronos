@@ -137,16 +137,12 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   end
 
   def get_future_events
-    user = User.find_by_id(params[:id])
-    future_events = user.get_future_events
-
-    render json: future_events
+    user = User.find_by_id(params[:user_id])
+    user.get_future_events
   end
 
   def get_past_events
-    user = User.find_by_id(params[:id])
-    past_events = user.get_past_events
-
-    render json: past_events
+    user = User.find_by_id(params[:user_id])
+    user.get_past_events
   end
 end
