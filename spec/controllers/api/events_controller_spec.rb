@@ -32,15 +32,21 @@ RSpec.describe Api::V0::EventsController do
       @followee.calendars.first.events << @event_future
       @followee.calendars.first.events << @event_past
       @current_user.following << @followee
+      allow(User).to receive(:find_by_id).and_return(@current_user)
     end
 
-    it 'returns past and future events' do
-      futureEvents = [{eventInfo: @event_future, creatorInfo: @followee}]
-      pastEvents = [{eventInfo: @event_past, creatorInfo: @followee}]
-      expected_response = {futureEvents: futureEvents, pastEvents: pastEvents}.to_json
+    context 'future events' do
+      it 'returns events that start after current time' do
+        response = [{ :eventInfo => @event_future, :creatorInfo => @followee }]
+        expect(controller.send(:get_future_events)).to eq(response)
+      end
+    end
 
-      get :index, user_id: @current_user.id
-      expect(response.body).to eq expected_response
+    context 'past events' do
+      it 'returns events that already started' do
+        response = [{ :eventInfo => @event_past, :creatorInfo => @followee }]
+        expect(controller.send(:get_past_events)).to eq(response)
+      end
     end
   end
 
