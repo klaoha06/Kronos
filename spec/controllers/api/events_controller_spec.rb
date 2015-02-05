@@ -23,29 +23,31 @@ RSpec.describe Api::V0::EventsController do
   end
 
   describe '#get_x_events' do
-    let(:user) { User.create(fb_id: 1) }
-    let(:future_event) { Event.create(creator_id: 1, start: Time.new(Time.now.year + 1)) }
-    let(:past_event) { Event.create(creator_id: 1, start: Time.new(Time.now.year - 1)) }
+    before :each do
+      @current_user = create(:user_with_calendars)
+      @followee = create(:user_with_calendars)
+      @event_future = create(:event_future, creator_id: @followee.id)
+      @event_past = create(:event_past, creator_id: @followee.id)
 
-    context 'future events' do
-      it 'returns events that start after current time' do
-        response = [{ :eventInfo => future_event, :creatorInfo => user }]
-        expect(controller.send(:get_future_events)).to eq(response)
-      end
+      @followee.calendars.first.events << @event_future
+      @followee.calendars.first.events << @event_past
+      @current_user.following << @followee
     end
 
-    context 'past events' do
-      it 'returns events that already started' do
-        response = [{ :eventInfo => past_event, :creatorInfo => user }]
-        expect(controller.send(:get_past_events)).to eq(response)
-      end
+    it 'returns past and future events' do
+      futureEvents = [{eventInfo: @event_future, creatorInfo: @followee}]
+      pastEvents = [{eventInfo: @event_past, creatorInfo: @followee}]
+      expected_response = {futureEvents: futureEvents, pastEvents: pastEvents}.to_json
+
+      get :index, user_id: @current_user.id
+      expect(response.body).to eq expected_response
     end
   end
 
   describe '#destroy' do
     it 'destroys the event specified by id' do
-      Event.create(creator_id: 1, start: Time.now)
-      expect { post :destroy, id: 1 }.to change { Event.count }.by(-1)
+      event = Event.create(creator_id: 1, start: Time.now)
+      expect { post :destroy, id: event.id }.to change { Event.count }.by(-1)
     end
   end
 end

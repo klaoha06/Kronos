@@ -9,7 +9,6 @@ RSpec.describe User, :type => :model do
 
     @followee.calendars.first.events << @event_future
     @followee.calendars.first.events << @event_past
-
     @current_user.following << @followee
   end
 
