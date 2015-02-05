@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20150123011553) do
 
   create_table "events", force: true do |t|
     t.integer  "creator_id"
-    t.integer  "id_from_provider"
     t.datetime "start"
     t.datetime "end"
     t.string   "title"
@@ -67,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150123011553) do
     t.string   "time_zone"
     t.string   "cover_pic"
     t.string   "provider"
+    t.string   "id_from_provider"
     t.string   "external_uri"
     t.string   "owner_name"
     t.string   "owner_id"
