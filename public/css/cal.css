@@ -91,26 +91,6 @@ ul{
 .smaller{
   font-size: 0.5em;
 }
-
-/**** React Animations ****/
-.page-transition-enter {
-  opacity: 0.01;
-  transition: opacity .5s linear;
-}
-
-.page-transition-enter.page-transition-enter-active {
-  opacity: 1;
-}
-
-.page-transition-leave {
-  opacity: 1;
-  transition: opacity .5s linear;
-}
-
-.page-transition-leave.page-transition-leave-active {
-  opacity: 0.01;
-}
-
 .listPic{
   width: 45px;
   height: 45px;
@@ -118,3 +98,76 @@ ul{
   margin-right: 10px;
   margin-left: 10px;
 }
+/**** React Animations ****/
+.at-view-emerge {
+    
+}
+
+.at-view-emerge-active {
+   
+}
+
+.at-view-scale-out {
+
+}
+
+.at-view-scale-out-active {
+
+}
+.page-transition-enter {
+  -webkit-transition-property: opacity, -webkit-transform;
+  -moz-transition-property: opacity, -moz-transform;
+  -o-transition-property: opacity, -o-transform;
+  transition-property: opacity transform;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-delay: 0.1s;
+  -moz-transition-delay: 0.1s;
+  -o-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  -webkit-transform: rotateX(-60deg) translate(0, 200%);
+  -moz-transform: rotateX(-60deg) translate(0, 200%);
+  -ms-transform: rotateX(-60deg) translate(0, 200%);
+  -o-transform: rotateX(-60deg) translate(0, 200%);
+  transform: rotateX(-60deg) translate(0, 200%);
+  opacity: 0;
+  z-index: 4;
+  top: 0px;
+  left: 0px;
+}
+
+.page-transition-enter.page-transition-enter-active {
+  -webkit-transform: rotateX(0deg) translate(0, 0);
+  -moz-transform: rotateX(0deg) translate(0, 0);
+  -ms-transform: rotateX(0deg) translate(0, 0);
+  -o-transform: rotateX(0deg) translate(0, 0);
+  transform: rotateX(0deg) translate(0, 0);
+  opacity: 1;
+}
+
+.page-transition-leave {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+
+.page-transition-leave.page-transition-leave-active {
+  -webkit-transform: scale(0.1, 0.1);
+  -moz-transform: scale(0.1, 0.1);
+  -ms-transform: scale(0.1, 0.1);
+  -o-transform: scale(0.1, 0.1);
+  transform: scale(0.1, 0.1);
+}
+
+/**** End React Animations ****/
+

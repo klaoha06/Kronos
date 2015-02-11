@@ -28,7 +28,6 @@ define([
       var display;
       //Playing around with animations
       var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
       //How do we want to handle someone who is not logged in? 
       //We could maybe always just show the feed? For now just setting up
       //The beginnings of a login page
