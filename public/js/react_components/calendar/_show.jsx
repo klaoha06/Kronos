@@ -40,9 +40,9 @@ define([
           console.log(data);
           this.setState({ calendar: data });
         }.bind(this))
-      .fail(function(data){
-        console.log("FAILED REQUEST");
-      }.bind(this));
+        .fail(function(data){
+          console.log("FAILED REQUEST");
+        }.bind(this));
     },
     getInitialState: function() {
       this.loadDataFromServer();

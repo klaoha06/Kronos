@@ -9,7 +9,7 @@ define([
     React, 
     Router, 
     $, 
-    UserAction
+    UserViewActions
   ){
   var Link = Router.Link;
   var UserNode = React.createClass({
@@ -33,8 +33,8 @@ define([
       )
     },
     addFriend: function(){  
-      UserAction.follow(this.props.user.id);
-      this.setState({currently_following : true})
+      UserViewActions.follow(this.props.user.id);
+      this.transitionTo("UserPage", {id: this.props.user.id});
     },
     removeFriend: function(){
       UserAction.unfollow(this.props.user.id)

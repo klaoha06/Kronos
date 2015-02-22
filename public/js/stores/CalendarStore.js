@@ -86,6 +86,10 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 				addOrUpdateCal(action.calEvent);
 				CalendarsStore.emitChange();
 				break;
+      case KronosConstants.ADD_EVENT:
+        // TODO: add function
+				CalendarsStore.emitChange();
+        break;
 		}
 	});
 

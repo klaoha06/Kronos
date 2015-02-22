@@ -6,6 +6,7 @@ define([
     UserStore
   ) {
   function registerAndReturnCals(data) {
+    console.log(data);
     CalendarActions.receiveUserCals(data);
     return data;
   }
@@ -21,10 +22,10 @@ define([
     },
     createCal: function(cal) {
       $.post(API_URL + '/calendars', { calendar: cal })
-        .done(CalendarActions.updateLastCal.bind(this))
+        .done(CalendarActions.updateLastCal)
         .fail(function(xhr, status, err) {
           console.error(this.props, status, err.toString());
-        }.bind(this));
+        });
     }
   };
   return CalendarAPI;	
