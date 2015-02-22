@@ -1,4 +1,15 @@
-define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], function(React, $, moment, fullCalendar, CalendarStore) {
+define([
+  'react',
+  'jquery',
+  'moment',
+  'fullcalendar',
+  'stores/CalendarStore'],
+  function(React,
+    $,
+    moment,
+    fullCalendar,
+    CalendarStore
+  ) {
   var Main = React.createClass({
     getInitialState: function () {
       return {};
@@ -16,11 +27,11 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         droppable: true,
         drop: function() {
           // is the "remove after drop" checkbox checked?
-           if ($('#drop-remove').is(':checked')) {
+          if ($('#drop-remove').is(':checked')) {
             // if so, remove the element from the "Draggable Events" list
             $(this).remove();
-           }
-         },
+          }
+        },
         selectable: true,
         selectHelper: true,
         select: function(start, end) {
@@ -58,11 +69,11 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
         droppable: true,
         drop: function() {
           // is the "remove after drop" checkbox checked?
-           if ($('#drop-remove').is(':checked')) {
+          if ($('#drop-remove').is(':checked')) {
             // if so, remove the element from the "Draggable Events" list
             $(this).remove();
-           }
-         },
+          }
+        },
         selectable: true,
         selectHelper: true,
         select: function(start, end) {
@@ -89,13 +100,12 @@ define(['react', 'jquery', 'moment', 'fullcalendar', 'stores/CalendarStore'], fu
     },
     render: function() {
       return (
-          <div id='main-calendar'>
-            <h2 id='main-cal-title'>{typeof this.state.cal !== 'undefined' ? this.state.cal.name : ''}</h2>
-            <div id='calendar'></div>
-          </div>
-        );  
-      }
+        <div id='main-calendar'>
+          <h2 id='main-cal-title'>{typeof this.state.cal !== 'undefined' ? this.state.cal.name : ''}</h2>
+          <div id='calendar'></div>
+        </div>
+      );
+    }
   });
-
   return Main;
 });

@@ -31,6 +31,10 @@ define([
     componentWillUnmount: function() {
       EventStore.removeChangeListener(this._onChange);
     },
+    addEvent: function() {
+      EventViewActions.addEvent(this.state.eventDetails.id);
+      $('.add-event').toggle();
+    },
     render: function() {
       return (
         <div>
@@ -40,6 +44,7 @@ define([
           <p><b>Description:</b> {this.state.eventDetails.description}</p>
           <p><b>Location:</b> {this.state.eventDetails.location}</p>
           <img src={this.state.eventDetails.picture}/>
+          <button className="add-event" onClick={this.addEvent}>Add Event</button>
         </div>
       );
     },

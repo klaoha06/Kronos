@@ -1,11 +1,11 @@
 //Returns: UserSuggestions
 //Description: Renders a list of users or calendars we recommend should be followed
-define(['react', 'react-router', 'jquery', 'actions/UserViewActions'], function(React, Router, $, UserAction){
+define(['react', 'react-router', 'jquery', 'actions/UserViewActions'], function(React, Router, $, UserViewActions){
   var Link = Router.Link;
   var UserNode = React.createClass({
     mixins: [ Router.Navigation ],
     addFriend: function(){  
-      UserAction.follow(this.props.user.id);
+      UserViewActions.follow(this.props.user.id);
       this.transitionTo("UserPage", {id: this.props.user.id});
     },
     render: function(){

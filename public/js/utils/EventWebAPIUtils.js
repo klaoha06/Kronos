@@ -17,6 +17,11 @@ define([
         .done(function(data) { console.log(data); })
         .fail(function(data) { console.log(data); });
     },
+    addEvent: function(eventId) {
+      $.post(API_URL + '/events/add', { id: eventId })
+        .done(function(data) { console.log(data); })
+        .fail(function(data) { console.log(data); });
+    },
     retrieveCalEvents: function(calendarId) {
       $.get(API_URL + '/events', calendarId)
         .done(function(data){ console.log(data); })

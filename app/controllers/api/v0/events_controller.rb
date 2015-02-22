@@ -1,5 +1,6 @@
 class Api::V0::EventsController < Api::V0::ApplicationController
   before_action :authenticate, only: [:create, :update]
+  before_action :set_user_id
 
   # Need to check if the calendar is created by the user
   # if it is then the user is the owner or the creator and he/she can see and edit all the events from that calendar
@@ -29,13 +30,12 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   end
 
   def show_events_by_cal_id
-    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
     calendar = Calendar.find(params[:id])
-    if calendar.creator_id == user_id # if user is the owner of the calendar..
+    if calendar.creator_id == @user_id # if user is the owner of the calendar..
       events = calendar.events
       render json: events
     else # if user is not the owner of the cal
-      events = calendar.events.where("creator_id = ? OR share = ?", user_id, true)
+      events = calendar.events.where("creator_id = ? OR share = ?", @user_id, true)
       render json: events
     end
   end
@@ -44,9 +44,8 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   # POST /events.json
   def create
     params.permit!
-    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
     event = Event.new(event_params)
-    event.creator_id = user_id
+    event.creator_id = @user_id
     if event.save
       CalendarEvent.create(calendar_id: params[:calendar_id], event_id: event.id)
     else
@@ -54,12 +53,15 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     end
   end
 
+  def add_event
+    User.find(@user_id).addedevents << Event.find(params[:id])
+  end
+
   def create_from_provider
-    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
     case params[:provider]
     when 'FB'
       fb_base_url = 'www.facebook.com/events/'
-      calendar = Calendar.find_or_create_by(name: 'Facebook Events', creator_id: user_id)
+      calendar = Calendar.find_or_create_by(name: 'Facebook Events', creator_id: @user_id)
     when 'GoogleCal'
       puts 'yo'
     else
@@ -68,7 +70,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     params['events_data'].each do |event_data|
       event = Event.find_by(provider: params[:provider], 
         id_from_provider: event_data['id'], 
-        creator_id: user_id)
+        creator_id: @user_id)
         if event #update
           event.update(title: event_data['name'], 
             start: event_data['start_time'], 
@@ -82,7 +84,7 @@ class Api::V0::EventsController < Api::V0::ApplicationController
             external_uri: (fb_base_url + event_data['id']))
         else # create
           event = Event.new(
-            creator_id: user_id, 
+            creator_id: @user_id,
             provider: params[:provider], 
             id_from_provider: event_data['id'], 
             title: event_data['name'], 
@@ -132,6 +134,10 @@ class Api::V0::EventsController < Api::V0::ApplicationController
 
   private
     
+  def set_user_id
+    @user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
+  end
+
   def event_params
     params[:event]
   end
