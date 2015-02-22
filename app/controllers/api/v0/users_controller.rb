@@ -40,11 +40,11 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
   end
 
-  def suggestions
-    #Need to figure out the correct call to get only users who we recommend should be followed
-    users = User.where.not(:id => @current_user.id)
-    render json: users
-  end
+	def suggestions
+		#This should be a "smart" algorithm. For now just returning all users not being followed by current user
+		users = User.where.not(:id => @current_user.following_ids | [@current_user.id])
+		render json: users
+	end
 
   def show
     user = User.find(params[:id])

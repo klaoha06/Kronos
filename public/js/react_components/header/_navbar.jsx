@@ -18,8 +18,6 @@ define([
       if (this.props.loggedInUser) {
         var loginNav = (
           <div className="fl-r">
-            <Link to="UserCalendar" params={{id: this.props.loggedInUser}}><i className="fa fa-2x fa-calendar"></i></Link>
-            <Link to="Friendships" params={{id: this.props.loggedInUser}} title="Manage followers"><i className="fa fa-2x fa-users"></i></Link>
           </div>
         );
       } else {
@@ -28,7 +26,7 @@ define([
       return (
         <div id="navbar">
           <div className="fl-l">
-            <Link to="Feed"><i className="fa fa-2x fa-home"></i></Link>
+            
             {loginNav}
           </div>
           <div id="console">
