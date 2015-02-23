@@ -29,6 +29,7 @@ RSpec.describe Api::V0::EventsController do
 
     context 'future events' do
       it 'returns events that start after current time' do
+        expect(User).to receive(:find).and_return(user)
         response = [{ :eventInfo => future_event, :creatorInfo => user }]
         expect(controller.send(:get_future_events)).to eq(response)
       end
@@ -36,6 +37,7 @@ RSpec.describe Api::V0::EventsController do
 
     context 'past events' do
       it 'returns events that already started' do
+        expect(User).to receive(:find).and_return(user)
         response = [{ :eventInfo => past_event, :creatorInfo => user }]
         expect(controller.send(:get_past_events)).to eq(response)
       end
@@ -44,7 +46,8 @@ RSpec.describe Api::V0::EventsController do
 
   describe '#destroy' do
     it 'destroys the event specified by id' do
-      Event.create(creator_id: 1, start: Time.now)
+      event = Event.create(creator_id: 1, start: Time.now)
+      expect(Event).to receive(:find).and_return(event)
       expect { post :destroy, id: 1 }.to change { Event.count }.by(-1)
     end
   end
