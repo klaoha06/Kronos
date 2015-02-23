@@ -48,30 +48,28 @@ class Api::V0::UsersController < Api::V0::ApplicationController
 
   def show
     user = User.find(params[:id])
-    current_is_follower = Follow.where(:follower_id => @current_user.id, :following_id => user.id).empty? ? false : true
-    follows_current = Follow.where(:follower_id => user.id, :following_id => @current_user.id).empty? ? false : true
-    render json: {:user => user, :friendship => {following: current_is_follower, follower: follows_current}}
+    current_is_follower = Follow.where(follower_id: @current_user.id, following_id: user.id).empty? ? false : true
+    follows_current = Follow.where(follower_id: user.id, following_id: @current_user.id).empty? ? false : true
+    render json: { user: user, friendship: { following: current_is_follower, follower: follows_current } }
   end
 
   def show_user_cals
-    user_id = Auth.find_by(access_token: request.headers['HTTP_ACCESS_TOKEN']).user_id
-    calendars = Calendar.where(creator_id: user_id);
+    calendars = Calendar.where(creator_id: @current_user.id);
     user_cals = calendars.map do |cal|
-      events = cal.events.where("creator_id = ? OR share = ?", user_id, true)
-      events += User.find(user_id).addedevents
-      { :cal => cal, :events => events }
+      events = cal.events.where("creator_id = ? OR share = ?", @current_user.id, true)
+      events += User.find(@current_user.id).addedevents
+      { cal: cal, events: events }
     end
     render json: user_cals
   end
 
   def clear_session
-    auth = Auth.find_by(access_token: request.headers["HTTP_ACCESS_TOKEN"])
-    auth.destroy! if auth
+    @auth.destroy! if @auth
   end
 
   def friendships
     user = User.find(params[:id])
-    render json: {user: user, followers: user.followers, following: user.following}
+    render json: { user: user, followers: user.followers, following: user.following }
   end
 
   def unfollow
