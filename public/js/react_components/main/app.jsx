@@ -36,7 +36,7 @@ define([
           <Navbar loggedInUser={this.state.loggedInUser} />
           <div id="main-container" className="row gutters">
             <Sidebar loggedInUser={this.state.loggedInUser} />
-            <div id="main-panel" className="debug col span_10 cf">
+            <div id="main-panel" className="debug col-md-10 cf">
               <ReactCSSTransitionGroup transitionName="page-transition">
                 {/* this.state.loggedInUser !== false ? 
                     (<RouteHandler loggedInUser={this.state.loggedInUser} key={this.getRoutes().reverse()[0].name}/>) : 

@@ -26,7 +26,7 @@ define([
         );
       });
       return (
-        <div id={that.props.name} className="row debug">
+        <div id={that.props.name}>
           <h5 className="sidebarSubheader" onClick={that.handleClick}>{that.props.name}</h5>
           <div className={that.props.name + "Container hide sidebarMenu debug"}>
             {dataNodes}
@@ -83,8 +83,8 @@ define([
       render: function(){
         return(
           <div>
-            <SubscribedGroups name= "subscribed" url= {"/users/"+this.props.loggedInUser+"/subscriptions"} />
-            <PopularGroups name= "popular" url="/groups/popular" />
+            <SubscribedGroups name="subscribed" url={"/users/"+this.props.loggedInUser+"/subscriptions"} />
+            <PopularGroups name="popular" url="/groups/popular" />
           </div>
           )
       }

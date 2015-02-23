@@ -9,6 +9,7 @@ require.config({
     "react-router": "vendor/react-router",
     "react-router-shim": "vendor/react-router-shim",
     "flux": "vendor/flux",
+    "bootstrap": "vendor/bootstrap",
     "event-emitter": "vendor/eventemitter",
     "jquery-cookie": "vendor/jquery.cookie",
     "moment": "vendor/moment.min",
@@ -25,7 +26,8 @@ require.config({
     'react-router-shim': {
       exports: 'React'
     },
-    'react-router': ['react-router-shim']
+    'react-router': ['react-router-shim'],
+    'bootstrap': { 'deps': ['jquery'] }
   },
   jsx: {
     fileExtension: '.jsx'

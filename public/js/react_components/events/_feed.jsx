@@ -75,33 +75,33 @@ define([
             <div className="hover-background" style={{width: this.state.eventWidth}}></div>
             <div className="hover-info" style={{width: this.state.eventWidth}}>
               <Link to="UserPage" params={{id: this.props.eventObj.creator_id}}>
-                <h3 className="creator-name ta-l no-margin">{this.props.eventObj.creator_name}</h3>
-                <h4 className="creator-username ta-l no-margin">@{this.props.eventObj.creator_username}</h4>
+                <h3 className="creator-name text-left no-margin">{this.props.eventObj.creator_name}</h3>
+                <h4 className="creator-username text-left no-margin">@{this.props.eventObj.creator_username}</h4>
               </Link>
-              <p className="event-time ta-l no-margin">Starts: {moment(this.props.eventObj.startTime).twitterLong()}</p> 
+              <p className="event-time text-left no-margin">Starts: {moment(this.props.eventObj.startTime).twitterLong()}</p> 
               <br />
-              <p className="event-time ta-l no-margin">Ends: {moment(this.props.eventObj.endTime).twitterLong()}</p>
-              <p className="ta-l">Description: {this.props.eventObj.description}</p>
+              <p className="event-time text-left no-margin">Ends: {moment(this.props.eventObj.endTime).twitterLong()}</p>
+              <p className="text-left">Description: {this.props.eventObj.description}</p>
             </div>
           </div>
         );
       }
       return (
-        <div className="row span_10 mlr-a">
-          <div className="col span_12 ta-c mlr-a">
-            <div ref="eventNode" className='event-node debug cf span_12' key={this.props.index} id={"event-"+this.props.eventObj.id} onMouseEnter={this.displayEventInfo} onMouseLeave={this.removeEventInfo}>
+        <div className="row col-md-10">
+          <div className="col-md-12 text-center">
+            <div ref="eventNode" className='event-node debug col-md-12' key={this.props.index} id={"event-"+this.props.eventObj.id} onMouseEnter={this.displayEventInfo} onMouseLeave={this.removeEventInfo}>
               <div>
                 <Link to="Event" params={this.props.eventObj}>
                   <h2 className="event-name no-margin">{this.props.eventObj.name}</h2>
                 </Link>	
                 {this.props.eventObj.userAddedEvent ? 
-                  <button className="btn remove" onClick={this.removeEvent}> Remove from calendar </button> :
-                  <button className="btn green" onClick={this.addEvent}> Add to Calendar </button> 
+                  <button className="btn btn-danger" onClick={this.removeEvent}> Remove from calendar </button> :
+                  <button className="btn btn-success" onClick={this.addEvent}> Add to Calendar </button> 
                 }
                 <img className={imageClass} src={this.props.eventObj.picture}></img>
                 {hoverInfo}
               </div>
-              <button className="fl-r">Add to calendar</button>
+              <button className="pull-right">Add to calendar</button>
             </div>
           </div>
         </div>
@@ -133,8 +133,8 @@ define([
     },
     render: function() {
       return (
-        <div className="col ta-c span_12 cf">
-          <div className="span_9 m-a">
+        <div className="col-md-12 text-center clearfix">
+          <div className="col-md-9">
             <div id="futurecontainer" className="debug">
               <h1>Upcoming Events</h1>
               {

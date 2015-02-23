@@ -18,13 +18,13 @@ define([
     mixins: [Router.State],
     render: function() {
       if (!this.props.loggedInUser) {
-        return(<div id="sidebar" className="debug col span_2"></div>)
+        return(<div id="sidebar" className="debug col-md-2"></div>)
       }
       var userInfo = JSON.parse(localStorage.getItem('userInfo'));
       //FJ 2/3 -- there's kind of a lot of redundancy with the sidebarItems.
       //We should be able to refactor to make this cleaner.
       return (
-        <div id="sidebar" className="debug col span_2">
+        <div id="sidebar" className="debug col-md-2">
           <ul id="sidebarList" className="debug">
             <li className={this.isActive('UserPage') ? "sidebarItem profileInfo cf activeSidebar" : "sidebarItem profileInfo cf"}>
               <Link to="UserPage" params={{id: this.props.loggedInUser}}>

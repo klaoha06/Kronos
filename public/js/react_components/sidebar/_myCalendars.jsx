@@ -85,9 +85,10 @@ define([
           {this.props.data.length < 1 ? 
             (<h4>You have not created a calendar! Please create one.</h4>) :
               (<div className="UserCals">
-               {this.props.data.map(function(calendar, index) {
-                                                                return (<Calendar data={calendar} key={index} />)
-                                                              })
+               {
+                 this.props.data.map(function(calendar, index) {
+                   return (<Calendar data={calendar} key={index} />)
+                 })
                }
                </div>)
           }
@@ -122,24 +123,24 @@ define([
     },
     render: function () {
       return (
-          <div className="row">
-          <div className="debug" onClick={this.handleClick}>
-          <h5 className='sidebarSubheader'>{this.props.data.cal.name}</h5>
-          <div id='external-events' className="hide">
-          <h4>Draggable Events</h4>
-          <div className='fc-event'>My Event 1</div>
-          <div className='fc-event'>My Event 2</div>
-          <div className='fc-event'>My Event 3</div>
-          <div className='fc-event'>My Event 4</div>
-          <div className='fc-event'>My Event 5</div>
-          <p>
-          <input type='checkbox' id='drop-remove' />
-          <label for='drop-remove'>remove after drop</label>
-          </p>
+        <div>
+          <div onClick={this.handleClick}>
+            <h5 className='sidebarSubheader'>{this.props.data.cal.name}</h5>
+            <div id='external-events' className="hide">
+              <h4>Draggable Events</h4>
+              <div className='fc-event'>My Event 1</div>
+              <div className='fc-event'>My Event 2</div>
+              <div className='fc-event'>My Event 3</div>
+              <div className='fc-event'>My Event 4</div>
+              <div className='fc-event'>My Event 5</div>
+              <p>
+                <input type='checkbox' id='drop-remove' />
+                <label for='drop-remove'>remove after drop</label>
+              </p>
+            </div>
           </div>
-          </div>
-          </div>
-          );
+        </div>
+      );
     }
   })
 
@@ -165,13 +166,12 @@ define([
     },
     render: function() {
       return (
-          <div>
+        <div>
           <UserCalsList data={this.state.cals} />
           <CreateCal onCalSubmit={this.handleCalSubmit} loggedInUser={this.props.loggedInUser} />
-          </div>
-          )
+        </div>
+      );
     }
   });
   return MyCalendars;
-
 });
