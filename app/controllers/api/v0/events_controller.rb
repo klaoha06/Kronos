@@ -1,5 +1,5 @@
 class Api::V0::EventsController < Api::V0::ApplicationController
-  before_action :authenticate, only: [:create, :update]
+  before_action :authenticate, except: [:show]
 
   # Need to check if the calendar is created by the user
   # if it is then the user is the owner or the creator and he/she can see and edit all the events from that calendar
