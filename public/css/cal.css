@@ -98,22 +98,39 @@ ul{
   margin-right: 10px;
   margin-left: 10px;
 }
+
+.btn{
+  transition: 1s all ease-in-out;
+  border-radius: 4px; 
+  border: 2px solid black;
+  color: black;
+  background-color: transparent;
+}
+
+
+
+.btn.remove{
+  color: red;
+  border-color: red;
+}
+.btn.remove:hover{
+  background-color: red;
+  color: white;
+}
+
+.btn.add{
+  color: green;
+  border-color: green;
+}
+.btn.add:hover{
+  background-color: green;
+  color: white;
+}
+
+
+
 /**** React Animations ****/
-.at-view-emerge {
-    
-}
 
-.at-view-emerge-active {
-   
-}
-
-.at-view-scale-out {
-
-}
-
-.at-view-scale-out-active {
-
-}
 .page-transition-enter {
   -webkit-transition-property: opacity, -webkit-transform;
   -moz-transition-property: opacity, -moz-transform;

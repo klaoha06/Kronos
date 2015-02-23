@@ -62,6 +62,7 @@ define([
     },
     loginToServer: function() {
       var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
       userInfo.fb_id = localStorage.getItem('fb_id');
       $.post(API_URL + '/users/sessioning_user', userInfo)
         .done(function(data) {
@@ -69,7 +70,8 @@ define([
           date.setTime(date.getTime() + (10800000)); // 3 hours
           $.cookie('user_id'  , data,{ expires: date, path: '/' });
           UserActions.recieveUserId(data);
-          this.loadEventsFromFB();
+          //FJ - Commenting this out as it is throwing errors: 
+          //this.loadEventsFromFB();
         }.bind(this))
         .fail(function(data) {
           console.log(data);

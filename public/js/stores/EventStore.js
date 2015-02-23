@@ -30,7 +30,8 @@ define([
           description: e.eventInfo.description,
           creator_id: e.creatorInfo.id,
           creator_name: e.creatorInfo.name,
-          creator_username: e.creatorInfo.username
+          creator_username: e.creatorInfo.username,
+          userAddedEvent: e.addedEvent
         };
       }
     });
@@ -46,7 +47,8 @@ define([
       picture: eventDetails.cover_pic,
       description: eventDetails.description,
       creatorId: eventDetails.creator_id,
-      creatorName: eventDetails.owner_name
+      creatorName: eventDetails.owner_name,
+      userAddedEvent: e.addedEvent
     };
   }
 

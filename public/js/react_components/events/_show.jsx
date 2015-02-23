@@ -43,7 +43,7 @@ define([
           <h3>{this.state.eventDetails.startTime} - {this.state.eventDetails.endTime}</h3>
           <p><b>Description:</b> {this.state.eventDetails.description}</p>
           <p><b>Location:</b> {this.state.eventDetails.location}</p>
-          <img src={this.state.eventDetails.picture}/>
+          <img src={this.state.eventDetails.picture} />
           <button className="add-event" onClick={this.addEvent}>Add Event</button>
         </div>
       );
