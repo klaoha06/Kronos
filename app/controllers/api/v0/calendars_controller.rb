@@ -19,9 +19,8 @@ class Api::V0::CalendarsController < Api::V0::ApplicationController
   end
 
   private
-    
-    def calendar_params
-      params[:calendar]
-    end
 
+  def calendar_params
+    params[:calendar]
+  end
 end
