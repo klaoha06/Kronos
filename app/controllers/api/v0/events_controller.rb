@@ -135,14 +135,15 @@ class Api::V0::EventsController < Api::V0::ApplicationController
   def get_future_events
     Event.where("start >= ?", Time.now).order(:start).map do |event|
       user = User.find(event.creator_id)
-      { :eventInfo => event, :creatorInfo => user }
+      p user.addedevents.include?(event)
+      { :eventInfo => event, :creatorInfo => user, :addedEvent => @current_user.addedevents.include?(event) }
     end
   end
 
   def get_past_events
     Event.where("start < ?", Time.now).order(:start).map do |event|
       user = User.find(event.creator_id)
-      { :eventInfo => event, :creatorInfo => user }
+      { :eventInfo => event, :creatorInfo => user, :addedEvent => @current_user.addedevents.include?(event) }
     end
   end
 end

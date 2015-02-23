@@ -8,9 +8,12 @@ define([
   var EventAPI = {
     retrieveUserEvents: function() {
       //Run once to load
-      $.get(API_URL + "/users/" + UserStore.currentUser() + "/events")
-        .done(EventServerActions.loadAllEvents)
-        .fail(function(data) { console.log("FAILED REQUEST"); });
+      if(UserStore.currentUser() !== false)
+      {
+        $.get(API_URL + "/users/" + UserStore.currentUser() + "/events")
+          .done(EventServerActions.loadAllEvents)
+          .fail(function(data) { console.log("FAILED REQUEST"); });
+      }
     },
     createEvent: function(data) {
       $.post(API_URL + '/events', data)

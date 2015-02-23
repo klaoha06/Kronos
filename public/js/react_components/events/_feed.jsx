@@ -94,6 +94,10 @@ define([
                 <Link to="Event" params={this.props.eventObj}>
                   <h2 className="event-name no-margin">{this.props.eventObj.name}</h2>
                 </Link>	
+                {this.props.eventObj.userAddedEvent ? 
+                  <button className="btn remove" onClick={this.removeEvent}> Remove from calendar </button> :
+                  <button className="btn green" onClick={this.addEvent}> Add to Calendar </button> 
+                }
                 <img className={imageClass} src={this.props.eventObj.picture}></img>
                 {hoverInfo}
               </div>
@@ -102,7 +106,14 @@ define([
           </div>
         </div>
       );
+    },
+    addEvent: function(){
+
+    },
+    removeEvent: function(){
+
     }
+
   });
 
   var Feed = React.createClass({
@@ -115,6 +126,10 @@ define([
     },
     componentWillUnmount: function() {
       EventStore.removeChangeListener(this._onChange);
+    },
+    componentWillReceiveProps: function(nextProps){
+      if(nextProps.loggedInUser !== this.props.loggedInUser)
+         EventAPI.retrieveUserEvents();
     },
     render: function() {
       return (
