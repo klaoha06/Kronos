@@ -78,7 +78,7 @@ define([
     }
   });
 
-  var UserCalsList = React.createClass({
+  var UserCalsList = React.createClass({    
     render: function () {
       return(
           <div>
@@ -86,8 +86,8 @@ define([
             (<h4>You have not created a calendar! Please create one.</h4>) :
               (<div className="UserCals">
                {this.props.data.map(function(calendar, index) {
-                                                                return (<Calendar data={calendar} key={index} />)
-                                                              })
+                  return (<Calendar data={calendar} key={index} />)
+                })
                }
                </div>)
           }

@@ -18,10 +18,11 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants'], function(Di
 				currentCalId: cal_id
 			});
 		},
-		addEventToCal: function(event){
+		addEventToCal: function(event, cal_id){
 			Dispatcher.handleViewAction({
 				actionType: KronosConstants.ADD_EVENT_TO_CAL,
-				newEvent: event
+				event: event,
+				cal_id: cal_id
 			});
 		},
 		addOrUpdateCal: function(calEvent){

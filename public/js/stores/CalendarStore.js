@@ -1,42 +1,54 @@
 define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitter'], function(Dispatcher, KronosConstants, events){
 	var CHANGE_EVENT = 'change';
 	var EventEmitter = new events();
-	var _myCalendarsEvents = {};
+	var _myCalendars = {};
 	var _currentCalendar = {};
 
-	function setMainCal(){
-		_myCalendarsEvents.map(function(calendarEvent){
-			if (calendarEvent.cal.main_cal === true) {
-				_currentCalendar = calendarEvent;
-			}
-		});
+	function displayNewCal(cal_id){
+		_currentCalendar = _myCalendars[cal_id];
 	}
 
-	function setCalEventsByCalId(cal_id){
-		_myCalendarsEvents.map(function(calendarEvent){
-			if (calendarEvent.cal.id === cal_id) {
-				_currentCalendar = calendarEvent;
-			}
-		});
+	function addEventToCal(event, cal_id){
+		console.log(cal_id);
+		if(cal_id === undefined)
+			_myCalendars['main'].events.push(event)
+		else
+			_myCalendars[cal_id].events.push(event)
 	}
 
-	function updateEventInCalByCalId(cal_id, event){
-		_myCalendarsEvents.map(function(calendarEvent){
-			if (calendarEvent.cal.id == cal_id) {
-				calendarEvent.events.push(event);
-			}
-		});
-	}
+	// function updateEventInCalByCalId(cal_id, event){
+	// 	_myCalendars.map(function(calendarEvent){
+	// 		if (calendarEvent.cal.id == cal_id) {
+	// 			calendarEvent.events.push(event);
+	// 		}
+	// 	});
+	// }
 
-	function addOrUpdateCal(calEvent){
-		var calendar = $.grep(_myCalendarsEvents, function(calendarEvent){ 
-			return calendarEvent.cal.id == calEvent.cal.id;
-		});
-		if (calendar.length !== 0) {
-			calendar = calEvent;
-		} else {
-			_myCalendarsEvents.push(calEvent);
-		}
+	// function addOrUpdateCal(calEvent){
+	// 	var calendar = $.grep(_myCalendars, function(calendarEvent){ 
+	// 		return calendarEvent.cal.id == calEvent.cal.id;
+	// 	});
+	// 	if (calendar.length !== 0) {
+	// 		calendar = calEvent;
+	// 	} else {
+	// 		_myCalendars.push(calEvent);
+	// 	}
+	// }
+
+	function addCals(cals){		
+		cals.forEach(function(calEvent){
+			if(!_myCalendars[calEvent.cal.id])
+			{
+				if(calEvent.cal.main_cal === true)
+				{
+					_currentCalendar = calEvent;
+					_myCalendars['main'] = calEvent;
+					return
+				}
+				_myCalendars[calEvent.cal.id] = calEvent;
+
+			}
+		})
 	}
 
 	var CalendarsStore = {
@@ -53,7 +65,11 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		  EventEmitter.removeListener(CHANGE_EVENT, callback);
 		},
 		getUserCals: function () {
-			return _myCalendarsEvents;
+			var calArr = []
+			for(var cal in _myCalendars){
+				calArr.push(_myCalendars[cal]);
+			}
+			return calArr;
 		},
 		getCurrentCal: function() {
 			return _currentCalendar;
@@ -66,30 +82,25 @@ define(['dispatcher/KronosDispatcher', 'constants/KronosConstants', 'event-emitt
 		switch(action.actionType){
 
 			case KronosConstants.RECEIVE_USER_CALS:
-				_myCalendarsEvents = action.cals;
-				setMainCal();
+				addCals(action.cals);
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.UPDATE_LAST_CAL:
-				_myCalendarsEvents[_myCalendarsEvents.length - 1] = {cal: action.calFromServer, events: []};
+				_myCalendars[_myCalendars.length - 1] = {cal: action.calFromServer, events: []};
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.SET_CURRENT_CAL:
-				setCalEventsByCalId(action.currentCalId);
+				displayNewCal(action.currentCalId);
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.ADD_EVENT_TO_CAL:
-				updateEventInCalByCalId(action.newEvent.calendar_id, action.newEvent.event);
+				addEventToCal(action.event, action.calendar_id);
 				CalendarsStore.emitChange();
 				break;
 			case KronosConstants.ADD_OR_UPDATE_CAL:
 				addOrUpdateCal(action.calEvent);
 				CalendarsStore.emitChange();
 				break;
-      case KronosConstants.ADD_EVENT:
-        // TODO: add function
-				CalendarsStore.emitChange();
-        break;
 		}
 	});
 

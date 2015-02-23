@@ -5,7 +5,7 @@ define([
   'utils/EventWebAPIUtils',
   'stores/EventStore',
   'moment',
-  'moment-twitter'],
+  'moment-twitter', 'actions/EventViewActions'],
   function(
     React,
     $,
@@ -13,7 +13,8 @@ define([
     EventAPI,
     EventStore,
     moment,
-    twitter
+    twitter,
+    EventViewActions
   ) {
   var Link = Router.Link;
 
@@ -94,23 +95,25 @@ define([
                 <Link to="Event" params={this.props.eventObj}>
                   <h2 className="event-name no-margin">{this.props.eventObj.name}</h2>
                 </Link>	
-                {this.props.eventObj.userAddedEvent ? 
-                  <button className="btn remove" onClick={this.removeEvent}> Remove from calendar </button> :
-                  <button className="btn green" onClick={this.addEvent}> Add to Calendar </button> 
-                }
                 <img className={imageClass} src={this.props.eventObj.picture}></img>
                 {hoverInfo}
               </div>
-              <button className="fl-r">Add to calendar</button>
+              {this.props.eventObj.userAddedEvent ? 
+                <button className="btn remove" onClick={this.removeEvent}> Remove from calendar </button> :
+                <button className="btn green" onClick={this.addEvent}> Add to Calendar </button> 
+              }
             </div>
           </div>
         </div>
       );
     },
     addEvent: function(){
-
+      EventViewActions.addEvent(this.props.eventObj);
+      this.props.goingToEvent(this.props.index);
     },
     removeEvent: function(){
+      EventViewActions.removeEvent(this.props.eventObj.id);
+      this.props.notGoingToEvent(this.props.index);
 
     }
 
@@ -139,8 +142,8 @@ define([
               <h1>Upcoming Events</h1>
               {
                 this.state.futureEvents.map(function(eventObj, index) {
-                  return (<EventNode eventObj={eventObj} key={eventObj.id} />);
-                })
+                  return (<EventNode eventObj={eventObj} key={eventObj.id} index={index} goingToEvent={this.goingToEvent} notGoingToEvent={this.notGoingToEvent}/>);
+                }.bind(this))
               }
             </div>
             <hr/>
@@ -160,6 +163,16 @@ define([
     },
     _onChange: function() {
       this.setState(getStateFromStores());
+    },
+    goingToEvent: function(index){
+      temp = this.state.futureEvents;
+      temp[index].userAddedEvent = true;
+      this.setState({futureEvents: temp});
+    },
+    notGoingToEvent: function(index){
+      temp = this.state.futureEvents
+      temp[index].userAddedEvent = false;
+      this.setState({futureEvents: temp})
     }
   });
   return Feed;

@@ -50,6 +50,10 @@ class Api::V0::EventsController < Api::V0::ApplicationController
     @current_user.addedevents << Event.find(params[:id])
   end
 
+  def remove_event
+    @current_user.addedevents.delete Event.find(params[:id])
+  end
+
   def create_from_provider
     case params[:provider]
     when 'FB'

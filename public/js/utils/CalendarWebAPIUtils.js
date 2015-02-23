@@ -8,7 +8,6 @@ define([
   function registerAndReturnCals(data) {
     console.log(data);
     CalendarActions.receiveUserCals(data);
-    return data;
   }
 
   var CalendarAPI = {

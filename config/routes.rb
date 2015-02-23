@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
       resources :events, :except => :index
       post '/events/add' => 'events#add_event'
+      post '/events/remove' => 'events#remove_event'
 
       resources :groups, :except => :index do
         collection do
